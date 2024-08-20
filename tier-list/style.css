@@ -56,6 +56,12 @@ button{
         display: flex;
         flex-direction: row;
         border-bottom: 1px solid var(--tier-border-color);
+        transition: scale .3s ease, filter .3s ease;
+
+        &.drag-over{
+            filter: brightness(1.5);
+            scale: 1.01;
+        }
     }
     & .label{
         cursor: pointer;
@@ -67,10 +73,16 @@ button{
         background-color: var(--tier-level, var(--tier-color-unknown));
         color: var(--label-text-color);
         font-weight: bold;
+        
+        & span{
+            width: 100%;
+            hyphens: manual;
+            text-align: center;
 
-        & span:focus{
-            outline: 1px solid #fff;
-            border-radius: 2px;
+            &:focus{
+                outline: 1px solid #fff;
+                border-radius: 2px;
+            }
         }
     }
 }
@@ -114,14 +126,19 @@ button{
         height: 100px;
         margin-bottom: 100px;
         display: flex;
+    }
+}
 
-        & .item-image{
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            background-color: #fff;
-            cursor: grab;
-        }
+.item-image{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    background-color: #fff;
+    cursor: grab;
+
+    &.drag-preview{
+        pointer-events: none;
+        opacity: 0.5;
     }
 }
 
