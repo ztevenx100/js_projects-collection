@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyectos Javascript</title>
     <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./script.js"></script>
 </head>
 <body>
     <main>
@@ -57,7 +58,13 @@
                         <svg class="icon">
                             <use xlink:href="img/svg/icons.svg#svgAdd"/>
                         </svg>
-                        <input type="file" name="imagenes" id="images-input" hidden />
+                        <input 
+                            type="file" 
+                            name="imagenes" 
+                            id="images-input" 
+                            accept="image/*" 
+                            hidden 
+                        />
                     </label>
                     <button>
                         <svg class="icon">
@@ -66,6 +73,7 @@
                     </button>
                 </section>
                 <section class="selector-items">
+
                 </section>
             </footer>
             
