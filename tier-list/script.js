@@ -9,25 +9,6 @@ let draggedElement = null;
 let sourceContainer = null;
 const levels = $$('.tier .level');
 
-const handleDrop = (event) => {
-    event.preventDefault();
-    
-    const { currentTarget, dataTransfer } = event;
-    
-    if(sourceContainer && draggedElement) {
-        sourceContainer.removeChild(draggedElement);
-    }
-
-    if(draggedElement) {
-        const src = dataTransfer.getData('text/plain');
-        const imgElement = createItem(src);
-        currentTarget.appendChild(imgElement);
-    }
-
-    currentTarget.classList.remove('drag-over');
-    currentTarget.querySelector('.drag-preview')?.remove();
-}
-
 /**
  * Funcion para el momento en el que el objeto arrastrado este sobre el espacio a dejar.
  * @param {Event} event - evento al realizar un drag sobre el item/espacio/seccion arrastrado.
@@ -58,18 +39,67 @@ const handleDragLeave = (event) => {
     
     const { currentTarget } = event;
     currentTarget.classList.remove('drag-over');
+    currentTarget.classList.remove('drag-files');
     currentTarget.querySelector('.drag-preview')?.remove();
+}
+
+const handleDrop = (event) => {
+    event.preventDefault();
+    
+    const { currentTarget, dataTransfer } = event;
+    
+    if(sourceContainer && draggedElement) {
+        sourceContainer.removeChild(draggedElement);
+    }
+
+    if(draggedElement) {
+        const src = dataTransfer.getData('text/plain');
+        const imgElement = createItem(src);
+        currentTarget.appendChild(imgElement);
+    }
+
+    currentTarget.classList.remove('drag-over');
+    currentTarget.querySelector('.drag-preview')?.remove();
+}
+
+/**
+ * Funcion para el momento en el que el objeto arrastrado este sobre el espacio a dejar.
+ * @param {Event} event - evento al realizar un drag sobre el item/espacio/seccion arrastrado.
+ */
+const handleDragOverFromDesktop = (event) => {
+    event.preventDefault();
+    
+    const { currentTarget, dataTransfer } = event;
+    if (sourceContainer === currentTarget) return;
+    
+    if(dataTransfer.types.includes('Files')){
+        currentTarget.classList.add('drag-files');
+    }
+}
+
+const handleDropFromDesktop = (event) => {
+    event.preventDefault();
+    
+    const { currentTarget, dataTransfer } = event;
+    
+    if(dataTransfer.types.includes('Files')){
+        currentTarget.classList.remove('drag-files');
+        const { files } = dataTransfer;
+        useFilesToCreateItems(files);
+    }
 }
 
 levels.forEach(level => {
     level.addEventListener('dragover', handleDragOver);
-    level.addEventListener('drop', handleDrop);
     level.addEventListener('dragleave', handleDragLeave);
+    level.addEventListener('drop', handleDrop);
 })
 
 itemsSection.addEventListener('dragover', handleDragOver);
 itemsSection.addEventListener('drop', handleDrop);
 itemsSection.addEventListener('dragleave', handleDragLeave);
+itemsSection.addEventListener('dragover', handleDragOverFromDesktop);
+itemsSection.addEventListener('drop', handleDropFromDesktop);
 
 const handleDragStart = (event) => {
     draggedElement = event.target;
@@ -96,6 +126,8 @@ const createItem = (src) =>{
 }
 
 const useFilesToCreateItems = (files) => {
+    if (draggedElement) return;
+
     if(files && files.length > 0){
         Array.from(files).forEach(file => {
             const reader = new FileReader();

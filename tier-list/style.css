@@ -126,6 +126,12 @@ button{
         height: 100px;
         margin-bottom: 100px;
         display: flex;
+        flex-wrap: wrap;
+
+        & .drag-files{
+            background-color: var(--tier-bg-color);
+            border-style: dashed;
+        }
     }
 }
 
