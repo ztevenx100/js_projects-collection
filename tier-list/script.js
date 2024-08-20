@@ -3,6 +3,7 @@ const $$ = els => document.querySelectorAll(els);
 
 const imagesInput = $('#images-input');
 const itemsSection = $('.selector-items');
+const resetButton = $('#reset-tier-button');
 
 let draggedElement = null;
 let sourceContainer = null;
@@ -111,4 +112,14 @@ const useFilesToCreateItems = (files) => {
 imagesInput,addEventListener('change', (event) => {
     const { files } = event.target;
     useFilesToCreateItems(files);
+})
+
+resetButton.addEventListener('click', () => {
+    const items = $$('.tier .item-image');
+
+    items.forEach(item => {
+        item.remove();
+
+        itemsSection.appendChild(item);
+    })
 })
