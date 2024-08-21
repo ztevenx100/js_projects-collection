@@ -17,7 +17,7 @@ const levels = $$('.tier .level');
 const handleDragOver = (event) => {
     event.preventDefault();
     
-    const { currentTarget, dataTransfer } = event;
+    const { currentTarget } = event;
     if (sourceContainer === currentTarget) return;
     
     currentTarget.classList.add('drag-over');
@@ -44,6 +44,10 @@ const handleDragLeave = (event) => {
     currentTarget.querySelector('.drag-preview')?.remove();
 }
 
+/**
+ * Funcion para el momento en el que el objeto cae en el espacio.
+ * @param {Event} event - evento al realizar el drop en el item/espacio/seccion arrastrado.
+ */
 const handleDrop = (event) => {
     event.preventDefault();
     
@@ -78,6 +82,10 @@ const handleDragOverFromDesktop = (event) => {
     }
 }
 
+/**
+ * Funcion para el momento en el que el objeto cae en el espacio.
+ * @param {Event} event - evento al realizar el drop en el item/espacio/seccion arrastrado.
+ */
 const handleDropFromDesktop = (event) => {
     event.preventDefault();
     
@@ -102,22 +110,33 @@ itemsSection.addEventListener('dragleave', handleDragLeave);
 itemsSection.addEventListener('dragover', handleDragOverFromDesktop);
 itemsSection.addEventListener('drop', handleDropFromDesktop);
 
+/**
+ * Funcion para el momento en el que inicia el arrastre.
+ * @param {Event} event - evento al realizar el inicio del drag.
+ */
 const handleDragStart = (event) => {
     draggedElement = event.target;
     sourceContainer = draggedElement.parentNode;
     event.dataTransfer.setData('text/plain', draggedElement.src);
 }
 
+/**
+ * Funcion para el momento en el que termina el arrastre.
+ * @param {Event} event - evento al realizar el fin del drag.
+ */
 const handleDragEnd = (event) => {
     draggedElement = null;
     sourceContainer = null;
 }
 
+/**
+ * Funcion para crear el item.
+ * @param {string} src - ruta del archivo.
+ */
 const createItem = (src) =>{
     const imgElement = document.createElement('img');
     imgElement.src = src;
     imgElement.className = 'item-image';
-    
     imgElement.draggable = true;
     imgElement.addEventListener('dragstart', handleDragStart);
     imgElement.addEventListener('dragend', handleDragEnd);
@@ -126,6 +145,10 @@ const createItem = (src) =>{
     return imgElement;
 }
 
+/**
+ * Funcion para crear el item apartir de archivos.
+ * @param {Object} files - ruta del archivo.
+ */
 const useFilesToCreateItems = (files) => {
     if (draggedElement) return;
 
@@ -152,7 +175,6 @@ resetButton.addEventListener('click', () => {
 
     items.forEach(item => {
         item.remove();
-
         itemsSection.appendChild(item);
     })
 })
@@ -174,5 +196,4 @@ saveButton.addEventListener('click', () => {
             downloadLink.click()
         })
     })
-    
 })
