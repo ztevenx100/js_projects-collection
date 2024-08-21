@@ -1,56 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyectos Javascript</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Tier List</title>
+    <meta name="description" content="Tier list en Javascript vanilla">
+    <meta name="keywords" content="Html5, Css3, JavaScript">
+    <meta name="language" content="Spanish">
+    <meta name="author" content="Pedro Steven Castiblanco">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <!-- Apple Web App Meta -->
+    <link rel="apple-touch-icon" href="./img/favicon-32x32.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
     <link rel="stylesheet" href="./style.css">
     <script type="module" src="./script.js"></script>
 </head>
 <body>
-    <main>
+    <main class="container">
         <header id="top-header">
             <img src="./img/tiermaker-logo.png" alt="logo tier maker" srcset="">
         </header>
 
-        <article class="tier">
+        <article>
 
-            <section class="level">
-                <!-- <label for="" contenteditable>S</label> -->
-                <aside class="label" style="--tier-level: var(--tier-color-s);">
-                    <span contenteditable="">S</span>
-                </aside>
+            <section class="tier">
+                
+                <menu>
+                    <li class="level">
+                        <!-- <label for="" contenteditable>S</label> -->
+                        <aside class="label" style="--tier-level: var(--tier-color-s);">
+                            <span contenteditable="">S</span>
+                        </aside>
+                    </li>
+                    <li class="level">
+                        <aside class="label" style="--tier-level: var(--tier-color-a);">
+                            <span contenteditable="">A</span>
+                        </aside>
+                    </li>
+                    <li class="level">
+                        <aside class="label" style="--tier-level: var(--tier-color-b);">
+                            <span contenteditable="">B</span>
+                        </aside>
+                    </li>
+                    <li class="level">
+                        <aside class="label" style="--tier-level: var(--tier-color-c);">
+                            <span contenteditable="">C</span>
+                        </aside>
+                    </li>
+                    <li class="level">
+                        <aside class="label" style="--tier-level: var(--tier-color-d);">
+                            <span contenteditable="">D</span>
+                        </aside>
+                    </li>
+                    <li class="level">
+                        <aside class="label" style="--tier-level: var(--tier-color-e)">
+                            <span contenteditable="">E</span>
+                        </aside>
+                    </li>
+                    <li class="level">
+                        <aside class="label" style="--tier-level: var(--tier-color-f)">
+                            <span contenteditable="">F</span>
+                        </aside>
+                    </li>
+                    <li class="level">
+                        <aside class="label" style="--tier-level: var(--tier-color-unknown)">
+                            <span contenteditable="">UNKNOWN</span>
+                        </aside>
+                    </li>
+                </menu>
+
             </section>
-            <section class="level">
-                <aside class="label" style="--tier-level: var(--tier-color-a);">
-                    <span contenteditable="">A</span>
-                </aside>
-            </section>
-            <section class="level">
-                <aside class="label" style="--tier-level: var(--tier-color-b);">
-                    <span contenteditable="">B</span>
-                </aside>
-            </section>
-            <section class="level">
-                <aside class="label" style="--tier-level: var(--tier-color-c);">
-                    <span contenteditable="">C</span>
-                </aside>
-            </section>
-            <section class="level">
-                <aside class="label" style="--tier-level: var(--tier-color-d);">
-                    <span contenteditable="">D</span>
-                </aside>
-            </section>
-            <section class="level">
-                <aside class="label" style="--tier-level: var(--tier-color-e)">
-                    <span contenteditable="">E</span>
-                </aside>
-            </section>
-            <section class="level">
-                <aside class="label" style="--tier-level: var(--tier-color-unknown)">
-                    <span contenteditable="">UNKNOWN</span>
-                </aside>
-            </section>
+
+            <aside class="tier-statistics">
+
+            </aside>
             
             <footer class="selector">
                 <section class="selector-buttons">
@@ -59,12 +85,12 @@
                             <use xlink:href="img/svg/icons.svg#svgAdd"/>
                         </svg>
                         <input 
-                            type="file" 
-                            name="imagenes" 
-                            id="images-input" 
-                            accept="image/*" 
+                            type="file"
+                            name="imagenes"
+                            id="images-input"
+                            accept="image/*"
                             multiple
-                            hidden 
+                            hidden
                         />
                     </label>
                     <button id="reset-tier-button" >
@@ -79,15 +105,21 @@
                     </button>
                 </section>
                 <section class="selector-items">
-
                 </section>
             </footer>
             
         </article>
 
-        <footer>
-
-        </footer>
     </main>
+    <footer class="main-footer">
+        <section class="container footer-info">
+            <address>
+                <h1>Tier list</h1>
+            </address>
+            <svg class="icon">
+                <use xlink:href="../img/svg/icons.svg#svgHome"/>
+            </svg>
+        </section>
+    </footer>
 </body>
 </html>
