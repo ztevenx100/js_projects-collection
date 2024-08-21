@@ -4,6 +4,7 @@ const $$ = els => document.querySelectorAll(els);
 const imagesInput = $('#images-input');
 const itemsSection = $('.selector-items');
 const resetButton = $('#reset-tier-button');
+const saveButton = $('#save-tier-button');
 
 let draggedElement = null;
 let sourceContainer = null;
@@ -154,4 +155,24 @@ resetButton.addEventListener('click', () => {
 
         itemsSection.appendChild(item);
     })
+})
+
+saveButton.addEventListener('click', () => {
+    const tierContainer = $('.tier');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    import('https://cdn.jsdelivr.net/npm/html2canvas-pro@1.5.8/+esm')
+    .then(({ default: html2canvas }) => {
+        html2canvas(tierContainer).then(canvas => {
+            ctx.drawImage(canvas, 0, 0)
+            const imgURL = canvas.toDataURL('image/png')
+
+            const downloadLink = document.createElement('a')
+            downloadLink.download = 'tier.png'
+            downloadLink.href = imgURL
+            downloadLink.click()
+        })
+    })
+    
 })
