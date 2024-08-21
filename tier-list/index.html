@@ -5,19 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyectos Javascript</title>
     <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./script.js"></script>
 </head>
 <body>
     <main>
-        <header>Proyectos de Javascript</header>
-        <article>
-            <section>
-                <ul>
-                    <li><a href="../tier-list/index.html">tier-list</a></li>
-                    <li><a href=""></a></li>
-                    <li><a href=""></a></li>
-                </ul>
+        <header id="top-header">
+            <img src="./img/tiermaker-logo.png" alt="logo tier maker" srcset="">
+        </header>
+
+        <article class="tier">
+
+            <section class="level">
+                <!-- <label for="" contenteditable>S</label> -->
+                <aside class="label" style="--tier-level: var(--tier-color-s);">
+                    <span contenteditable="">S</span>
+                </aside>
             </section>
+            <section class="level">
+                <aside class="label" style="--tier-level: var(--tier-color-a);">
+                    <span contenteditable="">A</span>
+                </aside>
+            </section>
+            <section class="level">
+                <aside class="label" style="--tier-level: var(--tier-color-b);">
+                    <span contenteditable="">B</span>
+                </aside>
+            </section>
+            <section class="level">
+                <aside class="label" style="--tier-level: var(--tier-color-c);">
+                    <span contenteditable="">C</span>
+                </aside>
+            </section>
+            <section class="level">
+                <aside class="label" style="--tier-level: var(--tier-color-d);">
+                    <span contenteditable="">D</span>
+                </aside>
+            </section>
+            <section class="level">
+                <aside class="label" style="--tier-level: var(--tier-color-e)">
+                    <span contenteditable="">E</span>
+                </aside>
+            </section>
+            <section class="level">
+                <aside class="label" style="--tier-level: var(--tier-color-unknown)">
+                    <span contenteditable="">UNKNOWN</span>
+                </aside>
+            </section>
+            
+            <footer class="selector">
+                <section class="selector-buttons">
+                    <label for="images-input">
+                        <svg class="icon">
+                            <use xlink:href="img/svg/icons.svg#svgAdd"/>
+                        </svg>
+                        <input 
+                            type="file" 
+                            name="imagenes" 
+                            id="images-input" 
+                            accept="image/*" 
+                            multiple
+                            hidden 
+                        />
+                    </label>
+                    <button id="reset-tier-button" >
+                        <svg class="icon">
+                            <use xlink:href="img/svg/icons.svg#svgRestart"/>
+                        </svg>
+                    </button>
+                    <button id="save-tier-button" >
+                        <svg class="icon">
+                            <use xlink:href="img/svg/icons.svg#svgSave"/>
+                        </svg>
+                    </button>
+                </section>
+                <section class="selector-items">
+
+                </section>
+            </footer>
+            
         </article>
+
+        <footer>
+
+        </footer>
     </main>
 </body>
 </html>
