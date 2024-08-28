@@ -1,7 +1,7 @@
 :root {
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
+    --accent: 240, 13, 13;
+    --accent-light: 240, 204, 204;
+    --accent-dark: 140, 13, 13;
     --accent-gradient: linear-gradient(
         45deg,
         rgb(var(--accent)),
@@ -31,4 +31,8 @@ ol, ul, menu{
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+a{
+    list-style: none;
 }

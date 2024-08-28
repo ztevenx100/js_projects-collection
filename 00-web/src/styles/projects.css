@@ -6,13 +6,15 @@
     --tw-rotate: -12deg;
 }
 
+a{
+    text-decoration: none;
+}
+
 .projects-grid{
     margin-block: 2rem;
     display: grid;
     gap: 2rem;
-    max-width: 72rem;
     margin-bottom: 1.5rem;
-    margin-inline: auto;
     transition-property: transform;
     transition-timing-function: cubic-bezier(.4,0,.2,1);
     transition-duration: .15s;
@@ -34,11 +36,15 @@
     background-color: #fff;
     color: rgb(0 0 0 / var(--tw-text-opacity));
     border-radius: .5rem;
-
+    overflow: hidden;
+    
     & .project-header{
         display: block;
         color: inherit;
         text-decoration: inherit;
+        transition-property: transform;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+        transition-duration: .15s;
 
         &:hover{
             transform: scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -74,16 +80,15 @@
         font-weight: 700;
         font-size: 2.25rem;
         line-height: 2.5rem;
-        list-style: none;
 
-        & a {
+        & a{
+            color: rgb(var(--accent-dark), var(--tw-text-opacity));
             transition-property: color;
             transition-timing-function: cubic-bezier(.4,0,.2,1);
             transition-duration: .15s;
-            text-decoration: none;
 
             &:hover{
-                color: rgb(14 165 233 / var(--tw-text-opacity));
+                color: rgb(var(--accent), var(--tw-text-opacity));
             }
         }
     }
@@ -127,16 +132,31 @@
             font-weight: 600;
             font-size: .75rem;
             line-height: 1rem;
-            transition-property: transform;
+            transition-property: background-color, color;
             transition-timing-function: cubic-bezier(.4,0,.2,1);
             transition-duration: .15s;
-            border-color: #0009;
             border-width: 1px;
+            border-style: solid;
+            border-color: #0009;
             border-radius: .5rem;
 
-            @media (min-width: 768px) {
+            &:hover{
+                background-color: #0000001a;
+            }
+
+            @media (min-width: 768px){
                 font-size: .875rem;
                 line-height: 1.25rem;
+            }
+
+            &.project-web{
+                color: rgb(var(--accent-dark), var(--tw-text-opacity));
+                border-color: rgb(var(--accent-dark), var(--tw-text-opacity));
+
+                &:hover{
+                    color: rgb(var(--accent), var(--tw-text-opacity));
+                    background-color: rgb(var(--accent), 10%);
+                }
             }
 
             & svg{
