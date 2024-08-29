@@ -1,0 +1,92 @@
+:root{
+    --text-color: #000;
+    --tw-scale-x: 1.1;
+    --tw-scale-y: 1.1;
+    --tw-text-opacity: 1;
+    --tw-rotate: 6deg;
+}
+
+.info-item{
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    display: none;
+    padding-block: .25rem;
+    padding-inline: 2rem;
+    border-radius: .5rem;
+
+    @media (min-width: 640px) {
+        display: block;
+    }
+
+    & h1{
+        margin: 0;
+        margin-top: 1rem;
+        font-weight: 700;
+        font-size: inherit;
+        animation: fade-in-up .6s ease-in-out both;
+
+        & a.info-link{
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            color: inherit;
+            font-size: .75rem;
+            line-height: 1rem;
+            list-style: none;
+            text-decoration: inherit;
+            transition-property: transform;
+            transition-timing-function: cubic-bezier(.4,0,.2,1);
+            transition-duration: .15s;
+
+            &:hover {
+                transform: scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+            }
+
+            & .info-logo-text{
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                line-height: 1;
+
+                & span{
+                    color: #fffc;
+                    font-size: 14px;
+                    letter-spacing: -.05em;
+                }
+            }
+
+            & .info-logo{
+                transform: rotate(var(--tw-rotate));
+
+                & svg{
+                    border-radius: .25rem;
+                }
+            }
+        }
+    }
+
+    & h2{
+        margin-top: .5rem;
+        color: rgb(250 204 21 / var(--tw-text-opacity));
+        text-align: center;
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.5rem;
+        letter-spacing: -.05em;
+        animation: fade-in .6s ease-in both;
+        animation-delay: .3s;
+    }
+
+    & .info-return-back{
+        color: #ffffffe6;
+        font-size: .75rem;
+        line-height: 1rem;
+        animation: fade-in .6s ease-in both;
+        animation-delay: .8s;
+
+        &:hover{
+            text-decoration-line: underline;
+        }
+    }
+}
