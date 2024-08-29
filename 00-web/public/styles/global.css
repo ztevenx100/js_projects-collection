@@ -8,6 +8,11 @@
         rgb(var(--accent-light)) 30%,
         white 60%
     );
+    --svg-width: 24px;
+    --svg-height: 24px;
+    --svg-color: none;
+    --svg-fill: none;
+    --svg-stroke: none;
 }
 
 *, :before, :after {
@@ -60,4 +65,12 @@ a{
 .project-page{
     width: 100vw;
     height: 100dvh;
+}
+
+.icon{
+    width: var(--svg-width, 24px);
+    height: var(--svg-height, 24px);
+    color: var(--svg-color, #000);
+    fill: var(--svg-fill, #000);
+    stroke: var(--svg-stroke, #000);
 }
