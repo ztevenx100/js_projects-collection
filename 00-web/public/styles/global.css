@@ -9,10 +9,24 @@
         white 60%
     );
 }
+
+*, :before, :after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: #e5e7eb;
+}
+
 html {
     font-family: system-ui, sans-serif;
     background: #13151a;
 }
+
+body{
+    margin: 0;
+    line-height: inherit;
+}
+
 code {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
 }
@@ -23,7 +37,12 @@ img, video{
     height: auto;
 }
 
-img, svg, video, canvas, audio, iframe, embed, object {
+img, svg, video, canvas, audio, embed, object {
+    vertical-align: middle;
+}
+
+iframe{
+    /* display: block; */
     vertical-align: middle;
 }
 
@@ -34,5 +53,11 @@ ol, ul, menu{
 }
 
 a{
-    list-style: none;
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.project-page{
+    width: 100vw;
+    height: 100dvh;
 }
