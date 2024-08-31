@@ -1,0 +1,18 @@
+:root{
+    --tw-bg-opacity: 1;
+    --tw-text-opacity: 1;
+    --tw-scale-x: 1.1;
+    --tw-scale-y: 1.1;
+    --tw-rotate: -12deg;
+}
+
+svg{
+    --svg-width: 1.5rem;
+    --svg-height: 1.5rem;
+    --svg-color: #fff;
+    --svg-fill: #fff;
+    --svg-stroke: none;
+    margin-right: .25rem;
+    border-radius: .25rem;
+
+}

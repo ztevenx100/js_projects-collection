@@ -59,7 +59,7 @@ ol, ul, menu{
 
 a{
     color: inherit;
-    text-decoration: inherit;
+    text-decoration: none;
 }
 
 .project-page{
@@ -68,9 +68,10 @@ a{
 }
 
 .icon{
+    display: block;
     width: var(--svg-width, 24px);
     height: var(--svg-height, 24px);
     color: var(--svg-color, #000);
-    fill: var(--svg-fill, #000);
-    stroke: var(--svg-stroke, #000);
+    fill: var(--svg-fill, none);
+    stroke: var(--svg-stroke, none);
 }

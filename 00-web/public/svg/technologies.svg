@@ -2,10 +2,9 @@
 <svg xmlns="http://www.w3.org/2000/svg">
     <symbol 
         id="svgJavascript"
-        width="24" 
-        height="24" 
-        viewBox="0 0 630 630"
-        fill="var(--svg-color,#000)"
+        fill="var(--svg-fill,#000)"
+        viewBox="0 0 24 24"
+        stroke-width="1"
     >
         <rect width="630" height="630" fill="#f7df1e"></rect>
         <path

@@ -6,7 +6,7 @@
         height="24" 
         viewBox="0 0 24 24" 
         fill="none" 
-        stroke="var(--svg-color,#000)" 
+        stroke="var(--svg-stroke,#000)" 
         stroke-width="1" 
         stroke-linecap="round" 
         stroke-linejoin="round" 
@@ -21,7 +21,7 @@
         width="24"
         height="24" 
         viewBox="0 0 24 24"  fill="none" 
-        stroke="var(--svg-color,#000)" 
+        stroke="var(--svg-stroke,#000)" 
         stroke-width="1" 
         stroke-linecap="round" 
         stroke-linejoin="round" 
@@ -35,7 +35,7 @@
         height="24" 
         viewBox="0 0 24 24" 
         fill="none" 
-        stroke="var(--svg-color,#000)" 
+        stroke="var(--svg-stroke,#000)" 
         stroke-width="1" 
         stroke-linecap="round" 
         stroke-linejoin="round"  
@@ -47,10 +47,7 @@
     </symbol>
     <symbol 
         id="svgWeb"
-        width="24" 
-        height="24"
         viewBox="0 0 24 24"
-        fill="none"
         stroke="var(--svg-stroke,#000)"
         stroke-width="1"
     >

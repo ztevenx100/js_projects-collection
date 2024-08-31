@@ -6,10 +6,6 @@
     --tw-rotate: -12deg;
 }
 
-a{
-    text-decoration: none;
-}
-
 .projects-grid{
     margin-block: 2rem;
     display: grid;
@@ -159,17 +155,20 @@ a{
                 }
                 
                 & svg{
-                    --svg-color: rgb(var(--accent-dark), var(--tw-text-opacity));
+                    --svg-stroke: rgb(var(--accent-dark), var(--tw-text-opacity));
+                    --svg-fill: none;
                 }
             }
             
             & svg{
-                --svg-width: 1.25rem;
-                --svg-height: 1.25rem;
+                --svg-width: 1.5rem;
+                --svg-height: 1.5rem;
                 --svg-color: #000;
                 --svg-fill: #000;
                 --svg-stroke: none;
                 margin-right: .25rem;
+                border-radius: .25rem;
+
             }
         }
     }
