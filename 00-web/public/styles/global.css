@@ -8,6 +8,11 @@
         rgb(var(--accent-light)) 30%,
         white 60%
     );
+    --svg-width: 24px;
+    --svg-height: 24px;
+    --svg-color: none;
+    --svg-fill: none;
+    --svg-stroke: none;
 }
 
 *, :before, :after {
@@ -54,10 +59,43 @@ ol, ul, menu{
 
 a{
     color: inherit;
-    text-decoration: inherit;
+    text-decoration: none;
 }
 
 .project-page{
     width: 100vw;
     height: 100dvh;
+}
+
+.icon{
+    display: block;
+    width: var(--svg-width, 24px);
+    height: var(--svg-height, 24px);
+    color: var(--svg-color, #000);
+    fill: var(--svg-fill, none);
+    stroke: var(--svg-stroke, none);
+}
+
+.container{
+    width: 100%;
+    
+    @media (min-width: 640px) {
+        max-width: 640px;
+    }
+
+    @media (min-width: 768px) {
+        max-width: 768px;
+    }
+
+    @media (min-width: 1024px) {
+        max-width: 1024px;
+    }
+
+    @media (min-width: 1280px) {
+        max-width: 1280px;
+    }
+
+    @media (min-width: 1536px) {
+        max-width: 1536px;
+    }
 }

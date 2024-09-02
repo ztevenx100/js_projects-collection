@@ -6,10 +6,6 @@
     --tw-rotate: -12deg;
 }
 
-a{
-    text-decoration: none;
-}
-
 .projects-grid{
     margin-block: 2rem;
     display: grid;
@@ -145,24 +141,34 @@ a{
             }
 
             @media (min-width: 768px){
-                font-size: .875rem;
+                font-size: 0.875rem;
                 line-height: 1.25rem;
             }
 
             &.project-web{
                 color: rgb(var(--accent-dark), var(--tw-text-opacity));
                 border-color: rgb(var(--accent-dark), var(--tw-text-opacity));
-
+                
                 &:hover{
                     color: rgb(var(--accent), var(--tw-text-opacity));
                     background-color: rgb(var(--accent), 10%);
                 }
+                
+                & svg{
+                    --svg-stroke: rgb(var(--accent-dark), var(--tw-text-opacity));
+                    --svg-fill: none;
+                }
             }
-
+            
             & svg{
-                width: 1.25rem;
-                height: 1.25rem;
+                --svg-width: 1.5rem;
+                --svg-height: 1.5rem;
+                --svg-color: #000;
+                --svg-fill: #000;
+                --svg-stroke: none;
                 margin-right: .25rem;
+                border-radius: .25rem;
+
             }
         }
     }
