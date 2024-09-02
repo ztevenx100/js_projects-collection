@@ -29,43 +29,43 @@
             <section class="tier">
                 
                 <menu>
-                    <li class="level">
+                    <li class="level" progress-bar="progress-item-s" >
                         <!-- <label for="" contenteditable>S</label> -->
                         <aside class="label" style="--tier-level: var(--tier-color-s);">
                             <span contenteditable="">S</span>
                         </aside>
                     </li>
-                    <li class="level">
+                    <li class="level" progress-bar="progress-item-a" >
                         <aside class="label" style="--tier-level: var(--tier-color-a);">
                             <span contenteditable="">A</span>
                         </aside>
                     </li>
-                    <li class="level">
+                    <li class="level" progress-bar="progress-item-b" >
                         <aside class="label" style="--tier-level: var(--tier-color-b);">
                             <span contenteditable="">B</span>
                         </aside>
                     </li>
-                    <li class="level">
+                    <li class="level" progress-bar="progress-item-c" >
                         <aside class="label" style="--tier-level: var(--tier-color-c);">
                             <span contenteditable="">C</span>
                         </aside>
                     </li>
-                    <li class="level">
+                    <li class="level" progress-bar="progress-item-d" >
                         <aside class="label" style="--tier-level: var(--tier-color-d);">
                             <span contenteditable="">D</span>
                         </aside>
                     </li>
-                    <li class="level">
+                    <li class="level" progress-bar="progress-item-e" >
                         <aside class="label" style="--tier-level: var(--tier-color-e)">
                             <span contenteditable="">E</span>
                         </aside>
                     </li>
-                    <li class="level">
+                    <li class="level" progress-bar="progress-item-f" >
                         <aside class="label" style="--tier-level: var(--tier-color-f)">
                             <span contenteditable="">F</span>
                         </aside>
                     </li>
-                    <li class="level">
+                    <li class="level" progress-bar="progress-item-unknown" >
                         <aside class="label" style="--tier-level: var(--tier-color-unknown)">
                             <span contenteditable="">UNKNOWN</span>
                         </aside>
@@ -75,7 +75,38 @@
             </section>
 
             <aside class="tier-statistics">
-
+                <label id="progress-item-s" style="--tier-level: var(--tier-color-s);" >
+                    <div>S <span id="count">(0)</span> <span id="percent">0%</span> </div>
+                    <progress value="0" max="100" >0%</progress>
+                </label>
+                <label id="progress-item-a" style="--tier-level: var(--tier-color-a);" >
+                    <div>A <span id="count">(0)</span> <span id="percent">0%</span> </div>
+                    <progress value="0" max="100" >0%</progress>
+                </label>
+                <label id="progress-item-b" style="--tier-level: var(--tier-color-b);" >
+                    <div>B <span id="count">(0)</span> <span id="percent">0%</span> </div>
+                    <progress value="0" max="100" >0%</progress>
+                </label>
+                <label id="progress-item-c" style="--tier-level: var(--tier-color-c);" >
+                    <div>C <span id="count">(0)</span> <span id="percent">0%</span> </div>
+                    <progress value="0" max="100" >0%</progress>
+                </label>
+                <label id="progress-item-d" style="--tier-level: var(--tier-color-d);" >
+                    <div>D <span id="count">(0)</span> <span id="percent">0%</span> </div>
+                    <progress value="0" max="100" >0%</progress>
+                </label>
+                <label id="progress-item-e" style="--tier-level: var(--tier-color-e);" >
+                    <div>E <span id="count">(0)</span> <span id="percent">0%</span> </div>
+                    <progress value="0" max="100" >0%</progress>
+                </label>
+                <label id="progress-item-f" style="--tier-level: var(--tier-color-f);" >
+                    <div>F <span id="count">(0)</span> <span id="percent">0%</span> </div>
+                    <progress value="0" max="100" >0%</progress>
+                </label>
+                <label id="progress-item-unknown" style="--tier-level: var(--tier-color-unknown);" >
+                    <div>UNKNOWN <span id="count">(0)</span> <span id="percent">0%</span> </div>
+                    <progress value="0" max="100" >0%</progress>
+                </label>
             </aside>
             
             <footer class="selector">
@@ -117,7 +148,7 @@
                 <h1>Tier list</h1>
             </address>
             <svg class="icon">
-                <use xlink:href="../img/svg/icons.svg#svgHome"/>
+                <use xlink:href="img/svg/icons.svg#svgHome"/>
             </svg>
         </section>
     </footer>

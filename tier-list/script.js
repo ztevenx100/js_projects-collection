@@ -8,6 +8,7 @@ const saveButton = $('#save-tier-button');
 
 let draggedElement = null;
 let sourceContainer = null;
+let progressItemSelected = null;
 const levels = $$('.tier .level');
 
 /**
@@ -23,7 +24,7 @@ const handleDragOver = (event) => {
     currentTarget.classList.add('drag-over');
     
     const dragPreview = $('.drag-preview');
-
+    
     if(draggedElement && !dragPreview){
         const previewElement = draggedElement.cloneNode(true);
         previewElement.classList.add('drag-preview');
@@ -42,6 +43,26 @@ const handleDragLeave = (event) => {
     currentTarget.classList.remove('drag-over');
     currentTarget.classList.remove('drag-files');
     currentTarget.querySelector('.drag-preview')?.remove();
+}
+
+const changeProgressBarItem = (currentTarget) => {
+    if(!currentTarget) return;
+
+    const countImg = currentTarget.querySelectorAll('.item-image').length;
+    const countAllImg = document.querySelectorAll('article .item-image').length;
+    const progressItemId = currentTarget.getAttribute('progress-bar');
+    const progressItem = document.getElementById(progressItemId);
+
+    if(progressItem){
+        const progressBar = progressItem.querySelector('progress');
+        const progressCount = progressItem.querySelector('#count');
+        const progressPercent = progressItem.querySelector('#percent');
+    
+        let percent = (countImg*100)/countAllImg;
+        progressBar.value = percent;
+        progressCount.innerText = `(${countImg})`;
+        progressPercent.innerText = `${percent}%`;
+    }
 }
 
 /**
@@ -65,6 +86,10 @@ const handleDrop = (event) => {
 
     currentTarget.classList.remove('drag-over');
     currentTarget.querySelector('.drag-preview')?.remove();
+    console.log('progressItemSelected: ',progressItemSelected);
+    
+    changeProgressBarItem(currentTarget);
+    changeProgressBarItem(progressItemSelected);
 }
 
 /**
@@ -118,6 +143,8 @@ const handleDragStart = (event) => {
     draggedElement = event.target;
     sourceContainer = draggedElement.parentNode;
     event.dataTransfer.setData('text/plain', draggedElement.src);
+    
+    progressItemSelected = (sourceContainer.hasAttribute('progress-bar'))? sourceContainer: null;
 }
 
 /**

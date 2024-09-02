@@ -86,7 +86,7 @@ footer{
 
 .footer-background{
     background: radial-gradient(circle, transparent 25%, #111  26%),linear-gradient(0deg, transparent 44%, #8c0d0d 45%, #8c0d0d 55%, transparent 56%), linear-gradient(90deg, transparent 44%, #8c0d0d 45%, #8c0d0d 55%, transparent 56%);
-    background-size: 3em 3em;
+    background-size: 2.5em 2.5em;
     background-color: #111;
     opacity: 1
 }
