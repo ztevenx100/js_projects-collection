@@ -71,7 +71,7 @@ article{
         padding: 0px;
     }
 
-    & .level{
+    & .tier-level{
         display: flex;
         flex-direction: row;
         border-bottom: 1px solid var(--tier-border-color);
@@ -82,7 +82,7 @@ article{
             scale: 1.01;
         }
     }
-    & .label{
+    & .tier-level__label{
         cursor: pointer;
         width: 100px;
         min-height: 50px;
@@ -223,7 +223,7 @@ footer.main-footer{
     background-color: var(--tier-bg-color);
     border-top: 1px solid #fff;
 
-    & .footer-info{
+    & .main-footer__info{
         display: flex;
         align-items: center;
         justify-content: space-between;
