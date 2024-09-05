@@ -1,0 +1,115 @@
+:root{
+    --text-color: #000;
+    --tw-border-opacity: 1;
+    --tw-bg-opacity: 1;
+    --tw-translate-y: -1.25rem
+    --tw-scale-x: 1.05;
+    --tw-scale-y: 1.05;
+    --tw-border-opacity: 1;
+}
+
+.git-section{
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-inline: auto;
+
+    @media (min-width: 768px) {
+        top: 1rem;
+        margin-right: 1rem;
+        justify-content: flex-end;
+    }
+
+    & .git-section__link{
+        display: flex;
+        color: #000;
+        text-decoration: inherit;
+        transition-property: color;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+        transition-duration: .15s;
+
+        &:hover{
+            transform: scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+
+            & div.git-section-tag__arrow{
+                border-left-color: rgb(254 240 138 / var(--tw-border-opacity));
+                border-right-color: rgb(254 240 138 / var(--tw-border-opacity));
+            }
+
+            & div.git-section-tag__label{
+                background-color: rgb(254 240 138 / var(--tw-bg-opacity));
+
+                & .git-section-tag__star{
+                    animation: fade-out-up .6s ease-out both;
+                }
+
+                & .git-section-tag__text{
+                    animation: fade-in-up .6s ease-in-out both;
+                }
+            }
+        }
+
+        & .git-section__logo{
+            display: flex;
+            height: 2rem;
+            width: 2rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: .375rem;
+            border-width: 0;
+
+            svg{
+                --svg-fill: #fff;
+            }
+        }
+
+        & .git-section__tag{
+            display: flex;
+            align-items: center;
+
+            & .git-section-tag__arrow{
+                height: 1rem;
+                width: 1rem;
+                border-block-width: 8px;
+                border-left-width: 0px;
+                border-right-width: 8px;
+                border-style: solid;
+                border-color: rgb(243 244 246 / var(--tw-border-opacity));
+                border-block-color: transparent;
+            }
+
+            & .git-section-tag__label{
+                position: relative;
+                display: flex;
+                height: 2rem;
+                width: 9rem;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                border-radius: .375rem;
+                background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+                padding-inline: 1rem;
+                font-size: .75rem;
+                line-height: 1rem;
+                font-weight: 500;
+                transition-property: color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;
+                transition-timing-function: cubic-bezier(.4,0,.2,1);
+                transition-duration: .15s;
+
+                & .git-section-tag__star{
+                    position: absolute;
+                }
+
+                & .git-section-tag__text{
+                    position: absolute;
+                    transform: translate(0,var(--tw-translate-y));
+                    opacity: 0;
+                }
+            }
+        }
+    }
+}

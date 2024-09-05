@@ -1,6 +1,6 @@
 ---
-import { PROJECTS } from "../consts"
-import "../styles/projects.css"
+import { PROJECTS } from "../../consts"
+import "../../styles/projects.css"
 
 const finalProjects = PROJECTS.filter((project) => !project.hidden).slice().reverse()
 ---
@@ -54,7 +54,7 @@ const finalProjects = PROJECTS.filter((project) => !project.hidden).slice().reve
                             rel="noopener noreferrer"
                         >
                             <svg class="icon">
-                                <use xlink:href="public/svg/social-network.svg#svgGit"/>
+                                <use xlink:href="/assets/svg/social-network.svg#svgGit"/>
                             </svg>
                             Código
                         </a>
@@ -67,10 +67,10 @@ const finalProjects = PROJECTS.filter((project) => !project.hidden).slice().reve
                             class="project-web"
                         >
                             <svg class="icon">
-                                <use xlink:href="public/svg/icons.svg#svgWeb"/>
+                                <use xlink:href="/assets/svg/icons.svg#svgWeb"/>
                             </svg>
                             {/* <svg class="icon">
-                                <use xlink:href="public/svg/technologies.svg#svgJavascript"/>
+                                <use xlink:href="/assets/svg/technologies.svg#svgJavascript"/>
                             </svg> */}
                             {/* <svg class="rounded" width="24" height="24" viewBox="0 0 630 630">
                                 <rect width="630" height="630" fill="#f7df1e"></rect>

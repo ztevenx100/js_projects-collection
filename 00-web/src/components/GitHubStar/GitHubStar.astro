@@ -1,0 +1,39 @@
+---
+import "./gitHubStar.css"
+
+const response = await fetch(
+  "https://api.github.com/repos/ztevenx100/js_projects-collection"
+)
+
+const data = await response.json()
+
+const starCounter = data.stargazers_count
+---
+
+<div class="git-section">
+  <a
+    class="git-section__link"
+    href="https://github.com/ztevenx100/js_projects-collection"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <div class="git-section__logo" >
+      <svg class="icon">
+        <use xlink:href="/assets/svg/social-network.svg#svgGit"/>
+      </svg>
+    </div>
+
+    <div class="git-section__tag ">
+      <div class="git-section-tag__arrow " >
+      </div>
+      <div class="git-section-tag__label " >
+        <span class="git-section-tag__star ">
+          {`${starCounter} ⭐️ en GitHub`}
+        </span>
+        <span class="git-section-tag__text ">
+          ¡Deja tu estrella!
+        </span>
+      </div>
+    </div>
+  </a>
+</div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -9,9 +9,9 @@
     <meta name="keywords" content="Html5, Css3, JavaScript">
     <meta name="language" content="Spanish">
     <meta name="author" content="Pedro Steven Castiblanco">
-    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon-32x32.png">
     <!-- Apple Web App Meta -->
-    <link rel="apple-touch-icon" href="./img/favicon-32x32.png">
+    <link rel="apple-touch-icon" href="./assets/img/favicon-32x32.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
@@ -21,7 +21,7 @@
 <body>
     <main class="container">
         <header id="top-header">
-            <img src="./img/tiermaker-logo.png" alt="logo tier maker" srcset="">
+            <img src="./assets/img/tiermaker-logo.png" alt="logo tier maker" srcset="">
         </header>
 
         <article>
@@ -29,44 +29,44 @@
             <section class="tier">
                 
                 <menu>
-                    <li class="level" progress-bar="progress-item-s" >
+                    <li class="tier-level" progress-bar="progress-item-s" >
                         <!-- <label for="" contenteditable>S</label> -->
-                        <aside class="label" style="--tier-level: var(--tier-color-s);">
+                        <aside class="tier-level__label" style="--tier-level: var(--tier-color-s);">
                             <span contenteditable="">S</span>
                         </aside>
                     </li>
-                    <li class="level" progress-bar="progress-item-a" >
-                        <aside class="label" style="--tier-level: var(--tier-color-a);">
+                    <li class="tier-level" progress-bar="progress-item-a" >
+                        <aside class="tier-level__label" style="--tier-level: var(--tier-color-a);">
                             <span contenteditable="">A</span>
                         </aside>
                     </li>
-                    <li class="level" progress-bar="progress-item-b" >
-                        <aside class="label" style="--tier-level: var(--tier-color-b);">
+                    <li class="tier-level" progress-bar="progress-item-b" >
+                        <aside class="tier-level__label" style="--tier-level: var(--tier-color-b);">
                             <span contenteditable="">B</span>
                         </aside>
                     </li>
-                    <li class="level" progress-bar="progress-item-c" >
-                        <aside class="label" style="--tier-level: var(--tier-color-c);">
+                    <li class="tier-level" progress-bar="progress-item-c" >
+                        <aside class="tier-level__label" style="--tier-level: var(--tier-color-c);">
                             <span contenteditable="">C</span>
                         </aside>
                     </li>
-                    <li class="level" progress-bar="progress-item-d" >
-                        <aside class="label" style="--tier-level: var(--tier-color-d);">
+                    <li class="tier-level" progress-bar="progress-item-d" >
+                        <aside class="tier-level__label" style="--tier-level: var(--tier-color-d);">
                             <span contenteditable="">D</span>
                         </aside>
                     </li>
-                    <li class="level" progress-bar="progress-item-e" >
-                        <aside class="label" style="--tier-level: var(--tier-color-e)">
+                    <li class="tier-level" progress-bar="progress-item-e" >
+                        <aside class="tier-level__label" style="--tier-level: var(--tier-color-e)">
                             <span contenteditable="">E</span>
                         </aside>
                     </li>
-                    <li class="level" progress-bar="progress-item-f" >
-                        <aside class="label" style="--tier-level: var(--tier-color-f)">
+                    <li class="tier-level" progress-bar="progress-item-f" >
+                        <aside class="tier-level__label" style="--tier-level: var(--tier-color-f)">
                             <span contenteditable="">F</span>
                         </aside>
                     </li>
-                    <li class="level" progress-bar="progress-item-unknown" >
-                        <aside class="label" style="--tier-level: var(--tier-color-unknown)">
+                    <li class="tier-level" progress-bar="progress-item-unknown" >
+                        <aside class="tier-level__label" style="--tier-level: var(--tier-color-unknown)">
                             <span contenteditable="">UNKNOWN</span>
                         </aside>
                     </li>
@@ -113,7 +113,7 @@
                 <section class="selector-buttons">
                     <label for="images-input">
                         <svg class="icon">
-                            <use xlink:href="img/svg/icons.svg#svgAdd"/>
+                            <use xlink:href="assets/img/svg/icons.svg#svgAdd"/>
                         </svg>
                         <input 
                             type="file"
@@ -126,12 +126,12 @@
                     </label>
                     <button id="reset-tier-button" >
                         <svg class="icon">
-                            <use xlink:href="img/svg/icons.svg#svgRestart"/>
+                            <use xlink:href="assets/img/svg/icons.svg#svgRestart"/>
                         </svg>
                     </button>
                     <button id="save-tier-button" >
                         <svg class="icon">
-                            <use xlink:href="img/svg/icons.svg#svgSave"/>
+                            <use xlink:href="assets/img/svg/icons.svg#svgSave"/>
                         </svg>
                     </button>
                 </section>
@@ -143,12 +143,12 @@
 
     </main>
     <footer class="main-footer">
-        <section class="container footer-info">
+        <section class="container main-footer__info">
             <address>
                 <h1>Tier list</h1>
             </address>
             <svg class="icon">
-                <use xlink:href="img/svg/icons.svg#svgHome"/>
+                <use xlink:href="assets/img/svg/icons.svg#svgHome"/>
             </svg>
         </section>
     </footer>

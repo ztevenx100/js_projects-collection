@@ -1,5 +1,7 @@
 ---
 import { ViewTransitions } from "astro:transitions"
+import "../styles/_global.css"
+import "../styles/_base.css"
 
 interface Props {
 	title: string;
@@ -21,9 +23,7 @@ const { title } = Astro.props;
         <meta name="language" content="Spanish">
         <meta name="author" content="Pedro Steven Castiblanco">
         <meta name="description" content="Proyectos en Javascript">
-        <meta name="keywords" content="html5, css3, javascript, programación">
-
-        <link rel="stylesheet" href="/styles/global.css" />
+        <meta name="keywords" content="HTML5, CSS3, JavaScript, Programación">
         <ViewTransitions />
     </head>
     <body>

@@ -61,6 +61,8 @@
 
                 & svg{
                     border-radius: .25rem;
+                    --svg-width: 52px;
+                    --svg-height: 52px;
                 }
             }
         }
