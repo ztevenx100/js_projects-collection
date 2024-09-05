@@ -2,7 +2,10 @@
     --text-color: #000;
     --tw-border-opacity: 1;
     --tw-bg-opacity: 1;
-    --tw-translate-y: -1.25rem;
+    --tw-translate-y: -1.25rem
+    --tw-scale-x: 1.05;
+    --tw-scale-y: 1.05;
+    --tw-border-opacity: 1;
 }
 
 .git-section{
@@ -22,11 +25,32 @@
 
     & .git-section__link{
         display: flex;
-        color: inherit;
+        color: #000;
         text-decoration: inherit;
         transition-property: color;
         transition-timing-function: cubic-bezier(.4,0,.2,1);
         transition-duration: .15s;
+
+        &:hover{
+            transform: scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+
+            & div.git-section-tag__arrow{
+                border-left-color: rgb(254 240 138 / var(--tw-border-opacity));
+                border-right-color: rgb(254 240 138 / var(--tw-border-opacity));
+            }
+
+            & div.git-section-tag__label{
+                background-color: rgb(254 240 138 / var(--tw-bg-opacity));
+
+                & .git-section-tag__star{
+                    animation: fade-out-up .6s ease-out both;
+                }
+
+                & .git-section-tag__text{
+                    animation: fade-in-up .6s ease-in-out both;
+                }
+            }
+        }
 
         & .git-section__logo{
             display: flex;
@@ -35,7 +59,11 @@
             align-items: center;
             justify-content: center;
             border-radius: .375rem;
-            border-width: 1px;
+            border-width: 0;
+
+            svg{
+                --svg-fill: #fff;
+            }
         }
 
         & .git-section__tag{
