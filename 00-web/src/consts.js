@@ -21,4 +21,15 @@ export const PROJECTS = [
         ],
         image: "tier-list",
     },
+    {
+        slug: "excel",
+        title: "Excel en js",
+        description: "Arrastra y suelta las imágenes para crear tus propias listas de niveles",
+        learnings: [
+            "Tablas",
+            "Eventos de Input: focus y blur",
+            "Eval"
+        ],
+        image: "excel",
+    },
   ]
