@@ -16,18 +16,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  margin: 0; 
-  padding: 0; 
-  &, &::before, &::after { box-sizing: border-box; }
-}
-
-body{
-  margin: 0;
-  padding: 0;
-  scrollbar-width: thin;
-}
-
 input, button, textarea, select { font: inherit; }
 
 p { text-wrap: pretty; }
@@ -43,24 +31,6 @@ img, video, svg { height: auto; max-width: 100%; }
     scroll-behavior: auto !important;
     transition: none;
   }
-}
-
-.container {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  
-  @media (min-width: 640px) {
-    max-width: 640px;
-  }
-  
-  @media (min-width: 768px) {
-    max-width: 768px;
-  }
-}
-
-.min-h-screen{
-  min-height: 100vh;
 }
 
 .game{

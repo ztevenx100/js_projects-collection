@@ -5,8 +5,8 @@ const $table = $('table');
 const $head = $('thead');
 const $body = $('tbody');
 
-const ROWS = 10;
-const COLUMNS = 5;
+const ROWS = 20;
+const COLUMNS = 15;
 const FIRST_CHAR_CODE = 65;
 
 const times = length => Array.from({ length }, (_,i) => i);
@@ -41,13 +41,13 @@ function generateCellsConstants(cells) {
 }
 
 function computeAllCells(cells, constants) {
-    console.log('computeAllCells')
+    // console.log('computeAllCells');
     cells.forEach((rows, x) => {
         rows.forEach((cell, y) => {
             const computedValue = computeValue(cell.value, constants)
             cell.computedValue = computedValue
         })
-    })
+    });
   }
 
 function computeValue(value, constants) {
@@ -66,8 +66,7 @@ function computeValue(value, constants) {
         computedValue = `!ERROR: ${e.message}`;
     }
 
-    console.log({ value, computedValue });
-
+    // console.log({ value, computedValue });
     return computedValue;
 }
 
@@ -139,7 +138,7 @@ $head.addEventListener('click', event => {
 document.addEventListener('keydown', event => {
     if (event.key === 'Backspace' && selectedColumn !== null) {
         times(ROWS).forEach(row => {
-            updateCell({ x: selectedColumn, y: row, value: '' })
+            updateCell({ x: selectedColumn, y: row, value: '' });
         });
         renderSpreadSheet();
     }
@@ -148,7 +147,7 @@ document.addEventListener('keydown', event => {
 document.addEventListener('copy', event => {
     if (selectedColumn !== null) {
         const columnValues = times(ROWS).map(row => {
-            return STATE[selectedColumn][row].computedValue
+            return STATE[selectedColumn][row].computedValue;
         });
 
         event.clipboardData.setData('text/plain', columnValues.join('\n'));

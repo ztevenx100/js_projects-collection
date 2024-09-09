@@ -5,7 +5,6 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./_global.css">
     <title>Excel App</title>
     <meta name="description" content="App del excel con solo Html, Css3 y JavaScript">
 
@@ -28,15 +27,27 @@
   <body>
     <header>
       <nav>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Microsoft_Excel_2013-2019_logo.svg/1200px-Microsoft_Excel_2013-2019_logo.svg.png" />
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Microsoft_Excel_2013-2019_logo.svg/1200px-Microsoft_Excel_2013-2019_logo.svg.png" />
+        <h1>Excel</h1>
       </nav>
     </header>
     
-    <main class="container ">
+    <main class="container min-h-screen">
       <table>
         <thead></thead>
         <tbody></tbody>
       </table>
     </main>
+
+    <footer>
+      <section class="container main-footer__info">
+        <address>
+            <h1>Excel en JavaScript</h1>
+        </address>
+        <svg class="icon">
+            <use xlink:href="assets/img/svg/icons.svg#svgHome"/>
+        </svg>
+      </section>
+    </footer>
   </body>
 </html>
