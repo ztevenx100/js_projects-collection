@@ -17,6 +17,8 @@ body {
 }
 
 nav{
+    position: absolute;
+    width: 100%;
     padding: 1rem;
     background-color: var(--nav-bg-color);
     display: flex;
@@ -30,7 +32,6 @@ img.logo {
 }
 
 main{
-    padding-block: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
