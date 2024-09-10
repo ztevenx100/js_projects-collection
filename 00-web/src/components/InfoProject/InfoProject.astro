@@ -12,18 +12,17 @@ const { isDark = false } = theme
       class="info-link"
       href="/"
     >
-      <div class="info-logo-text">
+      <div class="info-link__text">
         <span
           class:list={[
-            isDark ? "text-white/80" : "text-black/80",
-            "tracking-tighter text-slate-800 text-[14px]",
+            isDark ? "dark" : "",
           ]}
         >
           Proyectos
         </span>
       </div>
 
-      <span class="info-logo">
+      <span class="info-link__logo">
         <svg width="52" height="52" viewBox="0 0 630 630">
           <rect width="630" height="630" fill="#f7df1e"></rect>
           <path
@@ -38,17 +37,19 @@ const { isDark = false } = theme
   </h1>
   <h2
     class:list={[
-      isDark ? "text-yellow-400" : "text-yellow-600",
-      "font-semibold animate-fade-in animate-delay-300 mt-2 text-base text-center tracking-tighter",
+      "info-item__title",
+      isDark ? "dark" : "",
     ]}
   >
     #{info.number} - {info.title}
   </h2>
   <a
     class:list={[
-      "info-return-back text-xs animate-fade-in animate-delay-800 hover:underline",
-      isDark ? "text-white/90" : "text-black/90",
+      "info-item__return-back",
+      isDark ? "dark" : "",
     ]}
-    href="/">← Volver a los proyectos</a
+    href="/"
   >
+    ← Volver a los proyectos
+  </a>
 </div>

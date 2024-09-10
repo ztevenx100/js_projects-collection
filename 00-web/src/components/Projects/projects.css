@@ -49,12 +49,24 @@
         & span{
             position: absolute;
             top: .5rem;
-            left: .5rem;
+            left: 1rem;
             opacity: .7;
             font-weight: 700;
             font-size: 1.5rem;
             line-height: 2rem;
             transform: rotate(var(--tw-rotate));
+            transition-property: transform;
+            transition-timing-function: cubic-bezier(.4,0,.2,1);
+            transition-duration: .15s;
+        }
+        
+        &:hover span{
+            --tw-scale-x: 2;
+            --tw-scale-y: 2;
+            top: 1.5rem;
+            left: 3rem;
+            transform: scaleX( var(--tw-scale-x) ) scaleY( var(--tw-scale-y) ) rotate(var(--tw-rotate));
+            opacity: 1;
         }
 
         & img{

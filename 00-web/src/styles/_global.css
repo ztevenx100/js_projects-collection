@@ -13,6 +13,7 @@
     --svg-color: none;
     --svg-fill: none;
     --svg-stroke: none;
+    --body-bg-color: #13151a;
 }
 
 *, :before, :after {
@@ -22,14 +23,10 @@
     border-color: #e5e7eb;
 }
 
-html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
-}
-
 body{
     margin: 0;
     line-height: inherit;
+    background: var(--body-bg-color,#13151a);
 }
 
 code {
@@ -74,28 +71,4 @@ a{
     color: var(--svg-color, #000);
     fill: var(--svg-fill, none);
     stroke: var(--svg-stroke, none);
-}
-
-.container{
-    width: 100%;
-    
-    @media (min-width: 640px) {
-        max-width: 640px;
-    }
-
-    @media (min-width: 768px) {
-        max-width: 768px;
-    }
-
-    @media (min-width: 1024px) {
-        max-width: 1024px;
-    }
-
-    @media (min-width: 1280px) {
-        max-width: 1280px;
-    }
-
-    @media (min-width: 1536px) {
-        max-width: 1536px;
-    }
 }

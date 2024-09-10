@@ -73,7 +73,7 @@ footer{
                         }
                     }
                     
-                    & .link-twitter{
+                    &.link-twitter{
                         &:hover{
                             color: rgb(168 85 247 / var(--tw-text-opacity));
                         }
