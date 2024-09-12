@@ -9,7 +9,7 @@ const saveButton = $('#save-tier-button');
 let draggedElement = null;
 let sourceContainer = null;
 let progressItemSelected = null;
-const levels = $$('.tier .level');
+const levels = $$('.tier .tier-level');
 
 /**
  * Funcion para el momento en el que el objeto arrastrado este sobre el espacio a dejar.
@@ -17,6 +17,7 @@ const levels = $$('.tier .level');
  */
 const handleDragOver = (event) => {
     event.preventDefault();
+    console.log('handleDragOver: ');
     
     const { currentTarget } = event;
     if (sourceContainer === currentTarget) return;
@@ -38,6 +39,7 @@ const handleDragOver = (event) => {
  */
 const handleDragLeave = (event) => {
     event.preventDefault();
+    console.log('handleDragLeave: ');
     
     const { currentTarget } = event;
     currentTarget.classList.remove('drag-over');
@@ -71,6 +73,7 @@ const changeProgressBarItem = (currentTarget) => {
  */
 const handleDrop = (event) => {
     event.preventDefault();
+    console.log('handleDrop: ');
     
     const { currentTarget, dataTransfer } = event;
     

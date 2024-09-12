@@ -4,17 +4,16 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css">
     <title>Excel App</title>
     <meta name="description" content="App del excel con solo Html, Css3 y JavaScript">
-
+    
     <!-- Facebook Meta Tags -->
     <!-- <meta property="og:url" content="https://ztevenx100.github.io/js-tetris/"> -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Excel">
     <meta property="og:description" content="App del excel con solo Html, Css3 y JavaScript">
     <!-- <meta property="og:image" content="./assets/tetris.webp"> -->
-
+    
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <!-- <meta property="twitter:domain" content="ztevenx100.github.io"> -->
@@ -22,6 +21,7 @@
     <meta name="twitter:title" content="Excel">
     <meta name="twitter:description" content="App del excel con solo Html, Css3 y JavaScript">
     <!-- <meta name="twitter:image" content="./assets/tetris.webp"> -->
+    <link rel="stylesheet" href="./style.css">
     <script type="module" src="./main.js"></script>
   </head>
   <body>
@@ -33,7 +33,11 @@
     </header>
     
     <main class="container min-h-screen">
-      <table>
+      <header class="excel-header">
+        <input type="text" name="showId" id="showId" class="input-show-id" readonly>
+        <textarea name="showValue" id="showValue" class="input-show-value" ></textarea>
+      </header>
+      <table class="excel-table">
         <thead></thead>
         <tbody></tbody>
       </table>
@@ -45,7 +49,7 @@
             <h1>Excel en JavaScript</h1>
         </address>
         <svg class="icon">
-            <use xlink:href="assets/img/svg/icons.svg#svgHome"/>
+            <use xlink:href="/assets/img/svg/icons.svg#svgHome"/>
         </svg>
       </section>
     </footer>
