@@ -36,7 +36,7 @@ function esNumero(valor) {
 const getColumn = (i) => {
     if(!i) return 'A';
 
-    let num = i+1;
+    let num = Number(i)+1;
     if(num > 26){
         let decena = Math.trunc(num / 26);
         if(num % 26 === 0) decena--;
@@ -44,7 +44,7 @@ const getColumn = (i) => {
 
         return getColumn(decena-1) + getColumn(unidad-1);
     } else {
-        return String.fromCharCode(FIRST_CHAR_CODE + i);
+        return String.fromCharCode(FIRST_CHAR_CODE + Number(i));
     }
 }
 
@@ -112,7 +112,6 @@ function computeAllCells(cells, constants) {
     });
 }
 
-
 // Función SUMA que suma todos los valores numéricos
 function suma(...args) {
     return args.reduce((acc, val) => acc + (typeof val === 'number' ? val : 0), 0);
@@ -122,10 +121,6 @@ function suma(...args) {
 function promedio(...args) {
     const validNumbers = args.filter(val => typeof val === 'number');
     return validNumbers.length ? suma(...validNumbers) / validNumbers.length : 0;
-}
-
-function operations(params) {
-    
 }
 
 /**
@@ -173,7 +168,7 @@ const renderSpreadSheet = () => {
             ${times(COLUMNS).map(column => `
             <td data-x="${column}" data-y="${row}">
             <span>${STATE[column][row].computedValue}</span>
-            <input type="text" value="${STATE[column][row].value}" />
+            <input type="text" class="row-input" value="${STATE[column][row].value}" />
             </td>
             `).join('')}
         </tr>`
@@ -211,7 +206,7 @@ $body.addEventListener('click', event => {
     $$(`tr:nth-child(${y + 1}) td`).forEach(el => el.classList.add('selected'));
 })
 
-$body.addEventListener('click', event => {
+$body.addEventListener('dblclick', event => {
     const td = event.target.closest('td');
     if (!td) return;
 
@@ -231,12 +226,45 @@ $body.addEventListener('click', event => {
     })
 
     input.addEventListener('blur', () => {
-        console.log({ value: input.value, state: STATE[x][y].value });
-
+        //console.log({ value: input.value, state: STATE[x][y].value });
         if (input.value === STATE[x][y].value) return;
 
         updateCell({ x, y, value: input.value });
     }, { once: true });
+})
+
+function getIdCell(td) {
+    if (!td) return;
+    let id = '';
+    const dataX = td.getAttribute('data-x');
+    const dataY = td.getAttribute('data-y');
+
+    id = `${getColumn(dataX)}${Number(dataY)+1}`;
+    
+
+    return id;
+}
+
+$body.addEventListener('click', event => {
+    const td = event.target.closest('td');
+    const showId = $('#showId');
+    const showValue = $('#showValue');
+    if (!td) return;
+
+    const { x, y } = td.dataset;
+    const input = td.querySelector('input');
+    const span = td.querySelector('span');
+
+    const end = input.value.length;
+    input.setSelectionRange(end, end);
+    //input.focus();
+    
+    $$('.selected').forEach(el => el.classList.remove('selected'));
+    selectedColumn = null;
+    
+    td.classList.add('selected');
+    showId.value = getIdCell(td);
+    showValue.value = input.value;
 })
 
 document.addEventListener('keydown', event => {
