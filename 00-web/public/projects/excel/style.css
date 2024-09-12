@@ -36,8 +36,7 @@ table {
     border-collapse: collapse;
 }
 
-thead,
-tr th:first-child {
+thead, th:first-child {
     background: #ddd;
 }
 
@@ -55,7 +54,7 @@ td {
 
 th.selected {
     background: var(--selected-header-color);
-    outline: 4px solid var(--selected-cell-color);
+    outline: 3px solid var(--selected-cell-color);
 }
 
 .selected {

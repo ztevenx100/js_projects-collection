@@ -48,6 +48,14 @@ const number = `${index + 1}`.padStart(2, "0");
     style.textContent = baseCss.value + '\n\n' + layoutCss.value;
     
     // Añade la etiqueta <style> al <head> del iframe
-    iframe.head.appendChild(style);
+    let estiloCSS = iframe.head.querySelector('link[href="./style.css"]');
+
+    if (estiloCSS) {
+        // Insertar el nuevo <style> antes del <link> que tiene href="style.css"
+        iframe.head.insertBefore(style, estiloCSS);
+    } else {
+        // Si no encuentra style.css, añadir el <style> al final del head
+        iframe.head.appendChild(style);
+    }
   };
 </script>
