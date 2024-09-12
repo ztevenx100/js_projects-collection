@@ -37,13 +37,13 @@ table {
 }
 
 thead,
-tr td:first-child {
-    background: #eee;
+tr th:first-child {
+    background: #ddd;
 }
 
 th,
 td {
-    border: 1px solid #ccc;
+    border: 1px solid #bbb;
     font-weight: normal;
     font-size: 12px;
     text-align: center;

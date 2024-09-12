@@ -97,18 +97,34 @@ function computeAllCells(cells, constants) {
     });
 }
 
+function operations(params) {
+    
+}
+
+/**
+ * Calcula el valor de una celda basado en su valor o fórmula, utilizando constantes generadas.
+ * Esta función evalúa el valor de una celda. Si es un número, lo retorna directamente. Si el valor es una fórmula (empieza con `=`), la evalúa utilizando las constantes proporcionadas y devuelve el
+ * resultado. Si ocurre algún error durante la evaluación de la fórmula, devuelve un mensaje de error.
+ *
+ * @param {any} value - El valor de la celda, que puede ser un número o una fórmula.
+ * @param {string} constants - Las constantes generadas que pueden ser utilizadas en la evaluación de la fórmula.
+ * @returns {*} - El valor calculado o un mensaje de error si la evaluación falla.
+ */
 function computeValue(value, constants) {
     if (typeof value === 'number') return value;
     if (!value.startsWith('=')) return value;
 
-    const formula = value.slice(1);
+    const formula = value.slice(1).trim();
+
+    const forbiddenChars = /[^0-9A-Za-z+\-*/().\s]/;
+    if (forbiddenChars.test(formula)) {
+        return '!ERROR: Invalid characters in formula';
+    }
 
     let computedValue;
     try {
-        computedValue = eval(`(() => {
-        ${constants}
-        return ${formula};
-    })()`);
+        const computeFunction = new Function(`${constants} return ${formula};`);
+        computedValue = computeFunction();
     } catch (e) {
         computedValue = `!ERROR: ${e.message}`;
     }
@@ -155,20 +171,17 @@ $head.addEventListener('click', event => {
 
 $body.addEventListener('click', event => {
     const th = event.target.closest('th');
-    console.log('table-body th ', th);
     
     if (!th) return;
 
-    const y = [...th.parentNode.children].indexOf(th);
-    console.log('table-body y ', y);
+    const y = [...th.parentNode.parentNode.children].indexOf(th.parentNode);
     if (y < 0) return;
 
     selectedColumn = y;
-    console.log('table-body selectedColumn ', selectedColumn);
 
     $$('.selected').forEach(el => el.classList.remove('selected'));
     th.classList.add('selected');
-    $$(`tr td:nth-child(${y + 1})`).forEach(el => el.classList.add('selected'));
+    $$(`tr:nth-child(${y + 1}) td`).forEach(el => el.classList.add('selected'));
 })
 
 $body.addEventListener('click', event => {
