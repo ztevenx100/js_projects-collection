@@ -15,6 +15,17 @@ let selectedRow = null;
 let STATE = times(COLUMNS).map(i => times(ROWS).map(j => ({ computedValue: 0, value: 0 })));
 
 /**
+ * Verifica si un valor dado es un número válido.
+ *
+ * @param {*} valor - El valor que se va a verificar.
+ * @returns {boolean} - `true` si el valor es un número válido, `false` en caso contrario.
+ */
+function esNumero(valor) {
+    return !isNaN(parseFloat(valor)) && isFinite(valor);
+}
+
+
+/**
  * Convierte un índice numérico en una representación de letra de columna (similar a las columnas de Excel).
  * Esta función toma un índice numérico `i` y lo convierte en una letra o combinación de letras que representan
  * una columna en una hoja de cálculo, utilizando el sistema de columnas de Excel (por ejemplo, 0 -> A, 1 -> B, 26 -> AA).
@@ -54,7 +65,11 @@ function updateCell({ x, y, value }) {
     const cell = newState[x][y]
 
     cell.computedValue = computeValue(value, constants);
-    cell.value = value;
+    if (esNumero(value)){
+        cell.value = parseInt(value);
+    } else {
+        cell.value = value;
+    }
 
     newState[x][y] = cell;
     computeAllCells(newState, generateCellsConstants(newState));
@@ -97,6 +112,18 @@ function computeAllCells(cells, constants) {
     });
 }
 
+
+// Función SUMA que suma todos los valores numéricos
+function suma(...args) {
+    return args.reduce((acc, val) => acc + (typeof val === 'number' ? val : 0), 0);
+}
+
+// Función PROMEDIO que calcula el promedio de los valores numéricos
+function promedio(...args) {
+    const validNumbers = args.filter(val => typeof val === 'number');
+    return validNumbers.length ? suma(...validNumbers) / validNumbers.length : 0;
+}
+
 function operations(params) {
     
 }
@@ -111,20 +138,20 @@ function operations(params) {
  * @returns {*} - El valor calculado o un mensaje de error si la evaluación falla.
  */
 function computeValue(value, constants) {
-    if (typeof value === 'number') return value;
+    if (esNumero(value)) return parseInt(value);
     if (!value.startsWith('=')) return value;
 
     const formula = value.slice(1).trim();
 
-    const forbiddenChars = /[^0-9A-Za-z+\-*/().\s]/;
+    const forbiddenChars = /[^0-9A-Za-z+\-*/().\s,%]/;
     if (forbiddenChars.test(formula)) {
         return '!ERROR: Invalid characters in formula';
     }
 
     let computedValue;
     try {
-        const computeFunction = new Function(`${constants} return ${formula};`);
-        computedValue = computeFunction();
+        const computeFunction = new Function('suma', 'promedio', `${constants} return ${formula};`);
+        computedValue = computeFunction(suma, promedio);
     } catch (e) {
         computedValue = `!ERROR: ${e.message}`;
     }
