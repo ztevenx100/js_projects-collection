@@ -2,8 +2,8 @@
 import { PROJECTS } from "../scripts/consts"
 import InfoProject from "../components/InfoProject/InfoProject.astro"
 import Layout from "../layouts/Layout.astro"
-import BaseCss from '../styles/_base.css';
-import LayoutCss from '../styles/_layout.css';
+import BaseCss from '../styles/_base.css?raw';
+import LayoutCss from '../styles/_layout.css?raw';
 
 export function getStaticPaths() {
   return PROJECTS.map((project) => {
@@ -19,6 +19,7 @@ const { project } = Astro.params;
 const index = PROJECTS.findIndex((p) => p.slug === project);
 const info = PROJECTS[index];
 const number = `${index + 1}`.padStart(2, "0");
+console.log('x: ' ,BaseCss.length);
 
 ---
 
