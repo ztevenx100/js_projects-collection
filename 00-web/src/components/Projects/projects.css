@@ -128,9 +128,10 @@
         flex-wrap: wrap;
         gap: .5rem;
         margin-top: 1rem;
+        
         & a{
-            padding-block: .5rem;
-            padding-inline: .75rem;
+            padding-block: .25rem;
+            padding-inline: .5rem;
             display: inline-flex;
             justify-content: center;
             align-items: center;
