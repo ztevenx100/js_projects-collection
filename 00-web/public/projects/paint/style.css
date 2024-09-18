@@ -1,31 +1,111 @@
 :root{
-    --body-bg-color: #fff;
-    --nav-bg-color: #549571;
-    --selected-cell-color: #186d3f;
-    --selected-header-color: #a3c5b3;
-    --selected-group-color: #0002;
+  --body-bg-color: #fff;
+  --nav-bg-color: #549571;
+  --paint-bg: #c0c0c0;
 }
 
 body {
-    --body-bg-color: #222;
-    background-color: var(--body-bg-color);
+  --body-bg-color: #222;
+  background-color: var(--body-bg-color);
+}
+
+nav{
+  display: flex;
+}
+
+.canvas-container{
+  border: 2px solid var(--paint-bg);
+  display: grid;
+  grid-template-areas: 
+    "header header header"
+    "aside main main"
+    "footer footer footer";
 }
 
 .canvas-header{
-    background: #999;
-
-    button{
-        border: 0;
-        background: transparent;
-
-        &:hover{
-            box-shadow: 1px 1px #000,
-            inset -1px -1px #333,
-            inset 1px 1px #fff;
-        }
+  background: var(--paint-bg);
+  grid-area: header;
+  
+  button{
+    border: 0;
+    background: transparent;
+    
+    &:hover{
+      box-shadow: 1px 1px #000,
+      inset -1px -1px #333,
+      inset 1px 1px #fff;
     }
+  }
 }
 
-canvas.canvas-main{
+.canvas-tools{
+  width: 52px;
+  padding-top: 2px;
+  background: var(--paint-bg);
+  grid-area: aside;
+  
+  menu{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+  }
+
+  button{
+    width: 24px;
+    height: 24px;
+    background-color: #a0a0a0;
+    background-image: url('/assets/img/icons/draw.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: pixelated;
+    border: 2px solid #fff;
+    border-right-color: #000;
+    border-bottom-color: #000;
+    
+    &:active{
+      background-color: #d0d0d0;
+      border-color: #000;
+      border-right-color: #fff;
+      border-bottom-color: #fff;
+    }
+  }
+}
+
+#erase-btn {
+  background-image: url('/assets/img/icons/erase.png');
+}
+
+#rectangle-btn {
+  background-image: url('/assets/img/icons/rectangle.png');
+}
+
+#ellipse-btn {
+  background-image: url('/assets/img/icons/ellipse.png');
+}
+
+#picker-btn {
+  background-image: url('/assets/img/icons/picker.png');
+}
+
+#clear-btn {
+  background-image: url('/assets/img/icons/trash.png');
+  background-size: 18px;
+}
+
+.canvas-screen{
+  padding: 5px;
+  grid-area: main;
+  
+  canvas.canvas-main{
     background: #fff;
+  }
+}
+
+.canvas-footer{
+  grid-area: footer;
+  display: flex;
+  background: var(--paint-bg);
+  padding: 0.5rem;
 }

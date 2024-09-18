@@ -32,22 +32,39 @@
       </nav>
     </header>
     
-    <main class="container min-h-screen">
-      <header class="canvas-header">
-        <button>File</button>
-        <button>Edit</button>
-        <button>View</button>
-        <button>Image</button>
-        <button>Options</button>
-        <button>Help</button>
-      </header>
-      <section>
-        <canvas id="canvas" class="canvas-main" width="300" height="200"></canvas>
-      </section>
-      <footer class="canvas-footer">
-        <input type="color" id="color-picker" value="#000000">
-        <input type="color" id="color-picker" value="#ffffff">
-      </footer>
+    <main class="container min-h-screen ">
+      
+      <article class="canvas-container">
+        <header class="canvas-header">
+          <button>File</button>
+          <button>Edit</button>
+          <button>View</button>
+          <button>Image</button>
+          <button>Options</button>
+          <button>Help</button>
+        </header>
+
+        <aside class="canvas-tools">
+          <menu>
+            <button id="draw-btn" title="Pincel"></button>
+            <button id="erase-btn" title="Borrar"></button>
+            <button id="rectangle-btn" title="Rectángulo"></button>
+            <button id="ellipse-btn" title="Elipse"></button>
+            <button disabled id="picker-btn" title="Capturar Color"></button>
+            <button id="clear-btn" title="Limpiar dibujo"></button>
+          </menu>
+        </aside>
+
+        <section class="canvas-screen">
+          <canvas id="canvas" class="canvas-main" width="300" height="200"></canvas>
+        </section>
+
+        <footer class="canvas-footer">
+          <input type="color" id="color-picker" value="#000000">
+          <input type="color" id="color-picker-secondary" value="#ffffff">
+        </footer>
+      </article>
+
     </main>
 
     <footer>
