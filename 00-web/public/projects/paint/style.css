@@ -1,0 +1,31 @@
+:root{
+    --body-bg-color: #fff;
+    --nav-bg-color: #549571;
+    --selected-cell-color: #186d3f;
+    --selected-header-color: #a3c5b3;
+    --selected-group-color: #0002;
+}
+
+body {
+    --body-bg-color: #222;
+    background-color: var(--body-bg-color);
+}
+
+.canvas-header{
+    background: #999;
+
+    button{
+        border: 0;
+        background: transparent;
+
+        &:hover{
+            box-shadow: 1px 1px #000,
+            inset -1px -1px #333,
+            inset 1px 1px #fff;
+        }
+    }
+}
+
+canvas.canvas-main{
+    background: #fff;
+}
