@@ -52,7 +52,7 @@ export const PROJECTS = [
     ],
     image: "paint",
     theme: {
-      isDark: false
+      isDark: true
     },
   },
 ]

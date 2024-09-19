@@ -20,6 +20,7 @@ const $clearBtn = $('#clear-btn');
 const $drawBtn = $('#draw-btn');
 const $eraseBtn = $('#erase-btn');
 const $rectangleBtn = $('#rectangle-btn');
+const $ellipseBtn = $('#ellipse-btn');
 const $pickerBtn = $('#picker-btn');
 
 const ctx = $canvas.getContext('2d');
@@ -63,6 +64,10 @@ $rectangleBtn.addEventListener('click', () => {
   setMode(MODES.RECTANGLE);
 })
 
+$ellipseBtn.addEventListener('click', () => {
+  setMode(MODES.ELLIPSE);
+})
+
 $drawBtn.addEventListener('click', () => {
   setMode(MODES.DRAW);
 })
@@ -99,7 +104,7 @@ function startDrawing(event) {
 function draw(event) {
   if (!isDrawing) return;
 
-  const { offsetX, offsetY } = event
+  const { offsetX, offsetY } = event;
 
   if (mode === MODES.DRAW || mode === MODES.ERASE) {
     // comenzar un trazado
@@ -116,7 +121,7 @@ function draw(event) {
     // actualizar la última coordenada utilizada
     [lastX, lastY] = [offsetX, offsetY];
 
-    return
+    return;
   }
 
   if (mode === MODES.RECTANGLE) {
@@ -141,6 +146,28 @@ function draw(event) {
     ctx.stroke()
     return
   }
+
+  // Modo de dibujar elipses o círculos
+  if (mode === MODES.ELLIPSE) {
+    ctx.putImageData(imageData, 0, 0);
+    let radiusX = (offsetX - startX) / 2;
+    let radiusY = (offsetY - startY) / 2;
+    const centerX = startX + radiusX;
+    const centerY = startY + radiusY;
+
+    if (isShiftPressed) {
+      // Si Shift está presionado, hacer que las elipses sean círculos
+      const radius = Math.min(Math.abs(radiusX), Math.abs(radiusY));
+      radiusX = radius;
+      radiusY = radius;
+    }
+
+    ctx.beginPath();
+    ctx.ellipse(centerX, centerY, Math.abs(radiusX), Math.abs(radiusY), 0, 0, Math.PI * 2);
+    ctx.stroke();
+    return;
+  }
+
 }
 
 function stopDrawing(event) {
@@ -181,6 +208,14 @@ async function setMode(newMode) {
 
   if (mode === MODES.RECTANGLE) {
     $rectangleBtn.classList.add('active');
+    $canvas.style.cursor = 'nw-resize';
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.lineWidth = 2;
+    return;
+  }
+
+  if (mode === MODES.ELLIPSE) {
+    $ellipseBtn.classList.add('active');
     $canvas.style.cursor = 'nw-resize';
     ctx.globalCompositeOperation = 'source-over';
     ctx.lineWidth = 2;

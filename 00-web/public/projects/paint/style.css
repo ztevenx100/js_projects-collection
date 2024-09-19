@@ -30,13 +30,13 @@ nav{
 }
 
 .canvas-container{
-  border: 2px solid var(--paint-bg-color);
+  border: 5px solid var(--paint-bg-color);
   display: grid;
   grid-template-areas: 
     "header header header header"
     "aside main main main"
     "footer footer footer footer";
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .canvas-header{
@@ -46,6 +46,7 @@ nav{
   button{
     border: 0;
     background: transparent;
+    padding: 2px;
     
     &:hover{
       box-shadow: 1px 1px #000,
@@ -66,7 +67,7 @@ nav{
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 1px;
+    gap: 2px;
   }
 
   button{
