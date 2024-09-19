@@ -43,6 +43,23 @@ $clearBtn.addEventListener('click', clearCanvas);
 document.addEventListener('keydown', handleKeyDown);
 document.addEventListener('keyup', handleKeyUp);
 
+
+$pickerBtn.addEventListener('click', () => {
+  setMode(MODES.PICKER)
+})
+
+$eraseBtn.addEventListener('click', () => {
+  setMode(MODES.ERASE)
+})
+
+$rectangleBtn.addEventListener('click', () => {
+  setMode(MODES.RECTANGLE)
+})
+
+$drawBtn.addEventListener('click', () => {
+  setMode(MODES.DRAW)
+})
+
 // METHODS
 function startDrawing(event) {
   isDrawing = true
@@ -121,45 +138,45 @@ function clearCanvas() {
 }
 
 async function setMode(newMode) {
-  let previousMode = mode
-  mode = newMode
+  let previousMode = mode;
+  mode = newMode;
   // para limpiar el botón activo actual
-  $('button.active')?.classList.remove('active')
+  $('button.active')?.classList.remove('active');
 
   if (mode === MODES.DRAW) {
-    $drawBtn.classList.add('active')
-    canvas.style.cursor = 'crosshair'
-    ctx.globalCompositeOperation = 'source-over'
-    ctx.lineWidth = 2
-    return
+    $drawBtn.classList.add('active');
+    $canvas.style.cursor = 'crosshair';
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.lineWidth = 2;
+    return;
   }
 
   if (mode === MODES.RECTANGLE) {
-    $rectangleBtn.classList.add('active')
-    canvas.style.cursor = 'nw-resize'
-    ctx.globalCompositeOperation = 'source-over'
-    ctx.lineWidth = 2
-    return
+    $rectangleBtn.classList.add('active');
+    $canvas.style.cursor = 'nw-resize';
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.lineWidth = 2;
+    return;
   }
 
   if (mode === MODES.ERASE) {
     $eraseBtn.classList.add('active')
-    canvas.style.cursor = 'url("./cursors/erase.png") 0 24, auto';
-    ctx.globalCompositeOperation = 'destination-out'
-    ctx.lineWidth = 20
-    return
+    $canvas.style.cursor = 'url("/assets/img/png/cursors/erase.png") 0 24, auto';
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineWidth = 20;
+    return;
   }
 
   if (mode === MODES.PICKER) {
-    $pickerBtn.classList.add('active')
-    const eyeDropper = new window.EyeDropper()
+    $pickerBtn.classList.add('active');
+    const eyeDropper = new window.EyeDropper();
 
     try {
-      const result = await eyeDropper.open()
-      const { sRGBHex } = result
-      ctx.strokeStyle = sRGBHex
-      $colorPicker.value = sRGBHex
-      setMode(previousMode)
+      const result = await eyeDropper.open();
+      const { sRGBHex } = result;
+      ctx.strokeStyle = sRGBHex;
+      $colorPicker.value = sRGBHex;
+      setMode(previousMode);
     } catch (e) {
       // si ha habido un error o el usuario no ha recuperado ningún color
     }
@@ -169,13 +186,18 @@ async function setMode(newMode) {
 }
 
 function handleKeyDown({ key }) {
-  isShiftPressed = key === 'Shift'
+  isShiftPressed = key === 'Shift';
 }
 
 function handleKeyUp({ key }) {
-  if (key === 'Shift') isShiftPressed = false
+  if (key === 'Shift') isShiftPressed = false;
 }
 
 
 // INIT
-setMode(MODES.DRAW)
+setMode(MODES.DRAW);
+
+// Show Picker if browser has support
+if (typeof window.EyeDropper !== 'undefined') {
+  $pickerBtn.removeAttribute('disabled');
+}
