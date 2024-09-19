@@ -21,14 +21,13 @@ const $drawBtn = $('#draw-btn');
 const $eraseBtn = $('#erase-btn');
 const $rectangleBtn = $('#rectangle-btn');
 const $ellipseBtn = $('#ellipse-btn');
+const $fillBtn = $('#fill-btn');
 const $pickerBtn = $('#picker-btn');
 
 const ctx = $canvas.getContext('2d');
 const containerCanvas = $canvas.parentElement;
 $canvas.width = containerCanvas.offsetWidth;
 $canvas.height = containerCanvas.offsetHeight;
-//$canvas.width = window.innerWidth; 
-//$canvas.height = 300; 
 
 // STATE
 let isDrawing = false;
@@ -66,6 +65,10 @@ $rectangleBtn.addEventListener('click', () => {
 
 $ellipseBtn.addEventListener('click', () => {
   setMode(MODES.ELLIPSE);
+})
+
+$fillBtn.addEventListener('click', () => {
+  setMode(MODES.FILL);
 })
 
 $drawBtn.addEventListener('click', () => {
@@ -168,6 +171,120 @@ function draw(event) {
     return;
   }
 
+  if (mode === MODES.FILL) {
+    // Llamar a la función para rellenar la región
+    fill(offsetX, offsetY);
+    return;
+  }
+
+}
+
+/**
+ * Función que realiza el relleno (flood fill) en la posición clicada.
+ * 
+ * @param {number} x - La posición X donde se hizo clic.
+ * @param {number} y - La posición Y donde se hizo clic.
+ */
+function fill(x, y) {
+  const imageData = ctx.getImageData(0, 0, $canvas.width, $canvas.height);
+  const pixelStack = [[x, y]];
+  const startColor = getPixelColor(imageData, x, y);
+  const fillColor = hexToRgba($colorPicker.value); // Color deseado para rellenar
+
+  // Verifica si el color inicial es igual al color de relleno
+  if (colorsMatch(startColor, fillColor)) return;
+
+  while (pixelStack.length > 0) {
+    const [px, py] = pixelStack.pop();
+
+    const pixelPos = (py * $canvas.width + px) * 4;
+    const currentColor = [
+      imageData.data[pixelPos],
+      imageData.data[pixelPos + 1],
+      imageData.data[pixelPos + 2],
+      imageData.data[pixelPos + 3]
+    ];
+
+    if (colorsMatch(currentColor, startColor)) {
+      // Cambiar el color del píxel a fillColor
+      setPixelColor(imageData, px, py, fillColor);
+
+      // Agregar los píxeles adyacentes al stack
+      pixelStack.push([px + 1, py]);
+      pixelStack.push([px - 1, py]);
+      pixelStack.push([px, py + 1]);
+      pixelStack.push([px, py - 1]);
+    }
+  }
+
+  // Actualizar el canvas con la imagen modificada
+  ctx.putImageData(imageData, 0, 0);
+}
+
+/**
+ * Obtiene el color de un píxel en el lienzo.
+ *
+ * @param {ImageData} imageData - Los datos de la imagen del canvas.
+ * @param {number} x - La posición X del píxel.
+ * @param {number} y - La posición Y del píxel.
+ * @returns {number[]} Un arreglo RGBA con el color del píxel.
+ */
+function getPixelColor(imageData, x, y) {
+  const pixelPos = (y * $canvas.width + x) * 4;
+  return [
+    imageData.data[pixelPos],      // R
+    imageData.data[pixelPos + 1],  // G
+    imageData.data[pixelPos + 2],  // B
+    imageData.data[pixelPos + 3]   // A
+  ];
+}
+
+/**
+ * Establece el color de un píxel en el lienzo.
+ *
+ * @param {ImageData} imageData - Los datos de la imagen del canvas.
+ * @param {number} x - La posición X del píxel.
+ * @param {number} y - La posición Y del píxel.
+ * @param {number[]} color - Un arreglo RGBA con el nuevo color del píxel.
+ */
+function setPixelColor(imageData, x, y, color) {
+  const pixelPos = (y * $canvas.width + x) * 4;
+  imageData.data[pixelPos] = color[0];     // R
+  imageData.data[pixelPos + 1] = color[1]; // G
+  imageData.data[pixelPos + 2] = color[2]; // B
+  imageData.data[pixelPos + 3] = color[3]; // A
+}
+
+/**
+ * Convierte un valor hexadecimal a un array de RGBA.
+ *
+ * @param {string} hex - El color en formato hexadecimal.
+ * @returns {number[]} Un arreglo RGBA con el color convertido.
+ */
+function hexToRgba(hex) {
+  const bigint = parseInt(hex.slice(1), 16);
+  return [
+    (bigint >> 16) & 255,  // R
+    (bigint >> 8) & 255,   // G
+    bigint & 255,          // B
+    255                    // A (completamente opaco)
+  ];
+}
+
+/**
+ * Compara dos colores RGBA para ver si coinciden.
+ *
+ * @param {number[]} color1 - El primer color RGBA.
+ * @param {number[]} color2 - El segundo color RGBA.
+ * @returns {boolean} Verdadero si los colores coinciden, falso de lo contrario.
+ */
+function colorsMatch(color1, color2) {
+  return (
+    color1[0] === color2[0] &&
+    color1[1] === color2[1] &&
+    color1[2] === color2[2] &&
+    color1[3] === color2[3]
+  );
 }
 
 function stopDrawing(event) {
@@ -219,6 +336,14 @@ async function setMode(newMode) {
     $canvas.style.cursor = 'nw-resize';
     ctx.globalCompositeOperation = 'source-over';
     ctx.lineWidth = 2;
+    return;
+  }
+
+  if (mode === MODES.FILL) {
+    $fillBtn.classList.add('active');
+    $canvas.style.cursor = 'url("/assets/img/png/cursors/fill.png")16 16, auto';
+    ctx.globalCompositeOperation = 'source-over';
+    //ctx.lineWidth = 2;
     return;
   }
 
