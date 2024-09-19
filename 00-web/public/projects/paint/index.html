@@ -26,9 +26,13 @@
   </head>
   <body>
     <header>
-      <nav>
-        <img class="logo" src="/assets/img/png/logo-paint.png" alt="paint.js">
-        <h1>Paint</h1>
+      <nav >
+        <menu class="container">
+          <li>
+            <img class="logo" src="/assets/img/png/logo-paint.png" alt="paint.js">
+            <h1>Paint</h1>
+          </li>
+        </menu>
       </nav>
     </header>
     
@@ -50,13 +54,17 @@
             <button id="erase-btn" title="Borrar"></button>
             <button id="rectangle-btn" title="Rectángulo"></button>
             <button id="ellipse-btn" title="Elipse"></button>
+            <button id="star-btn" title="Estrella"></button>
+            <button id="fill-btn" title="Rellenar"></button>
             <button disabled id="picker-btn" title="Capturar Color"></button>
             <button id="clear-btn" title="Limpiar dibujo"></button>
           </menu>
         </aside>
 
         <section class="canvas-screen">
-          <canvas id="canvas" class="canvas-main" width="300" height="200"></canvas>
+          <div>
+            <canvas id="canvas" class="canvas-main" ></canvas>
+          </div>
         </section>
 
         <footer class="canvas-footer">

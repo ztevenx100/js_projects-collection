@@ -4,6 +4,8 @@ const MODES = {
   ERASE: 'erase',
   RECTANGLE: 'rectangle',
   ELLIPSE: 'ellipse',
+  STAR: 'star',
+  FILL: 'fill',
   PICKER: 'picker'
 }
 
@@ -21,6 +23,11 @@ const $rectangleBtn = $('#rectangle-btn');
 const $pickerBtn = $('#picker-btn');
 
 const ctx = $canvas.getContext('2d');
+const containerCanvas = $canvas.parentElement;
+$canvas.width = containerCanvas.offsetWidth;
+$canvas.height = containerCanvas.offsetHeight;
+//$canvas.width = window.innerWidth; 
+//$canvas.height = 300; 
 
 // STATE
 let isDrawing = false;
@@ -45,22 +52,30 @@ document.addEventListener('keyup', handleKeyUp);
 
 
 $pickerBtn.addEventListener('click', () => {
-  setMode(MODES.PICKER)
+  setMode(MODES.PICKER);
 })
 
 $eraseBtn.addEventListener('click', () => {
-  setMode(MODES.ERASE)
+  setMode(MODES.ERASE);
 })
 
 $rectangleBtn.addEventListener('click', () => {
-  setMode(MODES.RECTANGLE)
+  setMode(MODES.RECTANGLE);
 })
 
 $drawBtn.addEventListener('click', () => {
-  setMode(MODES.DRAW)
+  setMode(MODES.DRAW);
 })
 
+
 // METHODS
+/**
+ * Inicia el proceso de dibujo en el lienzo cuando se detecta un evento de dibujo.
+ * Esta función activa el modo de dibujo, captura las coordenadas iniciales donde comienza el trazo y guarda el estado actual del lienzo. Es utilizada para registrar el punto de inicio
+ * del dibujo y para almacenar los datos de imagen actuales.
+ *
+ * @param {MouseEvent} event - El evento de ratón que contiene las coordenadas del clic en el lienzo.
+ */
 function startDrawing(event) {
   isDrawing = true
 
@@ -71,10 +86,16 @@ function startDrawing(event) {
   [lastX, lastY] = [offsetX, offsetY];
 
   imageData = ctx.getImageData(
-    0, 0, canvas.width, canvas.height
+    0, 0, $canvas.width, $canvas.height
   );
 }
 
+/**
+ * Dibuja en el lienzo dependiendo del modo seleccionado (dibujar, borrar o rectángulo).
+ * Esta función maneja el proceso de dibujo continuo en el lienzo. Dibuja segun el modo.
+ *
+ * @param {MouseEvent} event - El evento de ratón que contiene las coordenadas del movimiento en el lienzo.
+ */
 function draw(event) {
   if (!isDrawing) return;
 
@@ -123,20 +144,27 @@ function draw(event) {
 }
 
 function stopDrawing(event) {
-  isDrawing = false
+  isDrawing = false;
 }
 
 function handleChangeColor() {
-  const { value } = $colorPicker
-  ctx.strokeStyle = value
+  const { value } = $colorPicker;
+  ctx.strokeStyle = value;
 }
 
 function clearCanvas() {
-  // también os ayudaría a limpiar parte del canvas
-  // con la herramienta de selección
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  ctx.clearRect(0, 0, $canvas.width, $canvas.height);
 }
 
+/**
+ * Cambia el modo de operación del lienzo (dibujar, borrar, rectángulo o selector de color).
+ *
+ * Esta función actualiza el modo actual del lienzo, ajusta la interfaz de usuario para reflejar el modo activo, y modifica las propiedades del contexto del lienzo (`ctx`) como el tipo de operación de composición y el ancho del trazo.
+ * También maneja la selección de color cuando el modo es "PICKER".
+ *
+ * @param {string} newMode - El nuevo modo que se establecerá. Debe ser uno de los valores de `MODES`.
+ * @returns {Promise<void>} - Retorna una promesa que se resuelve cuando el modo es "PICKER" y se completa la operación de selección de color.
+ */
 async function setMode(newMode) {
   let previousMode = mode;
   mode = newMode;
@@ -181,7 +209,7 @@ async function setMode(newMode) {
       // si ha habido un error o el usuario no ha recuperado ningún color
     }
 
-    return
+    return;
   }
 }
 
