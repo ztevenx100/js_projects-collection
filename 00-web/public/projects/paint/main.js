@@ -21,6 +21,7 @@ const $drawBtn = $('#draw-btn');
 const $eraseBtn = $('#erase-btn');
 const $rectangleBtn = $('#rectangle-btn');
 const $ellipseBtn = $('#ellipse-btn');
+const $starBtn = $('#star-btn');
 const $fillBtn = $('#fill-btn');
 const $pickerBtn = $('#picker-btn');
 
@@ -65,6 +66,10 @@ $rectangleBtn.addEventListener('click', () => {
 
 $ellipseBtn.addEventListener('click', () => {
   setMode(MODES.ELLIPSE);
+})
+
+$starBtn.addEventListener('click', () => {
+  setMode(MODES.STAR);
 })
 
 $fillBtn.addEventListener('click', () => {
@@ -171,12 +176,65 @@ function draw(event) {
     return;
   }
 
+  if (mode === MODES.STAR) {
+    ctx.putImageData(imageData, 0, 0);
+
+    // Calcular el tamaño de la estrella
+    const radius = Math.sqrt(Math.pow(offsetX - startX, 2) + Math.pow(offsetY - startY, 2));
+
+    // Dibujar la estrella con 5 puntas (puedes cambiar el número de puntas)
+    drawStar(ctx, startX, startY, 5, radius, radius / 2);
+
+    if (isShiftPressed) {
+      ctx.fill();
+    } else {
+      ctx.stroke();
+    }
+
+    return;
+  }
+
   if (mode === MODES.FILL) {
     // Llamar a la función para rellenar la región
     fill(offsetX, offsetY);
     return;
   }
 
+}
+
+/**
+ * Dibuja una estrella en el lienzo.
+ * 
+ * @param {CanvasRenderingContext2D} ctx - El contexto del lienzo.
+ * @param {number} cx - La coordenada X del centro de la estrella.
+ * @param {number} cy - La coordenada Y del centro de la estrella.
+ * @param {number} spikes - El número de puntas de la estrella.
+ * @param {number} outerRadius - El radio exterior de la estrella.
+ * @param {number} innerRadius - El radio interior de la estrella (parte entre las puntas).
+ */
+function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+  let rot = Math.PI / 2 * 3;
+  let x = cx;
+  let y = cy;
+  const step = Math.PI / spikes;
+
+  ctx.beginPath();
+  ctx.moveTo(cx, cy - outerRadius);
+
+  for (let i = 0; i < spikes; i++) {
+    x = cx + Math.cos(rot) * outerRadius;
+    y = cy + Math.sin(rot) * outerRadius;
+    ctx.lineTo(x, y);
+    rot += step;
+
+    x = cx + Math.cos(rot) * innerRadius;
+    y = cy + Math.sin(rot) * innerRadius;
+    ctx.lineTo(x, y);
+    rot += step;
+  }
+
+  ctx.lineTo(cx, cy - outerRadius);
+  ctx.closePath();
 }
 
 /**
@@ -333,6 +391,14 @@ async function setMode(newMode) {
 
   if (mode === MODES.ELLIPSE) {
     $ellipseBtn.classList.add('active');
+    $canvas.style.cursor = 'nw-resize';
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.lineWidth = 2;
+    return;
+  }
+
+  if (mode === MODES.STAR) {
+    $starBtn.classList.add('active');
     $canvas.style.cursor = 'nw-resize';
     ctx.globalCompositeOperation = 'source-over';
     ctx.lineWidth = 2;

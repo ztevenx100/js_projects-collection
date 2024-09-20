@@ -40,8 +40,9 @@ nav{
 }
 
 .canvas-header{
-  background: var(--paint-bg-color);
   grid-area: header;
+  padding-block: 5px;
+  background: var(--paint-bg-color);
   
   button{
     border: 0;
@@ -142,4 +143,9 @@ nav{
   display: flex;
   background: var(--paint-bg-color);
   padding: 0.5rem;
+
+  .canvas-footer__current-color{
+    display: flex;
+    flex-direction: column;
+  }
 }
