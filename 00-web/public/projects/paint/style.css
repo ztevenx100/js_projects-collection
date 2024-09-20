@@ -1,0 +1,151 @@
+:root{
+  --body-bg-color: #fff;
+  --nav-bg-color: #010180;
+  --paint-bg-color: #c0c0c0;
+  --title-color: #fff;
+}
+
+body {
+  --body-bg-color: #222;
+  background-color: var(--body-bg-color);
+}
+
+nav{
+  display: flex;
+  background-color: var(--nav-bg-color);
+  
+  menu{
+    display: flex;
+    padding-block: 5px;
+    
+    li{
+      display: flex;
+    }
+  }
+  
+
+  h1{
+    color: var(--title-color);
+  }
+}
+
+.canvas-container{
+  border: 5px solid var(--paint-bg-color);
+  display: grid;
+  grid-template-areas: 
+    "header header header header"
+    "aside main main main"
+    "footer footer footer footer";
+  margin-top: 3rem;
+}
+
+.canvas-header{
+  grid-area: header;
+  padding-block: 5px;
+  background: var(--paint-bg-color);
+  
+  button{
+    border: 0;
+    background: transparent;
+    padding: 2px;
+    
+    &:hover{
+      box-shadow: 1px 1px #000,
+      inset -1px -1px #333,
+      inset 1px 1px #fff;
+    }
+  }
+}
+
+.canvas-tools{
+  width: 52px;
+  padding-top: 2px;
+  background: var(--paint-bg-color);
+  grid-area: aside;
+  
+  menu{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+  }
+
+  button{
+    width: 24px;
+    height: 24px;
+    background-color: #a0a0a0;
+    background-image: url('/assets/img/icons/draw.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: pixelated;
+    border: 2px solid #fff;
+    border-right-color: #000;
+    border-bottom-color: #000;
+    
+    &.active{
+      background-color: #d0d0d0;
+      border-color: #000;
+      border-right-color: #fff;
+      border-bottom-color: #fff;
+    }
+  }
+}
+
+#erase-btn {
+  background-image: url('/assets/img/icons/erase.png');
+}
+
+#rectangle-btn {
+  background-image: url('/assets/img/icons/rectangle.png');
+}
+
+#ellipse-btn {
+  background-image: url('/assets/img/icons/ellipse.png');
+}
+
+#star-btn {
+  background-image: url('/assets/img/icons/star.png');
+}
+
+#fill-btn {
+  background-image: url('/assets/img/icons/fill.png');
+}
+
+#picker-btn {
+  background-image: url('/assets/img/icons/picker.png');
+}
+
+#clear-btn {
+  background-image: url('/assets/img/icons/trash.png');
+  background-size: 18px;
+}
+
+.canvas-screen{
+  padding: 5px;
+  grid-area: main;
+
+  div{
+    width: 100%;
+    height: 300px;
+  }
+  
+  canvas.canvas-main{
+    background: #fff;
+    height: 300px;
+    width: 100%;
+    
+  }
+}
+
+.canvas-footer{
+  grid-area: footer;
+  display: flex;
+  background: var(--paint-bg-color);
+  padding: 0.5rem;
+
+  .canvas-footer__current-color{
+    display: flex;
+    flex-direction: column;
+  }
+}

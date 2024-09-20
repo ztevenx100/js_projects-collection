@@ -59,19 +59,38 @@ import Layout from '../layouts/Layout.astro';
         height: auto;
         z-index: -1;
     }
-    .text-gradient {
-        background-image: var(--accent-gradient);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-size: 400%;
-        background-position: 0%;
-    }
-    .instructions {
-        margin-bottom: 2rem;
-        border: 1px solid rgba(var(--accent-light), 25%);
-        background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
-        padding: 1.5rem;
-        border-radius: 8px;
+
+    header{
+        margin-top: 2rem;
+
+        & h1{
+
+            @media (min-width: 400px) {
+                font-size: 1.5rem;
+            }
+
+            @media (min-width: 640px) {
+                font-size: 2rem;
+            }
+
+            @media (min-width: 1024px) {
+                font-size: 4rem;
+            }
+            & .text-gradient {
+                background-image: var(--accent-gradient);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-size: 400%;
+                background-position: 0%;
+            }
+        }
+        & .instructions {
+            margin-bottom: 2rem;
+            border: 1px solid rgba(var(--accent-light), 25%);
+            background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
     }
     .instructions code {
         font-size: 0.8em;

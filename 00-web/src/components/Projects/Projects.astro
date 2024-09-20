@@ -24,6 +24,7 @@ const finalProjects = PROJECTS.filter((project) => !project.hidden).slice().reve
                     class=""
                     src={`./projects/${project.image}.webp`}
                     alt={`Captura de pantalla del proyecto ${project.title}`}
+                    onerror="this.onerror=null;this.src='./projects/js-new-project.webp';"
                 />
             </a>
             <div class="project-info">

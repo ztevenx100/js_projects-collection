@@ -72,7 +72,7 @@ function updateCell({ x, y, value }) {
     }
 
     newState[x][y] = cell;
-    computeAllCells(newState, generateCellsConstants(newState));
+    computeAllCells(newState);
     STATE = newState;
     renderSpreadSheet();
 }
@@ -103,11 +103,12 @@ function generateCellsConstants(cells) {
  * @param {Array} cells - La matriz bidimensional que representa las celdas de la hoja de cálculo.
  * @param {string} constants - Las constantes generadas previamente para ser usadas en el cálculo de las celdas.
  */
-function computeAllCells(cells, constants) {
+function computeAllCells(cells) {
     cells.forEach((rows, x) => {
         rows.forEach((cell, y) => {
-            const computedValue = computeValue(cell.value, constants)
-            cell.computedValue = computedValue
+            const constants = generateCellsConstants(cells);
+            const computedValue = computeValue(cell.value, constants);
+            cell.computedValue = computedValue;
         })
     });
 }

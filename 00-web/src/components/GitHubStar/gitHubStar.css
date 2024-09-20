@@ -41,6 +41,7 @@
 
             & div.git-section-tag__label{
                 background-color: rgb(254 240 138 / var(--tw-bg-opacity));
+                border-width: 0;
 
                 & .git-section-tag__star{
                     animation: fade-out-up .6s ease-out both;
@@ -58,11 +59,13 @@
             width: 2rem;
             align-items: center;
             justify-content: center;
+            background: #fff;
             border-radius: .375rem;
             border-width: 0;
-
+            
             svg{
                 --svg-fill: #fff;
+                margin-right: 0;
             }
         }
 
@@ -89,13 +92,13 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                overflow: hidden;
-                border-radius: .375rem;
                 background-color: rgb(243 244 246 / var(--tw-bg-opacity));
                 padding-inline: 1rem;
                 font-size: .75rem;
                 line-height: 1rem;
                 font-weight: 500;
+                border-radius: .375rem;
+                overflow: hidden;
                 transition-property: color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;
                 transition-timing-function: cubic-bezier(.4,0,.2,1);
                 transition-duration: .15s;

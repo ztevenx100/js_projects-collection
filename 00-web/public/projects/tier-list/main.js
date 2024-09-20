@@ -1,15 +1,42 @@
 const $ = el => document.querySelector(el);
 const $$ = els => document.querySelectorAll(els);
+const INITIAL_ROWS = [
+    "s",
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "unknown"
+]
 
+const tierContainer = $('.tier menu');
+addInitialRows(INITIAL_ROWS);
 const imagesInput = $('#images-input');
 const itemsSection = $('.selector-items');
 const resetButton = $('#reset-tier-button');
 const saveButton = $('#save-tier-button');
 
+const levels = $$('.tier .tier-level');
 let draggedElement = null;
 let sourceContainer = null;
 let progressItemSelected = null;
-const levels = $$('.tier .tier-level');
+
+
+function addInitialRows(rows) {
+    rows.forEach(letter => {
+        const row = document.createElement('li');
+        row.className = 'tier-level';
+        row.setAttribute("progress-bar", `progress-item-${letter}`);
+        const aside = document.createElement('aside');
+        aside.className = 'tier-level__label';
+        aside.style.setProperty('--tier-level', `var(--tier-color-${letter})`);
+        aside.innerHTML = `<span contenteditable="true">${letter.toUpperCase()}</span>`;
+        row.appendChild(aside);
+        tierContainer.appendChild(row);
+    })
+}
 
 /**
  * Funcion para el momento en el que el objeto arrastrado este sobre el espacio a dejar.
