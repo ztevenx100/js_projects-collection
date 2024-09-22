@@ -1,5 +1,19 @@
 export const PROJECTS = [
   {
+    slug: "chatgpt-local",
+    title: "ChatGPT local",
+    description: "Usa IA de forma local y gratis. 100% privacidad.",
+    learnings: [
+      "Web Workers",
+      "IA",
+      "ESModules"
+    ],
+    image: "chat-gpt",
+    theme: {
+      isDark: false
+    },
+  },
+  {
     slug: "tetris",
     title: "Tetris en Canvas",
     description: "Prueba técnica que te propone crear el Tetris",

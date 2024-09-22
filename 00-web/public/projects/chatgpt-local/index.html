@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Excel App</title>
+    <meta name="description" content="App del excel con solo Html, Css3 y JavaScript">
+    
+    <!-- Facebook Meta Tags -->
+    <!-- <meta property="og:url" content="https://ztevenx100.github.io/js-tetris/"> -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ChatGPT">
+    <meta property="og:description" content="App del ChatGPT con solo Html, Css3 y JavaScript">
+    <!-- <meta property="og:image" content="./assets/tetris.webp"> -->
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- <meta property="twitter:domain" content="ztevenx100.github.io"> -->
+    <!-- <meta property="twitter:url" content="https://ztevenx100.github.io/js-tetris/"> -->
+    <meta name="twitter:title" content="Excel">
+    <meta name="twitter:description" content="App del ChatGPT con solo Html, Css3 y JavaScript">
+    <!-- <meta name="twitter:image" content="./assets/tetris.webp"> -->
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./main.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <img class="logo" src="/assets/img/png/chargpt.png" alt="chargpt.js" />
+        <h1>Chat GPT local</h1>
+      </nav>
+    </header>
+    
+    <main class="container min-h-screen">
+
+      <article>
+        <ul>
+          <li class="loading">
+            <i></i>
+            <h4>Cargando...</h4>
+            <h5>Esto puede tardar un poco. Paciencia.</h5>
+          </li>
+        </ul>
+      </article>
+
+      <form>
+        <input placeholder="Escribe tu mensaje aquí...">
+        <button disabled>Enviar</button>
+      </form>
+    
+      <small>&nbsp;</small>
+    
+      <template id="message-template">
+        <li class="message">
+          <span></span>
+          <p></p>
+        </li>
+      </template>
+
+    </main>
+
+    <footer class="main-footer">
+      <section class="container main-footer__info">
+        <address>
+            <h1>ChatGPT en JavaScript</h1>
+        </address>
+        <svg class="icon">
+            <use xlink:href="/assets/img/svg/icons.svg#svgHome"/>
+        </svg>
+      </section>
+    </footer>
+  </body>
+</html>
