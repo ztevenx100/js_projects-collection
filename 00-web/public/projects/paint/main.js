@@ -6,7 +6,8 @@ const MODES = {
   ELLIPSE: 'ellipse',
   STAR: 'star',
   FILL: 'fill',
-  PICKER: 'picker'
+  PICKER: 'picker',
+  SAVE: 'save'
 }
 
 // UTILITIES
@@ -24,6 +25,7 @@ const $ellipseBtn = $('#ellipse-btn');
 const $starBtn = $('#star-btn');
 const $fillBtn = $('#fill-btn');
 const $pickerBtn = $('#picker-btn');
+const $saveBtn = $('#save-btn');
 
 const ctx = $canvas.getContext('2d');
 const containerCanvas = $canvas.parentElement;
@@ -86,6 +88,9 @@ $drawBtn.addEventListener('click', () => {
   setMode(MODES.DRAW);
 })
 
+$saveBtn.addEventListener('click', () => {
+  setMode(MODES.SAVE)
+})
 
 // METHODS
 /**
@@ -463,6 +468,20 @@ async function setMode(newMode) {
 
     return;
   }
+
+  if (mode === MODES.SAVE) {
+    ctx.globalCompositeOperation='destination-over';
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, $canvas.width, $canvas.height);
+
+    const link = document.createElement('a');
+    link.href = $canvas.toDataURL();
+    link.download = 'my-paint.png';
+    link.click();
+    setMode(previousMode);
+    return;
+  }
+
 }
 
 function handleKeyDown({ key }) {
