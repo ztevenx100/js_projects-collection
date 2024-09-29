@@ -6,7 +6,8 @@ const MODES = {
   ELLIPSE: 'ellipse',
   STAR: 'star',
   FILL: 'fill',
-  PICKER: 'picker'
+  PICKER: 'picker',
+  SAVE: 'save'
 }
 
 // UTILITIES
@@ -24,6 +25,7 @@ const $ellipseBtn = $('#ellipse-btn');
 const $starBtn = $('#star-btn');
 const $fillBtn = $('#fill-btn');
 const $pickerBtn = $('#picker-btn');
+const $saveBtn = $('#save-btn');
 
 const ctx = $canvas.getContext('2d');
 const containerCanvas = $canvas.parentElement;
@@ -40,10 +42,16 @@ let mode = MODES.DRAW;
 let imageData;
 
 // EVENTS
+// Agregar eventos de ratón y táctiles
 $canvas.addEventListener('mousedown', startDrawing);
 $canvas.addEventListener('mousemove', draw);
 $canvas.addEventListener('mouseup', stopDrawing);
 $canvas.addEventListener('mouseleave', stopDrawing);
+
+// Agregar eventos táctiles
+$canvas.addEventListener('touchstart', startDrawing, { passive: false });
+$canvas.addEventListener('touchmove', draw, { passive: false });
+$canvas.addEventListener('touchend', stopDrawing);
 
 $colorPicker.addEventListener('change', handleChangeColor);
 $clearBtn.addEventListener('click', clearCanvas);
@@ -80,6 +88,9 @@ $drawBtn.addEventListener('click', () => {
   setMode(MODES.DRAW);
 })
 
+$saveBtn.addEventListener('click', () => {
+  setMode(MODES.SAVE)
+})
 
 // METHODS
 /**
@@ -90,17 +101,37 @@ $drawBtn.addEventListener('click', () => {
  * @param {MouseEvent} event - El evento de ratón que contiene las coordenadas del clic en el lienzo.
  */
 function startDrawing(event) {
-  isDrawing = true
+  isDrawing = true;
 
-  const { offsetX, offsetY } = event;
+  const { offsetX, offsetY } = getPointerPosition(event);
 
   // guardar las coordenadas iniciales
   [startX, startY] = [offsetX, offsetY];
   [lastX, lastY] = [offsetX, offsetY];
 
-  imageData = ctx.getImageData(
-    0, 0, $canvas.width, $canvas.height
-  );
+  imageData = ctx.getImageData(0, 0, $canvas.width, $canvas.height);
+}
+
+/**
+ * Obtiene las coordenadas del puntero (ratón o toque) en el canvas.
+ *
+ * @param {MouseEvent|TouchEvent} event - El evento de ratón o táctil.
+ * @returns {Object} Las coordenadas offsetX y offsetY dentro del canvas.
+ */
+function getPointerPosition(event) {
+  let offsetX, offsetY;
+
+  if (event.touches) {
+    const touch = event.touches[0];
+    const rect = $canvas.getBoundingClientRect();
+    offsetX = touch.clientX - rect.left;
+    offsetY = touch.clientY - rect.top;
+  } else {
+    offsetX = event.offsetX;
+    offsetY = event.offsetY;
+  }
+
+  return { offsetX, offsetY };
 }
 
 /**
@@ -112,7 +143,7 @@ function startDrawing(event) {
 function draw(event) {
   if (!isDrawing) return;
 
-  const { offsetX, offsetY } = event;
+  const { offsetX, offsetY } = getPointerPosition(event);
 
   if (mode === MODES.DRAW || mode === MODES.ERASE) {
     // comenzar un trazado
@@ -244,7 +275,7 @@ function drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius) {
  * @param {number} y - La posición Y donde se hizo clic.
  */
 function fill(x, y) {
-  const imageData = ctx.getImageData(0, 0, $canvas.width, $canvas.height);
+  imageData = ctx.getImageData(0, 0, $canvas.width, $canvas.height);
   const pixelStack = [[x, y]];
   const startColor = getPixelColor(imageData, x, y);
   const fillColor = hexToRgba($colorPicker.value); // Color deseado para rellenar
@@ -437,6 +468,20 @@ async function setMode(newMode) {
 
     return;
   }
+
+  if (mode === MODES.SAVE) {
+    ctx.globalCompositeOperation='destination-over';
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, $canvas.width, $canvas.height);
+
+    const link = document.createElement('a');
+    link.href = $canvas.toDataURL();
+    link.download = 'my-paint.png';
+    link.click();
+    setMode(previousMode);
+    return;
+  }
+
 }
 
 function handleKeyDown({ key }) {

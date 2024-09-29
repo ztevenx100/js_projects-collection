@@ -121,6 +121,11 @@ nav{
   background-size: 18px;
 }
 
+#save-btn {
+  background-image: url('/assets/img/icons/save.png');
+  background-size: 18px;
+}
+
 .canvas-screen{
   padding: 5px;
   grid-area: main;
