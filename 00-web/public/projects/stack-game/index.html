@@ -11,15 +11,15 @@
     <!-- <meta property="og:url" content="https://ztevenx100.github.io/js-tetris/"> -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Excel">
-    <meta property="og:description" content="App del paint con solo Html, Css3 y JavaScript">
+    <meta property="og:description" content="App del stack game con solo Html, Css3 y JavaScript">
     <!-- <meta property="og:image" content="./assets/tetris.webp"> -->
     
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <!-- <meta property="twitter:domain" content="ztevenx100.github.io"> -->
     <!-- <meta property="twitter:url" content="https://ztevenx100.github.io/js-tetris/"> -->
-    <meta name="twitter:title" content="Paint">
-    <meta name="twitter:description" content="App del paint con solo Html, Css3 y JavaScript">
+    <meta name="twitter:title" content="Stack Game">
+    <meta name="twitter:description" content="App del stack game con solo Html, Css3 y JavaScript">
     <!-- <meta name="twitter:image" content="./assets/tetris.webp"> -->
     <link rel="stylesheet" href="./style.css">
     <script type="module" src="./main.js"></script>
@@ -39,41 +39,8 @@
     <main class="container min-h-screen ">
       
       <article class="canvas-container">
-        <header class="canvas-header">
-          <button>File</button>
-          <button>Edit</button>
-          <button>View</button>
-          <button>Image</button>
-          <button>Options</button>
-          <button>Help</button>
-        </header>
-
-        <aside class="canvas-tools">
-          <menu>
-            <button id="draw-btn" title="Pincel"></button>
-            <button id="erase-btn" title="Borrar"></button>
-            <button id="rectangle-btn" title="Rectángulo"></button>
-            <button id="ellipse-btn" title="Elipse"></button>
-            <button id="star-btn" title="Estrella"></button>
-            <button id="fill-btn" title="Rellenar"></button>
-            <button disabled id="picker-btn" title="Capturar Color"></button>
-            <button id="clear-btn" title="Limpiar dibujo"></button>
-            <button id="save-btn" title="Guardar dibujo"></button>
-          </menu>
-        </aside>
-
-        <section class="canvas-screen">
-          <div>
-            <canvas id="canvas" class="canvas-main" ></canvas>
-          </div>
-        </section>
-
-        <footer class="canvas-footer">
-          <section class="canvas-footer__current-color">
-            <input type="color" id="color-picker" value="#000000">
-            <input type="color" id="color-picker-secondary" value="#ffffff">
-          </section>
-        </footer>
+        <span>Puntuación: <span id="score">0</span></span>
+        <canvas id="canvas" width="320" height="500"></canvas>
       </article>
 
     </main>
@@ -81,7 +48,7 @@
     <footer>
       <section class="container main-footer__info">
         <address>
-          <h1>Paint en JavaScript</h1>
+          <h1>Stack Game en JavaScript</h1>
         </address>
         <svg class="icon">
             <use xlink:href="/assets/img/svg/icons.svg#svgHome"/>
