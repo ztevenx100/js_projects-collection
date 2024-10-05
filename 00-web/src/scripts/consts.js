@@ -69,4 +69,18 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "stack-game",
+    title: "Stack game con Canvas",
+    description: "Juego donde hay que apilar las piezas verticalmente",
+    learnings: [
+      "Canvas",
+      "Lógica de programación",
+      "Eventos de teclado"
+    ],
+    image: "stack-game",
+    theme: {
+      isDark: true
+    },
+  },
 ]
