@@ -137,5 +137,26 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                6
+            </td>
+            <td>
+                **Stack Game**
+            </td>
+            <td>
+                 Stack game local con HTML, CSS y JavaScript
+            </td>
+            <td>
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/stack-game">
+                    <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
+                </a>
+            </td>
+            <td>
+                <a href="https://js-projects-collection-gamma.vercel.app/stack-game">
+                    <img src="https://img.shields.io/badge/Website-000?logo=vercel&logoColor=fff&style=flat-square" />
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
