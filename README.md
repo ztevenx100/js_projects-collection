@@ -37,7 +37,7 @@
                 1
             </td>
             <td>
-                **Chat GPT**
+                Chat GPT
             </td>
             <td>
                  ChatGPT local con HTML, CSS y JavaScript
@@ -58,7 +58,7 @@
                 2
             </td>
             <td>
-                **Tetris**
+                Tetris
             </td>
             <td>
                  Tetris con HTML, CSS y JavaScript
@@ -79,7 +79,7 @@
                 3
             </td>
             <td>
-                **Tier Maker list**
+                Tier Maker list
             </td>
             <td>
                 Tier list con HTML, CSS y JavaScript
@@ -100,7 +100,7 @@
                 4
             </td>
             <td>
-                **Excel**
+                Excel
             </td>
             <td>
                  Excel local con HTML, CSS y JavaScript
@@ -121,7 +121,7 @@
                 5
             </td>
             <td>
-                **Paint**
+                Paint
             </td>
             <td>
                  Paint local con HTML, CSS y JavaScript
@@ -142,7 +142,7 @@
                 6
             </td>
             <td>
-                **Stack Game**
+                Stack Game
             </td>
             <td>
                  Stack game local con HTML, CSS y JavaScript
