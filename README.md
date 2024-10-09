@@ -1,16 +1,16 @@
 # Proyectos en Javascript
 
 <div align="center">
-    <a href="">
-    <img src="" /> 
+    <a href="https://js-projects-collection-gamma.vercel.app">
+    <img src="https://media.licdn.com/dms/image/C4E12AQFvA2Dw_vSK3Q/article-cover_image-shrink_600_2000/0/1520185205297?e=2147483647&v=beta&t=OX78T7hehJuWP4rxagMtleGcrVBI9eCm3YGgXxZniRQ" /> 
     </a>
   <h3>
-    <strong>Proyectos de JavaScript con código y vídeos</strong>
+    <strong>Proyectos de JavaScript con su respectivo código</strong>
   </h3>
 </div>
 
 <div align="center">
-    <a href="">
+    <a href="https://js-projects-collection-gamma.vercel.app">
         Website
     </a>
     <span>&nbsp;❖&nbsp;</span>
