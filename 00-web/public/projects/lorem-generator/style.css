@@ -1,12 +1,12 @@
 :root{
-  --body-bg-color: #fff;
-  --nav-bg-color: #F56117;
-  --paint-bg-color: #c0c0c0;
+  --body-bg-color: #6D9DC5;
+  --main-bg-color: #F5F9E9;
+  --nav-bg-color: #152B55;
   --title-color: #fff;
 }
 
 body {
-  --body-bg-color: #222;
+  --body-bg-color: #6D9DC5;
   background-color: var(--body-bg-color);
 }
 
@@ -25,5 +25,58 @@ nav{
   
   h1{
     color: var(--title-color);
+  }
+}
+
+main{
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  background-color: var(--main-bg-color);
+  
+  section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+  }
+}
+
+form.form-lorem{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  input{
+    width: 100%;
+    border: 1px solid var(--body-bg-color);
+    border-radius: 2px;
+  }
+
+  button.btn{
+    width: 100%;
+    padding: 2px;
+    background-color: var(--nav-bg-color);
+    color: #fff;
+    border-width: 0;
+    border-radius: 2px;
+  }
+}
+
+
+footer{
+  padding: 10px;
+  background-color: var(--nav-bg-color);
+  border-top: 1px solid #fff;
+
+  .main-footer__info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    --icon-color: #fff;
   }
 }

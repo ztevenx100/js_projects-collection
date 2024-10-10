@@ -41,15 +41,19 @@
           <form class="form-lorem">
             <label for="amount">Parrafos:</label>
             <input type="number" name="amount" id="amount" placeholder="5">
-            <button type="submit"></button>
+            <button type="button" id="copy-text" class="btn form-btn">Copiar texto</button>
+            <button type="submit" class="btn form-btn">Generar</button>
           </form>
+
+          <article class="lorem-text">
+          </article>
         </section>
     </main>
 
     <footer>
       <section class="container main-footer__info">
         <address>
-          <h1>Stack Game en JavaScript</h1>
+          <h1>Generador Lorem Ipsum en JavaScript</h1>
         </address>
         <svg class="icon">
             <use xlink:href="/assets/img/svg/icons.svg#svgHome"/>
