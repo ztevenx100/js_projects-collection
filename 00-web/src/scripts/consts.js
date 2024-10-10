@@ -91,7 +91,7 @@ export const PROJECTS = [
       "Lógica de programación",
       "método slice",
     ],
-    image: "lorem-generador",
+    image: "lorem-generator",
     theme: {
       isDark: false
     },
