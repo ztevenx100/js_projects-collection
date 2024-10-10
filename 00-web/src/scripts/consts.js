@@ -83,4 +83,17 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "lorem-generador",
+    title: "Generador Lorem Ipsum",
+    description: "Generador Lorem Ipsum",
+    learnings: [
+      "Lógica de programación",
+      "método slice",
+    ],
+    image: "lorem-generador",
+    theme: {
+      isDark: true
+    },
+  },
 ]

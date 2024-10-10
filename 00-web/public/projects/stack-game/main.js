@@ -136,11 +136,11 @@ function drawBackground() {
 }
 
 function drawDebris() {
-  const { x, y, width } = debris
-  const newY = INITIAL_BOX_Y - y + cameraY
+  const { x, y, width } = debris;
+  const newY = INITIAL_BOX_Y - y + cameraY;
 
-  context.fillStyle = 'red'
-  context.fillRect(x, newY, width, BOX_HEIGHT)
+  context.fillStyle = 'red';
+  context.fillRect(x, newY, width, BOX_HEIGHT);
 }
 
 /**
@@ -177,12 +177,12 @@ function createNewBox() {
 }
 
 function createNewDebris(difference) {
-  const currentBox = boxes[current]
-  const previousBox = boxes[current - 1]
+  const currentBox = boxes[current];
+  const previousBox = boxes[current - 1];
 
   const debrisX = currentBox.x > previousBox.x
     ? currentBox.x + currentBox.width
-    : currentBox.x
+    : currentBox.x;
 
   debris = {
     x: debrisX,
@@ -197,13 +197,13 @@ function createNewDebris(difference) {
  * @returns {void}
  */
 function updateFallMode() {
-  const currentBox = boxes[current]
-  currentBox.y -= ySpeed
+  const currentBox = boxes[current];
+  currentBox.y -= ySpeed;
 
-  const positionPreviousBox = boxes[current - 1].y + BOX_HEIGHT
+  const positionPreviousBox = boxes[current - 1].y + BOX_HEIGHT;
 
   if (currentBox.y === positionPreviousBox) {
-    handleBoxLanding()
+    handleBoxLanding();
   }
 }
 
@@ -214,14 +214,14 @@ function updateFallMode() {
  * @returns {void}
  */
 function adjustCurrentBox(difference) {
-  const currentBox = boxes[current]
-  const previousBox = boxes[current - 1]
+  const currentBox = boxes[current];
+  const previousBox = boxes[current - 1];
 
   if (currentBox.x > previousBox.x) {
-    currentBox.width -= difference
+    currentBox.width -= difference;
   } else {
-    currentBox.width += difference
-    currentBox.x = previousBox.x
+    currentBox.width += difference;
+    currentBox.x = previousBox.x;
   }
 }
 
@@ -284,37 +284,36 @@ function handleBoxLanding() {
  * @returns {void}
  */
 function moveAndDetectCollision() {
-  const currentBox = boxes[current]
-  currentBox.x += xSpeed
+  const currentBox = boxes[current];
+  currentBox.x += xSpeed;
 
-  const isMovingRight = xSpeed > 0
-  const isMovingLeft = xSpeed < 0
+  const isMovingRight = xSpeed > 0;
+  const isMovingLeft = xSpeed < 0;
 
-  const hasHitRightSide =
-    currentBox.x + currentBox.width > canvas.width
+  const hasHitRightSide = currentBox.x + currentBox.width > canvas.width;
 
-  const hasHitLeftSide = currentBox.x < 0
+  const hasHitLeftSide = currentBox.x < 0;
 
   if (
     (isMovingRight && hasHitRightSide) ||
     (isMovingLeft && hasHitLeftSide)
   ) {
-    xSpeed = -xSpeed
+    xSpeed = -xSpeed;
   }
 }
 
 document.addEventListener('keydown', (event) => {
   if (event.key === ' ' && mode === MODES.BOUNCE) {
-    mode = MODES.FALL
+    mode = MODES.FALL;
   }
 })
 
 canvas.onpointerdown = () => {
   if (mode === MODES.GAMEOVER) {
-    restart()
+    restart();
   } else if (mode === MODES.BOUNCE) {
-    mode = MODES.FALL
+    mode = MODES.FALL;
   }
 }
 
-restart()
+restart();
