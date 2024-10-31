@@ -19,7 +19,7 @@
     </a>
 </div>
 
-## lista de proyectos
+## Lista de proyectos en javascript
 
 <table>
     <thead>
