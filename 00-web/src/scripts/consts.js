@@ -1,6 +1,6 @@
 export const PROJECTS = [
   {
-    slug: "chatgpt-local",
+    slug: "01-chatgpt-local",
     title: "ChatGPT local",
     description: "Usa IA de forma local y gratis. 100% privacidad.",
     learnings: [
@@ -94,6 +94,20 @@ export const PROJECTS = [
     image: "lorem-generator",
     theme: {
       isDark: false
+    },
+  },
+  {
+    slug: "08-js-perf-benchmark",
+    title: "JS perf benchmark",
+    description: "Usa IA de forma local y gratis. 100% privacidad.",
+    learnings: [
+      "Web Workers",
+      "IA",
+      "ESModules"
+    ],
+    image: "js-perf-benchmark",
+    theme: {
+      isDark: true
     },
   },
 ]
