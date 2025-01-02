@@ -1,0 +1,47 @@
+:root{
+  --body-bg-color: #fff;
+  --nav-bg-color: #F56117;
+  --paint-bg-color: #c0c0c0;
+  --title-color: #fff;
+}
+
+body {
+  --body-bg-color: #222;
+  background-color: var(--body-bg-color);
+}
+
+nav{
+  display: flex;
+  background-color: var(--nav-bg-color);
+  
+  menu{
+    display: flex;
+    padding-block: 5px;
+    
+    li{
+      display: flex;
+    }
+  }
+  
+
+  h1{
+    color: var(--title-color);
+  }
+}
+
+.canvas-container{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  border: 1px solid white;
+}
+
+span {
+  color: white;
+  font-size: 12px;
+}
