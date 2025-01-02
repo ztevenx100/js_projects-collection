@@ -84,7 +84,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "lorem-generator",
+    slug: "07-lorem-generator",
     title: "Generador Lorem Ipsum",
     description: "Generador Lorem Ipsum",
     learnings: [
