@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS Perf Benchmark</title>
+    <meta name="description" content="App del JS Perf Benchmark con solo Html, Css3 y JavaScript">
+    
+    <!-- Facebook Meta Tags -->
+    <!-- <meta property="og:url" content="https://ztevenx100.github.io/js-tetris/"> -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="JS Perf Benchmark">
+    <meta property="og:description" content="JS Perf Benchmark con solo Html, Css3 y JavaScript">
+    <!-- <meta property="og:image" content="./projects/tetris.webp"> -->
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- <meta property="twitter:domain" content="ztevenx100.github.io"> -->
+    <!-- <meta property="twitter:url" content="https://ztevenx100.github.io/js-tetris/"> -->
+    <meta name="twitter:title" content="JS Perf Benchmark">
+    <meta name="twitter:description" content="JS Perf Benchmark con solo Html, Css3 y JavaScript">
+    <!-- <meta name="twitter:image" content="./projects/tetris.webp"> -->
+    <link rel="stylesheet" href="./style.css">
+    <script type="module" src="./main.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav >
+        <menu class="container">
+          <li>
+            <h1>JS Perf Benchmark</h1>
+          </li>
+        </menu>
+      </nav>
+    </header>
+    
+    <main class="container min-h-screen ">
+      <section class="code-on-test">
+        <header><h2>Global</h2></header>
+          <textarea name="global" id="global" class="code" rows="1">const data = [...Array(1000).keys()]</textarea>
+      </section>
+      <section class="content">
+        <header><h2>Test Cases</h2></header>
+        <div class="test-cases">
+
+          <article class="test-case">
+            <header>
+              <span>1</span>
+              <span class="ops">203,360 ops/s</span>
+            </header>
+            <textarea name="test-case-code" id="test-case-code" class="code" rows="1">data.find(x => x == 100)</textarea>
+          </article>
+
+          <article class="test-case">
+            <header>
+              <span>2</span>
+              <span class="ops">156,360 ops/s</span>
+            </header>
+            <textarea name="test-case-code" id="test-case-code" class="code" rows="1">data.find(x => x == 200)</textarea>
+          </article>
+
+          <article class="test-case">
+            <header>
+              <span>3</span>
+              <span class="ops">105,360 ops/s</span>
+            </header>
+            <textarea name="test-case-code" id="test-case-code" class="code" rows="1">data.find(x => x == 400)</textarea>
+          </article>
+
+          <article class="test-case">
+            <header>
+              <span>4</span>
+              <span class="ops">50,360 ops/s</span>
+            </header>
+            <textarea name="test-case-code" id="test-case-code" class="code" rows="1">data.find(x => x == 800)</textarea>
+          </article>
+
+        </div>
+
+        <button class="send-button">Benchmark code! 🚀</button>
+      </section>
+
+      <aside class="chart-container">
+        <svg class="chart" viewBox="0 0 200 300">
+          <rect class="bar" x="20" y="-300" width="2" height="300" fill="green"></rect>
+          <rect class="bar" x="70" y="-300" width="2" height="50" fill="yellow"></rect>
+          <rect class="bar" x="120" y="-300" width="2" height="80" fill="orange"></rect>
+          <rect class="bar" x="170" y="-300" width="2" height="100" fill="red"></rect>
+        </svg>
+  
+        <div class="percentages">
+          <span class="percentage">100%</span>
+          <span class="percentage">40%</span>
+          <span class="percentage">60%</span>
+          <span class="percentage">80%</span>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <section class="container main-footer__info">
+        <address>
+          <h1>JS Perf Benchmark</h1>
+        </address>
+        <svg class="icon">
+            <use xlink:href="./assets/img/svg/icons.svg#svgHome"/>
+        </svg>
+      </section>
+    </footer>
+  </body>
+</html>
