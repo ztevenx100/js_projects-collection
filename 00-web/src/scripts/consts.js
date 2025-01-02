@@ -56,7 +56,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "paint",
+    slug: "05-paint",
     title: "Paint con Canvas",
     description: "Crea un editor de imágenes clásico con <canvas>",
     learnings: [
