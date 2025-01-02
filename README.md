@@ -200,6 +200,27 @@
                 </a>
             </td>
         </tr>
+        <tr>
+            <td>
+                9
+            </td>
+            <td>
+                ???
+            </td>
+            <td>
+                ??? con HTML, CSS y JavaScript
+            </td>
+            <td>
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/js-perf-benchmark">
+                    <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
+                </a>
+            </td>
+            <td>
+                <a href="https://js-projects-collection-gamma.vercel.app/08-js-perf-benchmark">
+                    <img src="https://img.shields.io/badge/Website-000?logo=vercel&logoColor=fff&style=flat-square" />
+                </a>
+            </td>
+        </tr>
     </tbody>
 </table>
 
