@@ -2,7 +2,7 @@ export const PROJECTS = [
   {
     slug: "01-chatgpt-local",
     title: "ChatGPT local",
-    description: "Usa IA de forma local y gratis. 100% privacidad.",
+    description: "Usa IA de forma local y gratis. 100% privacidad",
     learnings: [
       "Web Workers",
       "IA",
@@ -44,7 +44,7 @@ export const PROJECTS = [
   {
     slug: "04-excel",
     title: "Excel en js",
-    description: "Arrastra y suelta las imágenes para crear tus propias listas de niveles",
+    description: "Crea tu propio Excel sin dependencias y funcional",
     learnings: [
       "Tablas",
       "Eventos de Input: focus y blur",
@@ -99,7 +99,7 @@ export const PROJECTS = [
   {
     slug: "08-js-perf-benchmark",
     title: "JS perf benchmark",
-    description: "Usa IA de forma local y gratis. 100% privacidad.",
+    description: "App para revisar el rendimiento de tu código JavaScript",
     learnings: [
       "Web Workers",
       "IA",
