@@ -42,7 +42,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "excel",
+    slug: "04-excel",
     title: "Excel en js",
     description: "Arrastra y suelta las imágenes para crear tus propias listas de niveles",
     learnings: [
