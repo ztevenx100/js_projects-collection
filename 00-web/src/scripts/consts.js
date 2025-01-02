@@ -28,7 +28,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "tier-list",
+    slug: "03-tier-list",
     title: "Tier Maker",
     description: "Arrastra y suelta las imágenes para crear tus propias listas de niveles",
     learnings: [
