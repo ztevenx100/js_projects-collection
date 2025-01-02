@@ -14,7 +14,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "tetris",
+    slug: "02-tetris",
     title: "Tetris en Canvas",
     description: "Prueba técnica que te propone crear el Tetris",
     learnings: [
@@ -28,7 +28,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "tier-list",
+    slug: "03-tier-list",
     title: "Tier Maker",
     description: "Arrastra y suelta las imágenes para crear tus propias listas de niveles",
     learnings: [
@@ -42,7 +42,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "excel",
+    slug: "04-excel",
     title: "Excel en js",
     description: "Arrastra y suelta las imágenes para crear tus propias listas de niveles",
     learnings: [
@@ -56,7 +56,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "paint",
+    slug: "05-paint",
     title: "Paint con Canvas",
     description: "Crea un editor de imágenes clásico con <canvas>",
     learnings: [
@@ -70,7 +70,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "stack-game",
+    slug: "06-stack-game",
     title: "Stack game con Canvas",
     description: "Juego donde hay que apilar las piezas verticalmente",
     learnings: [
@@ -84,7 +84,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "lorem-generator",
+    slug: "07-lorem-generator",
     title: "Generador Lorem Ipsum",
     description: "Generador Lorem Ipsum",
     learnings: [
