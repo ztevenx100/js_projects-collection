@@ -14,7 +14,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "tetris",
+    slug: "02-tetris",
     title: "Tetris en Canvas",
     description: "Prueba técnica que te propone crear el Tetris",
     learnings: [
