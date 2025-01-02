@@ -70,7 +70,7 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "stack-game",
+    slug: "06-stack-game",
     title: "Stack game con Canvas",
     description: "Juego donde hay que apilar las piezas verticalmente",
     learnings: [
