@@ -110,4 +110,18 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "09-moto-scroll",
+    title: "Animación por Scroll",
+    description: "Anima el fondo de una web a través del scroll",
+    learnings: [
+      "Scroll",
+      "Animaciones",
+      "Performance"
+    ],
+    image: "moto-scroll",
+    theme: {
+      isDark: true
+    },
+  },
 ]
