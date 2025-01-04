@@ -9,7 +9,7 @@ const MAX_FRAMES = 151;
 let currentFrame = 0;
 
 function getSrcImage(frame) {
-  const id = `${(frame + 1).toString().padStart(3,'0')}`;
+  const id = `${(frame).toString().padStart(3,'0')}`;
   const src = `assets/img/frames/moto-${id}.webp`;
   return src;
 }
