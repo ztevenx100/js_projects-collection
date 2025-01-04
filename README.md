@@ -43,7 +43,7 @@
                  ChatGPT local con HTML, CSS y JavaScript
             </td>
             <td>
-                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/chatgpt-local">
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/01-chatgpt-local">
                     <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
                 </a>
             </td>
@@ -64,12 +64,12 @@
                  Tetris con HTML, CSS y JavaScript
             </td>
             <td>
-                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/tetris">
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/02-tetris">
                     <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
                 </a>
             </td>
             <td>
-                <a href="https://js-projects-collection-gamma.vercel.app/tetris">
+                <a href="https://js-projects-collection-gamma.vercel.app/02-tetris">
                     <img src="https://img.shields.io/badge/Website-000?logo=vercel&logoColor=fff&style=flat-square" />
                 </a>
             </td>
@@ -85,12 +85,12 @@
                 Tier list con HTML, CSS y JavaScript
             </td>
             <td>
-                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/tier-list">
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/03-tier-list">
                     <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
                 </a>
             </td>
             <td>
-                <a href="https://js-projects-collection-gamma.vercel.app/tier-list">
+                <a href="https://js-projects-collection-gamma.vercel.app/03-tier-list">
                     <img src="https://img.shields.io/badge/Website-000?logo=vercel&logoColor=fff&style=flat-square" />
                 </a>
             </td>
@@ -106,12 +106,12 @@
                  Excel local con HTML, CSS y JavaScript
             </td>
             <td>
-                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/excel">
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/04-excel">
                     <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
                 </a>
             </td>
             <td>
-                <a href="https://js-projects-collection-gamma.vercel.app/excel">
+                <a href="https://js-projects-collection-gamma.vercel.app/04-excel">
                     <img src="https://img.shields.io/badge/Website-000?logo=vercel&logoColor=fff&style=flat-square" />
                 </a>
             </td>
@@ -127,12 +127,12 @@
                  Paint local con HTML, CSS y JavaScript
             </td>
             <td>
-                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/paint">
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/05-paint">
                     <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
                 </a>
             </td>
             <td>
-                <a href="https://js-projects-collection-gamma.vercel.app/paint">
+                <a href="https://js-projects-collection-gamma.vercel.app/05-paint">
                     <img src="https://img.shields.io/badge/Website-000?logo=vercel&logoColor=fff&style=flat-square" />
                 </a>
             </td>
@@ -148,12 +148,12 @@
                  Stack game local con HTML, CSS y JavaScript
             </td>
             <td>
-                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/stack-game">
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/06-stack-game">
                     <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
                 </a>
             </td>
             <td>
-                <a href="https://js-projects-collection-gamma.vercel.app/stack-game">
+                <a href="https://js-projects-collection-gamma.vercel.app/06-stack-game">
                     <img src="https://img.shields.io/badge/Website-000?logo=vercel&logoColor=fff&style=flat-square" />
                 </a>
             </td>
@@ -169,12 +169,12 @@
                  Generador de lorem ipsum con HTML, CSS y JavaScript
             </td>
             <td>
-                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/lorem-generator">
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/07-lorem-generator">
                     <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
                 </a>
             </td>
             <td>
-                <a href="https://js-projects-collection-gamma.vercel.app/lorem-generator">
+                <a href="https://js-projects-collection-gamma.vercel.app/07-lorem-generator">
                     <img src="https://img.shields.io/badge/Website-000?logo=vercel&logoColor=fff&style=flat-square" />
                 </a>
             </td>
@@ -190,7 +190,7 @@
                 Perf Benchmark con HTML, CSS y JavaScript
             </td>
             <td>
-                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/js-perf-benchmark">
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/08-js-perf-benchmark">
                     <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
                 </a>
             </td>
@@ -205,18 +205,18 @@
                 9
             </td>
             <td>
-                ???
+                moto-scroll
             </td>
             <td>
-                ??? con HTML, CSS y JavaScript
+                moto-scroll con HTML, CSS y JavaScript
             </td>
             <td>
-                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/js-perf-benchmark">
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/09-moto-scroll">
                     <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
                 </a>
             </td>
             <td>
-                <a href="https://js-projects-collection-gamma.vercel.app/08-js-perf-benchmark">
+                <a href="https://js-projects-collection-gamma.vercel.app/09-moto-scroll">
                     <img src="https://img.shields.io/badge/Website-000?logo=vercel&logoColor=fff&style=flat-square" />
                 </a>
             </td>
