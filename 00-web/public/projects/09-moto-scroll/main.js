@@ -8,8 +8,24 @@ const img = document.querySelector('#img');
 const MAX_FRAMES = 151;
 let currentFrame = 0;
 
+function getSrcImage(frame) {
+  const id = `${(frame + 1).toString().padStart(3,'0')}`;
+  const src = `assets/img/frames/moto-${id}.webp`;
+  return src;
+}
+
+function preloadImages() {
+  Array.from({ length: MAX_FRAMES}, (_,index) => {
+    const img = new Image();
+    img.src = getSrcImage(index);
+  })
+}
+
+preloadImages();
+
 function updateImage(frame = 0) {
-  const src = images[frame].p;
+  const src = getSrcImage(frame);
+  //const src = images[frame].p;
   //img.src = src;
   img.style.backgroundImage = `url('${src}')`;
 }
