@@ -226,18 +226,18 @@
                 10
             </td>
             <td>
-                ???
+                Buscar info IP
             </td>
             <td>
-                ??? con HTML, CSS y JavaScript
+                Llama a una api para obtener información de cualquier IP con HTML, CSS y JavaScript
             </td>
             <td>
-                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/09-moto-scroll">
+                <a href="https://github.com/ztevenx100/js_projects-collection/tree/main/10-api-geo-ip">
                     <img src="https://img.shields.io/badge/Código-181717?logo=github&logoColor=fff&style=flat-square" />
                 </a>
             </td>
             <td>
-                <a href="https://js-projects-collection-gamma.vercel.app/09-moto-scroll">
+                <a href="https://js-projects-collection-gamma.vercel.app/10-api-geo-ip">
                     <img src="https://img.shields.io/badge/Website-000?logo=vercel&logoColor=fff&style=flat-square" />
                 </a>
             </td>
