@@ -1,0 +1,5 @@
+{
+	"devDependencies": {
+		"@astrojs/sitemap": "^3.4.1"
+	}
+}
