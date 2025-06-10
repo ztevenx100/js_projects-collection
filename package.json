@@ -1,0 +1,17 @@
+{
+	"name": "js-projects-collection",
+	"version": "1.0.0",
+	"private": true,
+	"engines": {
+		"node": "18.x"
+	},
+	"scripts": {
+		"build": "cd 00-web && pnpm build",
+		"dev": "cd 00-web && pnpm dev"
+	},
+	"devDependencies": {
+		"@astrojs/sitemap": "^3.4.1",
+		"astro": "^5.7.11",
+		"zod": "^3.24.4"
+	}
+}

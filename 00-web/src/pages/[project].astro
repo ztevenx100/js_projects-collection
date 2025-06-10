@@ -2,8 +2,8 @@
 import { PROJECTS } from "../scripts/consts"
 import InfoProject from "../components/InfoProject/InfoProject.astro"
 import Layout from "../layouts/Layout.astro"
-import BaseCss from '../styles/_base.css?raw';
-import LayoutCss from '../styles/_layout.css?raw';
+import BaseCss from '../styles/_base.css?raw'
+import LayoutCss from '../styles/_layout.css?raw'
 
 export function getStaticPaths() {
   return PROJECTS.map((project) => {
@@ -28,12 +28,12 @@ console.log('x: ' ,BaseCss.length);
   <input type="hidden" id="baseCss" value={`${BaseCss}`} >
   <input type="hidden" id="layoutCss" value={`${LayoutCss}`} >
 
-  <iframe id="project-iframe" title={`${info.title}`} class="project-page w-screen h-dvh" src={`/projects/${project}/index.html`} ></iframe>
+  <iframe id="project-iframe" title={`${info.title}`} class="project-page w-screen h-dvh" src={`/projects/${project}/index.html`} loading="lazy"></iframe>
   <InfoProject info={{ ...info, number }} />
 
 </Layout>
 
-<script type="module" >
+<script type="module" defer>
   /** @constant
     @type {object}
     @default

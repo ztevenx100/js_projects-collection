@@ -1,0 +1,5 @@
+{
+  "framework": null,
+  "outputDirectory": "dist",
+  "buildCommand": "npm install -g pnpm && pnpm install && pnpm build"
+}
