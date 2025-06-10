@@ -9,7 +9,12 @@
     "preview": "astro preview",
     "astro": "astro"
   },
-  "dependencies": {
-    "astro": "^5.7.11"
+  "devDependencies": {
+    "@astrojs/sitemap": "^3.4.1",
+    "astro": "^5.7.11",
+    "zod": "^3.24.4"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }

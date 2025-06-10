@@ -1,5 +1,4 @@
 ---
-import { ViewTransitions } from "astro:transitions"
 import "../styles/_global.css"
 import "../styles/_base.css"
 import "../styles/_layout.css"
@@ -40,8 +39,6 @@ const { title } = Astro.props;
         <meta name="twitter:title" content="{title}">
         <meta name="twitter:description" content="{description}">
         <meta name="twitter:image" content="/assets/projects/{image}.webp">
-
-        <ViewTransitions />
     </head>
     <body>
         <style is:global>
