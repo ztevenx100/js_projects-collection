@@ -63,6 +63,7 @@ function startGame() {
 function createBoard() {
     memoryBoard.innerHTML = '';
     memoryBoard.style.gridTemplateColumns = `repeat(${gameSize}, 1fr)`;
+    memoryBoard.setAttribute('data-size', gameSize);
     
     // Determinar cuántas cartas necesitamos (gameSize^2)
     const totalCards = gameSize * gameSize;

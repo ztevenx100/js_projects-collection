@@ -109,10 +109,13 @@ select {
     gap: 1rem;
     perspective: 1000px;
     max-width: 100%;
+    width: 100%;
 }
 
 .memory-card {
     height: 120px;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* Mantiene las cartas cuadradas */
     position: relative;
     transform-style: preserve-3d;
     transform: scale(1);
@@ -203,14 +206,29 @@ footer {
     margin-top: auto;
 }
 
+/* Estilos específicos para diferentes tamaños de tablero */
+.memory-game[data-size="4"] {
+    max-width: 500px;
+}
+
+.memory-game[data-size="6"] {
+    max-width: 650px;
+}
+
+.memory-game[data-size="8"] {
+    max-width: 800px;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .memory-game {
         gap: 0.5rem;
+        width: 95%;
     }
     
     .memory-card {
-        height: 100px;
+        aspect-ratio: 1 / 1;
+        min-width: 80px;
     }
 }
 
@@ -220,8 +238,12 @@ footer {
         gap: 0.5rem;
     }
     
+    .memory-game {
+        gap: 0.3rem;
+    }
+    
     .memory-card {
-        height: 80px;
+        min-width: 60px;
     }
     
     .front-face, .back-face {
