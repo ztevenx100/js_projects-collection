@@ -152,4 +152,18 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "12-memory-game",
+    title: "Memory Game",
+    description: "Juego de memoria con cartas donde debes encontrar los pares coincidentes",
+    learnings: [
+      "Manipulación del DOM",
+      "Algoritmo de Fisher-Yates",
+      "CSS Grid y Flexbox"
+    ],
+    image: "memory-game",
+    theme: {
+      isDark: false
+    },
+  },
 ]
