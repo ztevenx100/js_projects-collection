@@ -1,0 +1,159 @@
+:root {
+    --primary-color: #f7df1e;
+    --secondary-color: #323330;
+    --text-color: #333;
+    --light-bg: #f8f9fa;
+    --card-bg: #fff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+main {
+    flex: 1;
+    padding: 2rem 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.search-container {
+    margin-bottom: 2rem;
+}
+
+form {
+    display: flex;
+    gap: 10px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: var(--transition);
+}
+
+input[type="text"]:focus {
+    border-color: var(--primary-color);
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+button:hover {
+    background-color: #e6d017;
+    transform: translateY(-2px);
+}
+
+.weather-container {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    text-align: center;
+}
+
+.weather-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem 0;
+    gap: 1rem;
+}
+
+#temperature {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+#weather-icon {
+    width: 100px;
+    height: 100px;
+}
+
+#description {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    margin-bottom: 1.5rem;
+}
+
+.weather-details {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+    font-size: 1.1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+#loading, #error {
+    padding: 2rem;
+    font-size: 1.2rem;
+}
+
+#error {
+    color: #dc3545;
+}
+
+footer {
+    background-color: var(--secondary-color);
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    form {
+        flex-direction: column;
+    }
+    
+    .weather-details {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
