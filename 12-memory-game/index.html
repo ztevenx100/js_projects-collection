@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game | Juego de Memoria</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Un juego de memoria con cartas donde debes encontrar los pares coincidentes.">
+</head>
+<body>
+    <header>
+        <h1>Memory Game</h1>
+        <div class="stats-container">
+            <div class="stats">
+                <span>Movimientos: </span>
+                <span id="moves">0</span>
+            </div>
+            <div class="stats">
+                <span>Tiempo: </span>
+                <span id="time">0</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="controls">
+            <button id="start-btn">Empezar Juego</button>
+            <button id="reset-btn">Reiniciar</button>
+            <select id="difficulty">
+                <option value="4">Fácil (4x4)</option>
+                <option value="6">Medio (6x6)</option>
+                <option value="8">Difícil (8x8)</option>
+            </select>
+        </div>
+
+        <div id="game-container">
+            <div class="memory-game" id="memory-board">
+                <!-- Las cartas se generarán dinámicamente con JavaScript -->
+            </div>
+        </div>
+
+        <div id="game-over-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2>¡Juego Completado!</h2>
+                <div class="results">
+                    <p>Movimientos: <span id="final-moves">0</span></p>
+                    <p>Tiempo: <span id="final-time">0</span> segundos</p>
+                </div>
+                <button id="play-again-btn">Jugar de nuevo</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Creado con JavaScript, HTML y CSS</p>
+        <p>© 2025 | Juego de Memoria</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
