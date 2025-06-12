@@ -189,7 +189,7 @@
                 }
                 
                 & svg {
-                    --svg-stroke: rgb(var(--accent-dark), var(--tw-text-opacity));
+                    --svg-stroke: rgb(var(--color-secondary-dark), var(--tw-text-opacity));
                     --svg-fill: none;
                 }
             }
