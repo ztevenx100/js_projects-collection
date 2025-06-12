@@ -1,19 +1,25 @@
-:root{
+:root {
     --tw-bg-opacity: 1;
     --tw-text-opacity: 1;
-    --tw-scale-x: 1.1;
-    --tw-scale-y: 1.1;
+    --tw-scale-x: 1.05;
+    --tw-scale-y: 1.05;
     --tw-rotate: -12deg;
 }
 
-.projects-grid{
-    margin-block: 2rem;
+.icon {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Mejoras de diseño para el grid de proyectos */
+.projects-grid {
     display: grid;
-    gap: 2rem;
-    margin-bottom: 1.5rem;
-    transition-property: transform;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    transition-duration: .15s;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-xl);
+    margin: var(--space-xl) auto;
+    max-width: var(--max-width-content);
     
     @media (min-width: 640px){
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -25,163 +31,182 @@
     }
 }
 
-.project-card{
+/* Mejoras para las tarjetas de proyectos */
+.project-card {
+    display: flex;
+    flex-direction: column;
     position: relative;
-    align-items: center;
-    /* background-color: #23262d; */
-    background-color: #fff;
-    color: rgb(0 0 0 / var(--tw-text-opacity));
-    border-radius: .5rem;
+    border-radius: var(--border-radius-md);
     overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    background-color: var(--color-card-bg);
+    color: var(--color-text);
+    box-shadow: var(--shadow-md);
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
     
-    & .project-header{
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    & .project-header {
+        position: relative;
+        overflow: hidden;
         display: block;
         color: inherit;
         text-decoration: inherit;
-        transition-property: transform;
-        transition-timing-function: cubic-bezier(.4,0,.2,1);
-        transition-duration: .15s;
-
-        &:hover{
-            transform: scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-        }
-
-        & span{
+        & span {
             position: absolute;
-            top: .5rem;
-            left: 1rem;
-            opacity: .7;
-            font-weight: 700;
-            font-size: 1.5rem;
-            line-height: 2rem;
+            top: var(--space-sm);
+            left: var(--space-sm);
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--border-radius-sm);
+            font-weight: bold;
+            font-size: 0.85rem;
             transform: rotate(var(--tw-rotate));
-            transition-property: transform;
-            transition-timing-function: cubic-bezier(.4,0,.2,1);
-            transition-duration: .15s;
+            transition: transform var(--transition-normal), background-color var(--transition-normal);
+            z-index: 10;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(0, 0, 0, 0.1);
         }
         
-        &:hover span{
-            --tw-scale-x: 2;
-            --tw-scale-y: 2;
-            top: 1.5rem;
-            left: 3rem;
-            transform: scaleX( var(--tw-scale-x) ) scaleY( var(--tw-scale-y) ) rotate(var(--tw-rotate));
-            opacity: 1;
+        &:hover span {
+            transform: scale(1.2) rotate(var(--tw-rotate));
         }
 
-        & img{
+        & img {
             width: 100%;
-            aspect-ratio: 16 / 9;
+            aspect-ratio: 16/9;
             object-fit: cover;
-            border-radius: .5rem;
-            overflow: hidden;
+            transition: transform var(--transition-normal);
+        }
+        
+        &:hover img {
+            transform: scale(1.05);
         }
     }
 }
 
-.project-info{
-    padding: 1.25rem;
-
-    & h2{
-        color: rgb(17 24 39 / var(--tw-text-opacity));
-        letter-spacing: -.025em;
+.project-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    flex: 1;
+    & h2 {
+        margin: 0;
+        color: var(--color-text);
+        letter-spacing: -0.025em;
         font-weight: 700;
-        font-size: 2.25rem;
-        line-height: 2.5rem;
+        font-size: 1.75rem;
+        line-height: 1.2;
 
-        & a{
-            color: rgb(var(--accent-dark), var(--tw-text-opacity));
-            transition-property: color;
-            transition-timing-function: cubic-bezier(.4,0,.2,1);
-            transition-duration: .15s;
+        & a {
+            color: var(--color-secondary);
+            text-decoration: none;
+            transition: color var(--transition-fast), text-shadow var(--transition-fast);
 
-            &:hover{
-                color: rgb(var(--accent), var(--tw-text-opacity));
+            &:hover {
+                color: var(--color-secondary-dark);
+                text-shadow: 1px 1px 3px rgba(247, 223, 30, 0.5);
             }
         }
     }
-
-    & p{
-        color: rgb(31 41 55 / var(--tw-text-opacity));
-        font-weight: 300;
-    }
-
-    & .project-badges{
-        display: inline-flex;
-        flex-wrap: wrap;
-        gap: .5rem;
-
-        & li{
-            padding-block: .25rem;
-            padding-inline: .5rem;
-            background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-            color: rgb(75 85 99 / var(--tw-text-opacity));
-            font-weight: 300;
-            font-size: .75rem;
-            line-height: 1rem;
-            border-radius: 9999px;
-        }
-    }
-
-    & .project-buttons{
+    & p {
+        color: var(--color-text-light);
+        font-weight: 400;
+        line-height: 1.5;
+        margin: 0;
+    }/* Mejorar los badges de tecnologías */
+    & .project-badges {
         display: flex;
         flex-wrap: wrap;
-        gap: .5rem;
-        margin-top: 1rem;
-        
-        & a{
-            padding-block: .25rem;
-            padding-inline: .5rem;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-            color: rgb(0 0 0 / var(--tw-text-opacity));
-            text-align: center;
+        gap: var(--space-xs);
+        padding: 0;
+        margin: 0;
+
+        & li {
+            font-size: 0.8rem;
+            background-color: var(--color-primary);
+            color: var(--color-secondary); /* Color oscuro JS para contraste con amarillo */
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--border-radius-sm);
+            list-style: none;
             font-weight: 600;
-            font-size: .75rem;
-            line-height: 1rem;
-            transition-property: background-color, color;
-            transition-timing-function: cubic-bezier(.4,0,.2,1);
-            transition-duration: .15s;
-            border-width: 1px;
-            border-style: solid;
-            border-color: #0009;
-            border-radius: .5rem;
+            transition: transform var(--transition-fast), background-color var(--transition-fast);
+        }
+        
+        & li:hover {
+            transform: translateY(-2px);
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+        }
+    }
 
-            &:hover{
-                background-color: #0000001a;
+    /* Estilo mejorado para los botones */
+    & .project-buttons {
+        display: flex;
+        gap: var(--space-md);
+        margin-top: auto;
+        padding: 0;
+        
+        & a {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--border-radius-sm);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;            &:hover {
+                transform: translateY(-2px);
             }
-
-            @media (min-width: 768px){
-                font-size: 0.875rem;
-                line-height: 1.25rem;
-            }
-
-            &.project-web{
-                color: rgb(var(--accent-dark), var(--tw-text-opacity));
-                border-color: rgb(var(--accent-dark), var(--tw-text-opacity));
+            &:first-child {
+                background-color: var(--color-secondary);
+                color: var(--color-primary);
+                border: 1px solid var(--color-secondary-light);
                 
-                &:hover{
-                    color: rgb(var(--accent), var(--tw-text-opacity));
-                    background-color: rgb(var(--accent), 10%);
+                &:hover {
+                    background-color: var(--color-secondary-dark);
+                    box-shadow: var(--shadow-sm);
+                }
+            }
+
+            &.project-web {
+                background-color: var(--color-primary);
+                color: var(--color-secondary);
+                font-weight: 600;
+                box-shadow: 0 4px 6px -1px rgba(247, 223, 30, 0.3);
+                
+                &:hover {
+                    background-color: var(--color-primary-light);
+                    box-shadow: 0 6px 8px -1px rgba(247, 223, 30, 0.4);
                 }
                 
-                & svg{
+                & svg {
                     --svg-stroke: rgb(var(--accent-dark), var(--tw-text-opacity));
                     --svg-fill: none;
                 }
             }
-            
-            & svg{
-                --svg-width: 1.5rem;
-                --svg-height: 1.5rem;
-                --svg-color: #000;
-                --svg-fill: #000;
+
+            & svg {
+                --svg-width: 1.25rem;
+                --svg-height: 1.25rem;
+                --svg-color: currentColor;
+                --svg-fill: currentColor;
                 --svg-stroke: none;
                 margin-right: .25rem;
                 border-radius: .25rem;
-
+                transition: transform var(--transition-fast);
+            }
+            
+            &:hover svg {
+                transform: scale(1.1);
             }
         }
     }

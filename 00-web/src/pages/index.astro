@@ -41,34 +41,36 @@ import Layout from '../layouts/Layout.astro';
             @media (min-width: 1024px) {
                 font-size: 4rem;
             }
-
             & .text-gradient {
-                background-image: var(--accent-gradient);
+                background-image: var(--js-gradient);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-size: 400%;
                 background-position: 0%;
+                text-shadow: none;
+                font-weight: 800;
             }
         }
-
         & .instructions {
             margin-bottom: 2rem;
-            border: 1px solid rgba(var(--accent-light), 25%);
-            background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
+            border: 1px solid var(--color-primary);
+            background: var(--color-secondary);
             padding: 1.5rem;
             border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     }
     .instructions code {
         font-size: 0.8em;
         font-weight: bold;
-        background: rgba(var(--accent-light), 12%);
-        color: rgb(var(--accent-light));
+        background: rgba(var(--accent), 0.2);
+        color: var(--color-primary);
         border-radius: 4px;
         padding: 0.3em 0.4em;
     }
     .instructions strong {
-        color: rgb(var(--accent-light));
+        color: var(--color-primary);
+        font-weight: 600;
     }
     .link-card-grid {
         display: grid;

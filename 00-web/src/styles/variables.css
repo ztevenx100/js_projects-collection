@@ -1,0 +1,73 @@
+:root {
+  /* Colores base - Paleta JavaScript */
+  --color-primary: #f7df1e;        /* Amarillo JS */
+  --color-primary-light: #fff04d; /* Amarillo más claro */
+  --color-primary-dark: #e6cc00;  /* Amarillo más oscuro */
+  
+  --color-secondary: #323330;     /* Gris oscuro/Negro JS */
+  --color-secondary-light: #4d4d4a;
+  --color-secondary-dark: #1a1a18;
+  
+  /* Mantener compatibilidad con colores accent existentes */
+  --accent: 247, 223, 30;          /* Amarillo JS en RGB */
+  --accent-light: 255, 240, 77;    /* Amarillo claro en RGB */
+  --accent-dark: 230, 204, 0;      /* Amarillo oscuro en RGB */
+  --accent-gradient: linear-gradient(
+    45deg,
+    rgb(var(--accent)),
+    rgb(var(--accent-light)) 30%,
+    white 60%
+  );
+  
+  /* Nuevo gradiente basado en JavaScript */
+  --js-gradient: linear-gradient(
+    45deg,
+    var(--color-primary) 0%,
+    var(--color-primary-light) 50%,
+    var(--color-primary) 100%
+  );
+  --color-background: #ffffff;
+  --color-background-alt: #f8f9fa;
+  --color-background-dark: #323330;  /* Color oscuro de JavaScript */
+  --color-card-bg: #ffffff;
+  
+  --color-text: #323330;          /* Color del texto JS (casi negro) */
+  --color-text-light: #6b7280;
+  --color-text-inverse: #ffffff;
+  
+  /* Color para enfatizar - texto JavaScript */
+  --color-text-js: #f7df1e;
+  
+  /* Espaciado */
+  --space-xs: 0.25rem;  /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+  --space-2xl: 3rem;    /* 48px */
+  
+  /* Bordes */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
+  
+  /* Sombras */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Transiciones */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  
+  /* Contenedores */
+  --max-width-content: 1120px;
+  
+  /* Variables existentes */
+  --svg-width: 24px;
+  --svg-height: 24px;
+  --svg-color: none;
+  --svg-fill: none;
+  --svg-stroke: none;
+  --body-bg-color: var(--color-background-dark);
+}

@@ -1,28 +1,48 @@
-:root {
-    --text-color: #000;
+@import './variables.css';
+
+/* Estilos base */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #111;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    scrollbar-width: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--body-bg-color);
+  color: var(--color-text-inverse);
+  line-height: 1.6;
+  scrollbar-width: none;
 }
 
 main {
-    min-height: 100vh;
-    max-width: calc(100% - 8rem);
-    margin: auto;
-    padding-inline: 1rem;
-    padding-top: 1rem;
-    color: white;
-    font-size: 20px;
-    line-height: 1.6;
+  min-height: 100vh;
+  max-width: var(--max-width-content);
+  margin: 0 auto;
+  padding: var(--space-md);
+  font-size: 20px;
+}
+
+section {
+  margin: var(--space-2xl) 0;
 }
 
 h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1;
-    text-align: center;
-    margin-bottom: 1em;
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  color: var(--color-primary);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin: var(--space-xl) 0;
+  color: var(--color-primary);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
