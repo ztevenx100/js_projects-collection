@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App - Aplicación del Clima</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Una aplicación meteorológica que muestra el clima actual y pronósticos.">
+</head>
+<body>
+    <header>
+        <h1>Weather App</h1>
+    </header>
+
+    <main>
+        <section class="search-container">
+            <form id="search-form">
+                <input 
+                    type="text" 
+                    id="city-input" 
+                    placeholder="Buscar ciudad..."
+                    autocomplete="off"
+                    required
+                >
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
+
+        <section class="weather-container">
+            <div class="weather-info">
+                <div id="loading" class="hidden">Cargando...</div>
+                <div id="error" class="hidden">No se pudo encontrar la ciudad. Intenta de nuevo.</div>
+                <div id="weather-data" class="hidden">
+                    <h2 id="city-name"></h2>
+                    <div class="weather-main">
+                        <img id="weather-icon" src="" alt="Icono del clima">
+                        <p id="temperature"></p>
+                    </div>
+                    <p id="description"></p>
+                    <div class="weather-details">
+                        <p>Humedad: <span id="humidity"></span></p>
+                        <p>Viento: <span id="wind"></span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Creado con JavaScript, HTML y CSS</p>
+        <p>Usando la API de OpenWeatherMap</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

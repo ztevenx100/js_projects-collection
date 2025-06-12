@@ -138,4 +138,18 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "11-weather-app",
+    title: "Weather App",
+    description: "Aplicación del clima que muestra el pronóstico actual con datos en tiempo real",
+    learnings: [
+      "Fetch API",
+      "LocalStorage",
+      "APIs externas"
+    ],
+    image: "weather-app",
+    theme: {
+      isDark: true
+    },
+  },
 ]
