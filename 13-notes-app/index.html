@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App | Aplicación de Notas</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Una aplicación de notas con categorías, búsqueda y almacenamiento local">
+</head>
+<body>
+    <header>
+        <h1>Notes App</h1>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Buscar notas...">
+            <button id="clear-search">✕</button>
+        </div>
+    </header>
+
+    <main>
+        <aside class="sidebar">
+            <div class="categories">
+                <h2>Categorías</h2>
+                <ul id="category-list">
+                    <li data-category="all" class="active">Todas</li>
+                    <li data-category="work">Trabajo</li>
+                    <li data-category="personal">Personal</li>
+                    <li data-category="ideas">Ideas</li>
+                    <li data-category="tasks">Tareas</li>
+                </ul>
+                <div class="category-form">
+                    <input type="text" id="new-category" placeholder="Nueva categoría...">
+                    <button id="add-category">+</button>
+                </div>
+            </div>
+            
+            <div class="sidebar-actions">
+                <button id="add-note" class="primary-btn">Nueva Nota</button>
+                <button id="delete-all" class="danger-btn">Borrar Todo</button>
+            </div>
+        </aside>
+        
+        <section class="notes-container">
+            <div id="notes-grid"></div>
+            
+            <div id="note-detail" class="hidden">
+                <div class="note-toolbar">
+                    <div class="toolbar-left">
+                        <button id="back-to-notes">← Volver</button>
+                    </div>
+                    <div class="toolbar-right">
+                        <button id="edit-note">Editar</button>
+                        <button id="delete-note" class="danger-btn">Eliminar</button>
+                    </div>
+                </div>
+                
+                <div class="note-view">
+                    <h2 id="detail-title"></h2>
+                    <div class="note-meta">
+                        <span class="category-badge" id="detail-category"></span>
+                        <span class="note-date" id="detail-date"></span>
+                    </div>
+                    <div id="detail-content" class="note-content"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal para añadir/editar notas -->
+    <div id="note-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Nueva Nota</h2>
+                <button id="close-modal">✕</button>
+            </div>
+            
+            <form id="note-form">
+                <div class="form-group">
+                    <label for="note-title">Título:</label>
+                    <input type="text" id="note-title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="note-category">Categoría:</label>
+                    <select id="note-category" required>
+                        <option value="work">Trabajo</option>
+                        <option value="personal">Personal</option>
+                        <option value="ideas">Ideas</option>
+                        <option value="tasks">Tareas</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="note-content">Contenido:</label>
+                    <textarea id="note-content" rows="10" required></textarea>
+                    <div class="textarea-helper">
+                        <span>Soporta Markdown básico</span>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancel-form" class="secondary-btn">Cancelar</button>
+                    <button type="submit" class="primary-btn">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div id="confirm-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirmar</h2>
+            </div>
+            <p id="confirm-message">¿Estás seguro de realizar esta acción?</p>
+            <div class="modal-actions">
+                <button id="cancel-confirm" class="secondary-btn">Cancelar</button>
+                <button id="confirm-action" class="danger-btn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Creado con JavaScript, HTML y CSS</p>
+        <p>© 2025 | Notes App</p>
+    </footer>
+    
+    <!-- Script para parsear Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
