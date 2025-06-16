@@ -163,7 +163,21 @@ export const PROJECTS = [
     ],
     image: "memory-game",
     theme: {
-      isDark: false
+      isDark: true
+    },
+  },
+  {
+    slug: "13-notes-app",
+    title: "Notes App",
+    description: "Aplicación de notas con categorías, búsqueda y almacenamiento local",
+    learnings: [
+      "LocalStorage",
+      "Markdown",
+      "Filtros y Búsqueda"
+    ],
+    image: "notes-app",
+    theme: {
+      isDark: true
     },
   },
 ]
