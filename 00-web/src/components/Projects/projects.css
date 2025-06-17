@@ -56,6 +56,7 @@
         display: block;
         color: inherit;
         text-decoration: inherit;
+        
         & span {
             position: absolute;
             top: var(--space-sm);
@@ -96,6 +97,7 @@
     gap: var(--space-md);
     padding: var(--space-lg);
     flex: 1;
+
     & h2 {
         margin: 0;
         color: var(--color-text);
@@ -115,12 +117,14 @@
             }
         }
     }
+
     & p {
         color: var(--color-text-light);
         font-weight: 400;
         line-height: 1.5;
         margin: 0;
     }/* Mejorar los badges de tecnologías */
+
     & .project-badges {
         display: flex;
         flex-wrap: wrap;
@@ -163,9 +167,12 @@
             font-weight: 500;
             font-size: 0.875rem;
             transition: all var(--transition-fast);
-            border: 1px solid transparent;            &:hover {
+            border: 1px solid transparent;
+
+            &:hover {
                 transform: translateY(-2px);
             }
+
             &:first-child {
                 background-color: var(--color-secondary);
                 color: var(--color-primary);
@@ -210,4 +217,33 @@
             }
         }
     }
+}
+
+/* Iconos personalizados para los botones de proyecto */
+.project-buttons {
+  .icon {
+    --icon-fill: var(--color-secondary, #222);
+    --svg-stroke: var(--color-secondary, #222);
+    transition: filter 0.2s;
+  }
+  .icon-git {
+    --icon-fill: var(--color-secondary, #222);
+  }
+
+  .icon-web {
+    --svg-stroke: var(--color-primary, #f7df1e);
+    stroke: var(--color-primary, #f7df1e);
+    
+    use {
+      stroke: var(--color-primary, #f7df1e);
+    }
+  }
+
+  a:hover .icon-git {
+    filter: brightness(0.7);
+  }
+
+  a:hover .icon-web {
+    filter: brightness(1.2) drop-shadow(0 0 2px #f7df1e);
+  }
 }
