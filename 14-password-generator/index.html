@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator | Generador de Contraseñas</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Genera contraseñas seguras y personalizadas fácilmente.">
+</head>
+<body>
+    <header>
+        <h1>Generador de Contraseñas</h1>
+    </header>
+    <main>
+        <section class="generator-container">
+            <form id="password-form">
+                <div class="form-group">
+                    <label for="length">Longitud:</label>
+                    <input type="number" id="length" min="4" max="32" value="12">
+                </div>
+                <div class="form-group checkboxes">
+                    <label><input type="checkbox" id="uppercase" checked> Mayúsculas</label>
+                    <label><input type="checkbox" id="lowercase" checked> Minúsculas</label>
+                    <label><input type="checkbox" id="numbers" checked> Números</label>
+                    <label><input type="checkbox" id="symbols"> Símbolos</label>
+                </div>
+                <button type="submit" class="primary-btn">Generar</button>
+            </form>
+            <div class="result-container">
+                <input type="text" id="result" readonly>
+                <button id="copy-btn" title="Copiar"><span>📋</span></button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Creado con JavaScript, HTML y CSS</p>
+        <p>© 2025 | Password Generator</p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>

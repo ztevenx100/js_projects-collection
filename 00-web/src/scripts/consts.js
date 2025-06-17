@@ -180,4 +180,18 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "14-password-generator",
+    title: "Password Generator",
+    description: "Genera contraseñas seguras y personalizadas fácilmente.",
+    learnings: [
+      "Manipulación del DOM",
+      "Math.random()",
+      "Validación de formularios"
+    ],
+    image: "password-generator",
+    theme: {
+      isDark: true
+    },
+  },
 ]
