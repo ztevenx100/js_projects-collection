@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Generator | Generador de QR</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Genera códigos QR personalizados fácilmente.">
+</head>
+<body>
+    <header>
+        <h1>Generador de Códigos QR</h1>
+    </header>
+    <main>
+        <section class="qr-container">
+            <form id="qr-form">
+                <div class="form-group">
+                    <label for="qr-text">Texto o URL:</label>
+                    <input type="text" id="qr-text" placeholder="Introduce texto o URL" required>
+                </div>
+                <div class="form-group">
+                    <label for="qr-size">Tamaño:</label>
+                    <select id="qr-size">
+                        <option value="128">128x128</option>
+                        <option value="192">192x192</option>
+                        <option value="256" selected>256x256</option>
+                        <option value="384">384x384</option>
+                        <option value="512">512x512</option>
+                    </select>
+                </div>
+                <button type="submit" class="primary-btn">Generar QR</button>
+            </form>
+            <div class="qr-result" id="qr-result">
+                <!-- Aquí se mostrará el QR generado -->
+            </div>
+            <button id="download-btn" class="secondary-btn" style="display:none;">Descargar QR</button>
+        </section>
+    </main>
+    <footer>
+        <p>Creado con JavaScript, HTML y CSS</p>
+        <p>© 2025 | QR Generator</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
