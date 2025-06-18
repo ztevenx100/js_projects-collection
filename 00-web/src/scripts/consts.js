@@ -194,4 +194,18 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "15-qr-generator",
+    title: "QR Generator",
+    description: "Genera códigos QR personalizados fácilmente.",
+    learnings: [
+      "Manipulación del DOM",
+      "Uso de librerías externas (QRious)",
+      "Descarga de imágenes"
+    ],
+    image: "qr-generator",
+    theme: {
+      isDark: true
+    },
+  },
 ]
