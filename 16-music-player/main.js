@@ -1,22 +1,22 @@
 // Lista de canciones de ejemplo
 const songs = [
   {
-    title: "Canción 1",
-    artist: "Artista 1",
-    src: "song1.mp3",
-    cover: "cover1.jpg"
+    title: "A dream, I saw a dream  crystal castles - suffocation x subaru natsuki (Slowed)",
+    artist: "Artista Local",
+    src: "/assets/audio/songs/song1.mp3",
+    cover: "/assets/img/png/covers/cover1.png"
   },
   {
-    title: "Canción 2",
-    artist: "Artista 2",
+    title: "Canción Remota (URL)",
+    artist: "Artista de Internet",
+    src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // URL de ejemplo
+    cover: "https://picsum.photos/seed/picsum/200/200" // URL de imagen de ejemplo
+  },
+  {
+    title: "Canción Local 2",
+    artist: "Artista Local",
     src: "song2.mp3",
-    cover: "cover2.jpg"
-  },
-  {
-    title: "Canción 3",
-    artist: "Artista 3",
-    src: "song3.mp3",
-    cover: "cover3.jpg"
+    cover: "/assets/img/png/covers/cover2.jpg"
   }
 ];
 
@@ -31,6 +31,10 @@ const nextBtn = document.getElementById('next-btn');
 const progress = document.getElementById('progress');
 const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
+
+function isUrl(path) {
+  return path.startsWith('http://') || path.startsWith('https://');
+}
 
 function loadSong(index) {
   const song = songs[index];
@@ -96,6 +100,11 @@ function formatTime(time) {
   const min = Math.floor(time / 60);
   const sec = Math.floor(time % 60).toString().padStart(2, '0');
   return `${min}:${sec}`;
+}
+
+function handleCoverError(img) {
+  img.onerror = null; // Prevenir bucles infinitos
+  img.src = '/assets/img/png/covers/music-cover.png';
 }
 
 // Inicializar
