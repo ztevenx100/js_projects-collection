@@ -31,6 +31,7 @@ const nextBtn = document.getElementById('next-btn');
 const progress = document.getElementById('progress');
 const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
+const volumeControl = document.getElementById('volume-control');
 
 function isUrl(path) {
   return path.startsWith('http://') || path.startsWith('https://');
@@ -83,6 +84,10 @@ progress.addEventListener('input', setProgress);
 
 audio.addEventListener('loadedmetadata', updateProgress);
 
+volumeControl.addEventListener('input', () => {
+  audio.volume = volumeControl.value;
+});
+
 function updateProgress() {
   const { duration, currentTime } = audio;
   progress.max = duration || 0;
@@ -108,4 +113,5 @@ function handleCoverError(img) {
 }
 
 // Inicializar
+audio.volume = volumeControl.value;
 loadSong(currentSong);
