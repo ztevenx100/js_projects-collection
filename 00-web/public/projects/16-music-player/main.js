@@ -32,6 +32,7 @@ const progress = document.getElementById('progress');
 const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
 const volumeControl = document.getElementById('volume-control');
+const muteBtn = document.getElementById('mute-btn');
 
 function isUrl(path) {
   return path.startsWith('http://') || path.startsWith('https://');
@@ -85,7 +86,17 @@ progress.addEventListener('input', setProgress);
 audio.addEventListener('loadedmetadata', updateProgress);
 
 volumeControl.addEventListener('input', () => {
+  audio.muted = false;
   audio.volume = volumeControl.value;
+});
+
+muteBtn.addEventListener('click', () => {
+  audio.muted = !audio.muted;
+  if (audio.muted) {
+    muteBtn.textContent = '🔇';
+  } else {
+    muteBtn.textContent = '🔊';
+  }
 });
 
 function updateProgress() {
@@ -115,3 +126,13 @@ function handleCoverError(img) {
 // Inicializar
 audio.volume = volumeControl.value;
 loadSong(currentSong);
+
+audio.addEventListener('volumechange', () => {
+  if (audio.muted || audio.volume === 0) {
+    muteBtn.textContent = '🔇';
+    volumeControl.value = 0;
+  } else {
+    muteBtn.textContent = '🔊';
+    volumeControl.value = audio.volume;
+  }
+});
