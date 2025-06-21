@@ -208,4 +208,18 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "16-music-player",
+    title: "Music Player",
+    description: "Reproductor de música simple y moderno en JavaScript.",
+    learnings: [
+      "Audio API",
+      "Manipulación del DOM",
+      "Controles multimedia"
+    ],
+    image: "music-player",
+    theme: {
+      isDark: true
+    },
+  },
 ]
