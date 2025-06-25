@@ -237,4 +237,19 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "18-expense-tracker",
+    title: "Gestor de Gastos Personales",
+    description: "App para registrar, visualizar y eliminar tus gastos personales con suma total automática.",
+    learnings: [
+      "Manipulación del DOM",
+      "localStorage",
+      "Formularios",
+      "Cálculo de totales"
+    ],
+    image: "expense-tracker",
+    theme: {
+      isDark: true
+    },
+  },
 ]
