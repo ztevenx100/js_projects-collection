@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario Interactivo</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Calendario interactivo con eventos y recordatorios en JavaScript.">
+</head>
+<body>
+  <header>
+    <h1>Calendario Interactivo</h1>
+  </header>
+  <main>
+    <section class="calendar-container">
+      <div id="calendar"></div>
+      <div id="event-modal" class="modal hidden">
+        <div class="modal-content">
+          <span id="close-modal" class="close">&times;</span>
+          <h2 id="modal-title">Agregar Evento</h2>
+          <form id="event-form">
+            <input type="hidden" id="event-date">
+            <label for="event-title">Título:</label>
+            <input type="text" id="event-title" required>
+            <label for="event-desc">Descripción:</label>
+            <textarea id="event-desc"></textarea>
+            <button type="submit">Guardar</button>
+          </form>
+        </div>
+      </div>
+      <div id="events-list"></div>
+    </section>
+  </main>
+  <footer>
+    <p>Creado con JavaScript, HTML y CSS</p>
+    <p>© 2025 | Calendario Interactivo</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
