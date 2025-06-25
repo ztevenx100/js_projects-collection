@@ -222,4 +222,19 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "17-calendar-app",
+    title: "Calendario Interactivo",
+    description: "Calendario mensual con eventos y recordatorios almacenados en localStorage.",
+    learnings: [
+      "Manipulación del DOM",
+      "localStorage",
+      "Eventos personalizados",
+      "Lógica de fechas"
+    ],
+    image: "calendar-app",
+    theme: {
+      isDark: true
+    },
+  },
 ]
