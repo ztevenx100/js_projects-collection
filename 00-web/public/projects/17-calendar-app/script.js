@@ -94,14 +94,42 @@ function renderEvents() {
     events[date].forEach((ev, idx) => {
       const item = document.createElement('div');
       item.className = 'event-item';
-      item.innerHTML = `<div><b>${date}</b>: ${ev.title}</div>`;
+      // Header con icono expandible
+      const header = document.createElement('div');
+      header.className = 'event-item-header';
+      const titleDiv = document.createElement('div');
+      titleDiv.className = 'event-title';
+      // Icono expandir
+      const expandIcon = document.createElement('span');
+      expandIcon.className = 'expand-icon';
+      expandIcon.innerHTML = '&#9654;'; // flecha
+      titleDiv.appendChild(expandIcon);
+      titleDiv.innerHTML += `<b>${date}</b>: ${ev.title}`;
+      header.appendChild(titleDiv);
+      // Botón eliminar
       const actions = document.createElement('div');
       actions.className = 'event-actions';
       const delBtn = document.createElement('button');
       delBtn.textContent = 'Eliminar';
-      delBtn.onclick = () => deleteEvent(date, idx);
+      delBtn.onclick = (e) => {
+        e.stopPropagation();
+        deleteEvent(date, idx);
+      };
       actions.appendChild(delBtn);
-      item.appendChild(actions);
+      header.appendChild(actions);
+      item.appendChild(header);
+      // Descripción oculta/expandible
+      const descDiv = document.createElement('div');
+      descDiv.className = 'event-desc';
+      descDiv.textContent = ev.desc ? ev.desc : 'Sin descripción';
+      descDiv.style.display = 'none';
+      item.appendChild(descDiv);
+      // Lógica expandir/colapsar
+      item.onclick = (e) => {
+        if (e.target.closest('.event-actions')) return;
+        const expanded = item.classList.toggle('expanded');
+        descDiv.style.display = expanded ? 'block' : 'none';
+      };
       eventsList.appendChild(item);
       if (date === todayStr) found = true;
     });
