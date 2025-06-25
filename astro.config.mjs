@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com', // Reemplaza con la URL de tu sitio
+  site: 'https://js-projects-collection-gamma.vercel.app/',
   integrations: [
     sitemap(),
   ],
