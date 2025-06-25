@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestor de Gastos Personales</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="App para registrar y visualizar tus gastos personales.">
+</head>
+<body>
+  <header>
+    <h1>Gestor de Gastos Personales</h1>
+  </header>
+  <main>
+    <section class="expense-container">
+      <form id="expense-form">
+        <input type="text" id="expense-name" placeholder="Descripción" required>
+        <input type="number" id="expense-amount" placeholder="Monto" min="0.01" step="0.01" required>
+        <input type="date" id="expense-date" required>
+        <select id="expense-category" required>
+          <option value="">Categoría</option>
+          <option value="Comida">Comida</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Ocio">Ocio</option>
+          <option value="Salud">Salud</option>
+          <option value="Educación">Educación</option>
+          <option value="Otros">Otros</option>
+        </select>
+        <button type="submit">Agregar</button>
+      </form>
+      <div class="summary">
+        <span>Total gastado: $<span id="total-amount">0.00</span></span>
+      </div>
+      <div class="summary-breakdown">
+        <div>
+          <strong>Gasto por mes:</strong>
+          <ul id="summary-month"></ul>
+        </div>
+        <div>
+          <strong>Gasto por categoría:</strong>
+          <ul id="summary-category"></ul>
+        </div>
+      </div>
+      <div class="filter-bar">
+        <label>Desde: <input type="date" id="filter-from"></label>
+        <label>Hasta: <input type="date" id="filter-to"></label>
+        <label>Categoría:
+          <select id="filter-category">
+            <option value="">Todas</option>
+            <option value="Comida">Comida</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Ocio">Ocio</option>
+            <option value="Salud">Salud</option>
+            <option value="Educación">Educación</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </label>
+        <button type="button" id="filter-btn">Filtrar</button>
+        <button type="button" id="clear-filter-btn">Limpiar</button>
+      </div>
+      <ul id="expense-list" class="expense-list"></ul>
+    </section>
+  </main>
+  <footer>
+    <p>Creado con JavaScript, HTML y CSS</p>
+    <p>© 2025 | Gestor de Gastos Personales</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
