@@ -33,9 +33,26 @@ const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
 const volumeControl = document.getElementById('volume-control');
 const muteBtn = document.getElementById('mute-btn');
+const playlistEl = document.getElementById('playlist');
 
 function isUrl(path) {
   return path.startsWith('http://') || path.startsWith('https://');
+}
+
+function renderPlaylist() {
+  playlistEl.innerHTML = '';
+  songs.forEach((song, idx) => {
+    const li = document.createElement('li');
+    li.textContent = `${song.title} - ${song.artist}`;
+    li.className = 'playlist-item' + (idx === currentSong ? ' active' : '');
+    li.addEventListener('click', () => {
+      currentSong = idx;
+      loadSong(currentSong);
+      playSong();
+      renderPlaylist();
+    });
+    playlistEl.appendChild(li);
+  });
 }
 
 function loadSong(index) {
@@ -44,6 +61,7 @@ function loadSong(index) {
   coverImg.src = song.cover;
   songTitle.textContent = song.title;
   songArtist.textContent = song.artist;
+  renderPlaylist();
 }
 
 function playSong() {
@@ -126,6 +144,7 @@ function handleCoverError(img) {
 // Inicializar
 audio.volume = volumeControl.value;
 loadSong(currentSong);
+renderPlaylist();
 
 audio.addEventListener('volumechange', () => {
   if (audio.muted || audio.volume === 0) {
