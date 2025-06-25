@@ -119,6 +119,47 @@ footer {
     margin-top: auto;
 }
 
+/* Playlist visual styles */
+.playlist {
+  margin: 1.5rem 0 0 0;
+  padding: 0.5rem 0;
+  background: #181818;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  list-style: none;
+  max-width: 100%;
+  min-width: 0;
+}
+.playlist-item {
+  padding: 0.75rem 1rem;
+  color: #fffbe7;
+  font-size: 1rem;
+  border-bottom: 1px solid #222;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.playlist-item:last-child {
+  border-bottom: none;
+}
+.playlist-item:hover {
+  background: #ffe066;
+  color: #181818;
+}
+.playlist-item.active {
+  background: #ffe066;
+  color: #181818;
+  font-weight: bold;
+  border-left: 4px solid #ffce00;
+}
+@media (max-width: 600px) {
+  .playlist-item {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.5rem;
+  }
+  .playlist {
+    margin: 1rem 0 0 0;
+  }
+}
 @media (max-width: 500px) {
     .player-container {
         padding: 1rem;
