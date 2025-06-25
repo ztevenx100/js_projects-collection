@@ -37,6 +37,7 @@ function renderExpenses() {
     expenseList.appendChild(li);
   });
   totalAmount.textContent = total.toFixed(2);
+  renderSummary();
 }
 
 function deleteExpense(idx) {
@@ -73,6 +74,35 @@ expenseForm.onsubmit = (e) => {
   expenseForm.reset();
   renderExpenses();
 };
+
+function renderSummary() {
+  // Por mes
+  const summaryMonth = document.getElementById('summary-month');
+  summaryMonth.innerHTML = '';
+  const monthTotals = {};
+  expenses.forEach(exp => {
+    const month = exp.date.slice(0, 7); // yyyy-mm
+    monthTotals[month] = (monthTotals[month] || 0) + parseFloat(exp.amount);
+  });
+  Object.entries(monthTotals).sort().forEach(([month, total]) => {
+    const li = document.createElement('li');
+    li.textContent = `${month}: $${total.toFixed(2)}`;
+    summaryMonth.appendChild(li);
+  });
+  // Por categoría
+  const summaryCategory = document.getElementById('summary-category');
+  summaryCategory.innerHTML = '';
+  const catTotals = {};
+  expenses.forEach(exp => {
+    const cat = exp.category || 'Sin categoría';
+    catTotals[cat] = (catTotals[cat] || 0) + parseFloat(exp.amount);
+  });
+  Object.entries(catTotals).sort().forEach(([cat, total]) => {
+    const li = document.createElement('li');
+    li.textContent = `${cat}: $${total.toFixed(2)}`;
+    summaryCategory.appendChild(li);
+  });
+}
 
 // Inicialización
 renderExpenses();

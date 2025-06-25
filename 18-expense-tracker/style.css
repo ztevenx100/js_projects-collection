@@ -78,6 +78,38 @@ main {
   font-size: 1.1rem;
   font-weight: 500;
 }
+.summary-breakdown {
+  display: flex;
+  gap: 2.5rem;
+  margin-bottom: 1.2rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  & > div {
+    background: var(--primary-color,#f4f4f4);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    min-width: 180px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+    font-size: 1rem;
+  }
+
+  li {
+    margin-bottom: 0.3rem;
+    color: #333;
+  }
+
+  strong {
+    font-size: 1.08rem;
+  }
+}
 .expense-list {
   width: 100%;
   list-style: none;
