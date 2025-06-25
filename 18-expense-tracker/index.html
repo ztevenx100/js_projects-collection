@@ -17,6 +17,15 @@
         <input type="text" id="expense-name" placeholder="Descripción" required>
         <input type="number" id="expense-amount" placeholder="Monto" min="0.01" step="0.01" required>
         <input type="date" id="expense-date" required>
+        <select id="expense-category" required>
+          <option value="">Categoría</option>
+          <option value="Comida">Comida</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Ocio">Ocio</option>
+          <option value="Salud">Salud</option>
+          <option value="Educación">Educación</option>
+          <option value="Otros">Otros</option>
+        </select>
         <button type="submit">Agregar</button>
       </form>
       <div class="summary">
@@ -25,6 +34,17 @@
       <div class="filter-bar">
         <label>Desde: <input type="date" id="filter-from"></label>
         <label>Hasta: <input type="date" id="filter-to"></label>
+        <label>Categoría:
+          <select id="filter-category">
+            <option value="">Todas</option>
+            <option value="Comida">Comida</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Ocio">Ocio</option>
+            <option value="Salud">Salud</option>
+            <option value="Educación">Educación</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </label>
         <button type="button" id="filter-btn">Filtrar</button>
         <button type="button" id="clear-filter-btn">Limpiar</button>
       </div>

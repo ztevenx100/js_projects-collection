@@ -9,6 +9,7 @@ const totalAmount = document.getElementById('total-amount');
 let expenses = JSON.parse(localStorage.getItem('expenses') || '[]');
 let filterFrom = '';
 let filterTo = '';
+let filterCategory = '';
 
 function renderExpenses() {
   expenseList.innerHTML = '';
@@ -16,6 +17,7 @@ function renderExpenses() {
   let filtered = expenses.filter(exp => {
     if (filterFrom && exp.date < filterFrom) return false;
     if (filterTo && exp.date > filterTo) return false;
+    if (filterCategory && exp.category !== filterCategory) return false;
     return true;
   });
   filtered.forEach((exp, idx) => {
@@ -26,6 +28,7 @@ function renderExpenses() {
       <div class="expense-info">
         <span class="expense-name">${exp.name}</span>
         <span class="expense-date">${exp.date}</span>
+        <span class="expense-category">${exp.category || ''}</span>
       </div>
       <span class="expense-amount">$${parseFloat(exp.amount).toFixed(2)}</span>
       <button class="delete-btn">Eliminar</button>
@@ -42,28 +45,32 @@ function deleteExpense(idx) {
   renderExpenses();
 }
 
-expenseForm.onsubmit = (e) => {
-  e.preventDefault();
-  const name = expenseName.value.trim();
-  const amount = expenseAmount.value;
-  const date = expenseDate.value;
-  if (!name || !amount || !date) return;
-  expenses.push({ name, amount, date });
-  localStorage.setItem('expenses', JSON.stringify(expenses));
-  expenseForm.reset();
-  renderExpenses();
-};
-
 document.getElementById('filter-btn').onclick = () => {
   filterFrom = document.getElementById('filter-from').value;
   filterTo = document.getElementById('filter-to').value;
+  filterCategory = document.getElementById('filter-category').value;
   renderExpenses();
 };
 document.getElementById('clear-filter-btn').onclick = () => {
   filterFrom = '';
   filterTo = '';
+  filterCategory = '';
   document.getElementById('filter-from').value = '';
   document.getElementById('filter-to').value = '';
+  document.getElementById('filter-category').value = '';
+  renderExpenses();
+};
+
+expenseForm.onsubmit = (e) => {
+  e.preventDefault();
+  const name = expenseName.value.trim();
+  const amount = expenseAmount.value;
+  const date = expenseDate.value;
+  const category = document.getElementById('expense-category').value;
+  if (!name || !amount || !date || !category) return;
+  expenses.push({ name, amount, date, category });
+  localStorage.setItem('expenses', JSON.stringify(expenses));
+  expenseForm.reset();
   renderExpenses();
 };
 
