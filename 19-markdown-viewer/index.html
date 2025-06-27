@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizador de Markdown</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Un visualizador de Markdown en tiempo real.">
+</head>
+<body>
+  <header>
+    <h1>Visualizador de Markdown</h1>
+  </header>
+  <main>
+    <div class="container">
+      <div class="editor">
+        <h2>Editor</h2>
+        <textarea id="markdown-input" placeholder="Escribe tu Markdown aquí..."></textarea>
+      </div>
+      <div class="preview">
+        <h2>Vista Previa</h2>
+        <div id="markdown-output" class="output"></div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>Creado con JavaScript, HTML y CSS</p>
+    <p>© 2025 | Visualizador de Markdown</p>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
