@@ -14,11 +14,19 @@
   <main>
     <div class="container">
       <div class="editor">
-        <h2>Editor</h2>
+        <div class="editor-header">
+          <h2>Editor</h2>
+          <div class="editor-actions">
+            <button id="clear-btn" title="Limpiar editor">Limpiar</button>
+            <button id="copy-html-btn" title="Copiar HTML generado">Copiar HTML</button>
+          </div>
+        </div>
         <textarea id="markdown-input" placeholder="Escribe tu Markdown aquí..."></textarea>
       </div>
       <div class="preview">
-        <h2>Vista Previa</h2>
+        <div class="editor-header">
+            <h2>Vista Previa</h2>
+        </div>
         <div id="markdown-output" class="output"></div>
       </div>
     </div>

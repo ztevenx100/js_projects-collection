@@ -55,9 +55,10 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  height: 70vh;
+  min-height: 70vh;
   width: 100%;
   max-width: 1400px;
+  margin-bottom: 1rem;
 
   & h2{
     font-size: 1.5rem;
@@ -161,11 +162,34 @@ footer {
   color: #fff;
   text-align: center;
   padding: 1.2rem 0 1.5rem 0;
-  margin-top: auto;
 
   p {
       margin: 0.2rem;
   }
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.editor-actions button {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: 0.5rem;
+}
+
+.editor-actions button:hover {
+  background: #e6d017;
 }
 
 @media (max-width: 768px) {
