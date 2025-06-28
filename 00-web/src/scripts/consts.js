@@ -252,4 +252,18 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "19-markdown-viewer",
+    title: "Visor de Markdown",
+    description: "Un editor y visor de Markdown en tiempo real.",
+    learnings: [
+      "DOM Manipulation",
+      "Event Listeners",
+      "marked.js"
+    ],
+    image: "markdown-viewer",
+    theme: {
+      isDark: true
+    },
+  },
 ]
