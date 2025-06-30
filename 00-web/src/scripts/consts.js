@@ -255,7 +255,7 @@ export const PROJECTS = [
   {
     slug: "19-markdown-viewer",
     title: "Visor de Markdown",
-    description: "Un editor y visor de Markdown en tiempo real.",
+    description: "Un editor y visualizador de Markdown en tiempo real.",
     learnings: [
       "DOM Manipulation",
       "Event Listeners",
@@ -264,6 +264,20 @@ export const PROJECTS = [
     image: "markdown-viewer",
     theme: {
       isDark: true
+    },
+  },
+  {
+    slug: "20-kanban-board",
+    title: "Tablero Kanban",
+    description: "Tablero Kanban para gestión de tareas con funcionalidad de arrastrar y soltar",
+    learnings: [
+      "Drag & Drop API",
+      "localStorage",
+      "DOM Manipulation"
+    ],
+    image: "kanban-board",
+    theme: {
+      isDark: false
     },
   },
 ]
