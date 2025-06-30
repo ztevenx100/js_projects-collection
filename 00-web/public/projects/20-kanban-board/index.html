@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablero Kanban</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Tablero Kanban para gestión de tareas con funcionalidad de arrastrar y soltar">
+</head>
+<body>
+  <header>
+    <h1>Tablero Kanban</h1>
+  </header>
+  <main>
+    <section class="kanban-container">
+      <div class="task-form-container">
+        <form id="task-form">
+          <input type="text" id="task-title" placeholder="Título de la tarea" required>
+          <textarea id="task-description" placeholder="Descripción (opcional)"></textarea>
+          <select id="task-priority" required>
+            <option value="">Prioridad</option>
+            <option value="baja">Baja</option>
+            <option value="media">Media</option>
+            <option value="alta">Alta</option>
+          </select>
+          <button type="submit">Añadir Tarea</button>
+        </form>
+      </div>
+      
+      <div class="kanban-board">
+        <div class="kanban-column" id="todo-column">
+          <h2>Por Hacer</h2>
+          <div class="task-list" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <!-- Las tareas se generarán dinámicamente aquí -->
+          </div>
+        </div>
+        
+        <div class="kanban-column" id="progress-column">
+          <h2>En Progreso</h2>
+          <div class="task-list" id="progress" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <!-- Las tareas se generarán dinámicamente aquí -->
+          </div>
+        </div>
+        
+        <div class="kanban-column" id="done-column">
+          <h2>Hecho</h2>
+          <div class="task-list" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <!-- Las tareas se generarán dinámicamente aquí -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>Creado con JavaScript, HTML y CSS</p>
+    <p>© 2025 | Tablero Kanban</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
