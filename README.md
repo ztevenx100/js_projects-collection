@@ -101,6 +101,11 @@ Este repositorio contiene una colección de proyectos en JavaScript diseñados p
     -   Tecnologías: Librería externa (marked.js), DOM Manipulation.
     -   Ruta: `/19-markdown-viewer`
 
+20. **Tablero Kanban**
+    -   Descripción: Tablero Kanban para gestión de tareas con funcionalidad de arrastrar y soltar.
+    -   Tecnologías: Drag & Drop API, localStorage, DOM Manipulation.
+    -   Ruta: `/20-kanban-board`
+
 ## Instalación
 
 1. Clona este repositorio:

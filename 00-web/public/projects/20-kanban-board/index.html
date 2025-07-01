@@ -27,6 +27,25 @@
         </form>
       </div>
       
+      <div class="filter-search-container">
+        <div class="search-box">
+          <input type="text" id="search-task" placeholder="Buscar tareas...">
+          <button id="search-btn" title="Buscar">🔍</button>
+        </div>
+        <div class="filter-options">
+          <label>
+            Filtrar por prioridad:
+            <select id="filter-priority">
+              <option value="">Todas</option>
+              <option value="baja">Baja</option>
+              <option value="media">Media</option>
+              <option value="alta">Alta</option>
+            </select>
+          </label>
+          <button id="clear-filters" title="Limpiar filtros">Limpiar filtros</button>
+        </div>
+      </div>
+      
       <div class="kanban-board">
         <div class="kanban-column" id="todo-column">
           <h2>Por Hacer</h2>

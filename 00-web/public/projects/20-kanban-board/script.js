@@ -1,6 +1,9 @@
 // Variables para almacenar las tareas y un contador para IDs únicos
 let tasks = [];
 let taskIdCounter = 0;
+// Variables para filtros
+let currentSearchTerm = '';
+let currentPriorityFilter = '';
 
 // Elementos del DOM que utilizaremos con frecuencia
 const taskForm = document.getElementById('task-form');
@@ -10,6 +13,11 @@ const taskPriority = document.getElementById('task-priority');
 const todoList = document.getElementById('todo');
 const progressList = document.getElementById('progress');
 const doneList = document.getElementById('done');
+// Elementos para filtros y búsqueda
+const searchInput = document.getElementById('search-task');
+const searchBtn = document.getElementById('search-btn');
+const filterPriority = document.getElementById('filter-priority');
+const clearFiltersBtn = document.getElementById('clear-filters');
 
 // Función para inicializar la aplicación
 function init() {
@@ -18,6 +26,16 @@ function init() {
   
   // Event listener para el formulario de tareas
   taskForm.addEventListener('submit', addTask);
+  
+  // Event listeners para búsqueda y filtros
+  searchBtn.addEventListener('click', applyFilters);
+  searchInput.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') {
+      applyFilters();
+    }
+  });
+  filterPriority.addEventListener('change', applyFilters);
+  clearFiltersBtn.addEventListener('click', clearFilters);
   
   // Renderizar las tareas iniciales
   renderTasks();
@@ -57,10 +75,28 @@ function renderTasks() {
   progressList.innerHTML = '';
   doneList.innerHTML = '';
   
-  // Renderizar cada tarea en su columna correspondiente
-  tasks.forEach(task => {
+  // Filtrar las tareas según los criterios actuales
+  const filteredTasks = tasks.filter(task => {
+    // Filtro de búsqueda por título o descripción
+    const matchesSearch = currentSearchTerm === '' || 
+      task.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) || 
+      task.description.toLowerCase().includes(currentSearchTerm.toLowerCase());
+    
+    // Filtro por prioridad
+    const matchesPriority = currentPriorityFilter === '' || task.priority === currentPriorityFilter;
+    
+    return matchesSearch && matchesPriority;
+  });
+  
+  // Renderizar cada tarea filtrada en su columna correspondiente
+  filteredTasks.forEach(task => {
     renderTask(task);
   });
+  
+  // Mostrar mensaje si no hay tareas que coincidan con los filtros
+  if (filteredTasks.length === 0 && (currentSearchTerm !== '' || currentPriorityFilter !== '')) {
+    showNoTasksMessage();
+  }
 }
 
 // Función para renderizar una tarea individual
@@ -148,6 +184,63 @@ function loadTasksFromLocalStorage() {
   if (savedCounter) {
     taskIdCounter = parseInt(savedCounter);
   }
+}
+
+// Función para aplicar filtros de búsqueda y prioridad
+function applyFilters() {
+  currentSearchTerm = searchInput.value.trim();
+  currentPriorityFilter = filterPriority.value;
+  
+  renderTasks();
+  
+  // Si hay un término de búsqueda, resaltar las coincidencias
+  if (currentSearchTerm !== '') {
+    highlightMatchingTasks();
+  }
+}
+
+// Función para limpiar todos los filtros
+function clearFilters() {
+  currentSearchTerm = '';
+  currentPriorityFilter = '';
+  
+  searchInput.value = '';
+  filterPriority.value = '';
+  
+  // Eliminar todos los resaltados
+  document.querySelectorAll('.highlight-task').forEach(card => {
+    card.classList.remove('highlight-task');
+  });
+  
+  renderTasks();
+}
+
+// Función para resaltar las tareas que coinciden con la búsqueda
+function highlightMatchingTasks() {
+  const term = currentSearchTerm.toLowerCase();
+  
+  document.querySelectorAll('.task-card').forEach(card => {
+    const title = card.querySelector('h3').textContent.toLowerCase();
+    const description = card.querySelector('p').textContent.toLowerCase();
+    
+    if (title.includes(term) || description.includes(term)) {
+      card.classList.add('highlight-task');
+    }
+  });
+}
+
+// Función para mostrar mensaje cuando no hay tareas que coincidan con los filtros
+function showNoTasksMessage() {
+  const columns = [todoList, progressList, doneList];
+  
+  columns.forEach(column => {
+    if (column.childElementCount === 0) {
+      const messageElement = document.createElement('div');
+      messageElement.className = 'no-tasks-message';
+      messageElement.textContent = 'No hay tareas que coincidan con los filtros';
+      column.appendChild(messageElement);
+    }
+  });
 }
 
 // Inicializar la aplicación cuando el DOM esté completamente cargado
