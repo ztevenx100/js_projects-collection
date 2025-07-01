@@ -1,0 +1,304 @@
+:root {
+  --primary-color: #f7df1e;
+  --secondary-color: #222;
+  --background: #f8f9fa;
+  --card-bg: #fff;
+  --column-bg: #f1f1f1;
+  --border-radius: 12px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  --transition: all 0.2s;
+  --priority-low: #4caf50;
+  --priority-medium: #ff9800;
+  --priority-high: #f44336;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--background);
+  color: var(--secondary-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  text-align: center;
+  padding: 2rem 1rem 1rem 1rem;
+  box-shadow: var(--shadow);
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+main {
+  flex: 1;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+.kanban-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.task-form-container {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+#task-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#task-form input,
+#task-form textarea,
+#task-form select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  flex: 1;
+  font-family: inherit;
+}
+
+#task-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+#task-form button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#task-form button:hover {
+  background-color: #e6d017;
+}
+
+/* Estilos para la sección de filtros y búsqueda */
+.filter-search-container {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-box {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-family: inherit;
+}
+
+.search-box button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.search-box button:hover {
+  background-color: #e6d017;
+}
+
+.filter-options {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-options select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  margin-left: 0.5rem;
+}
+
+#clear-filters {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#clear-filters:hover {
+  background-color: #e0e0e0;
+}
+
+.highlight-task {
+  border-left: 4px solid var(--primary-color) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.kanban-column {
+  background-color: var(--column-bg);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.kanban-column h2 {
+  margin: 0 0 1rem 0;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-color);
+  font-size: 1.5rem;
+}
+
+.task-list {
+  flex: 1;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.task-card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+  cursor: grab;
+  transition: var(--transition);
+  position: relative;
+}
+
+.task-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.task-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  padding-right: 25px; /* Espacio para el botón eliminar */
+}
+
+.task-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.task-priority {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: white;
+  margin-top: 0.5rem;
+}
+
+.priority-baja {
+  background-color: var(--priority-low);
+}
+
+.priority-media {
+  background-color: var(--priority-medium);
+}
+
+.priority-alta {
+  background-color: var(--priority-high);
+}
+
+.delete-task {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #999;
+}
+
+.delete-task:hover {
+  color: var(--priority-high);
+}
+
+.no-tasks-message {
+  text-align: center;
+  padding: 1rem;
+  color: #888;
+  font-style: italic;
+  background-color: #f9f9f9;
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+}
+
+footer {
+  background: var(--secondary-color);
+  color: #fff;
+  text-align: center;
+  padding: 1.2rem 0 1.5rem 0;
+}
+
+footer p {
+  margin: 0.2rem;
+}
+
+@media (max-width: 768px) {
+  .kanban-board {
+    grid-template-columns: 1fr;
+  }
+  
+  #task-form {
+    flex-direction: column;
+  }
+  
+  #task-form input,
+  #task-form textarea,
+  #task-form select,
+  #task-form button {
+    width: 100%;
+  }
+}
