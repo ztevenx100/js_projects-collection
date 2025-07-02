@@ -10,6 +10,12 @@
   --priority-low: #4caf50;
   --priority-medium: #ff9800;
   --priority-high: #f44336;
+  --tag-desarrollo: #3498db;
+  --tag-diseño: #9b59b6;
+  --tag-bug: #e74c3c;
+  --tag-documentación: #2ecc71;
+  --tag-urgente: #e67e22;
+  --tag-bloqueado: #95a5a6;
 }
 
 body {
@@ -77,6 +83,85 @@ main {
 #task-form textarea {
   min-height: 80px;
   resize: vertical;
+}
+
+/* Estilos para el selector de etiquetas */
+.tag-selector {
+  width: 100%;
+  padding: 0.75rem 0;
+}
+
+.tag-selector label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.tag-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-option {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.tag-option input[type="checkbox"] {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.tag-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  color: white;
+  font-weight: normal;
+}
+
+.tag-desarrollo {
+  background-color: var(--tag-desarrollo);
+}
+
+.tag-diseño {
+  background-color: var(--tag-diseño);
+}
+
+.tag-bug {
+  background-color: var(--tag-bug);
+}
+
+.tag-documentación {
+  background-color: var(--tag-documentación);
+}
+
+.tag-urgente {
+  background-color: var(--tag-urgente);
+}
+
+.tag-bloqueado {
+  background-color: var(--tag-bloqueado);
+}
+
+/* Estilos para las etiquetas en las tarjetas de tareas */
+.task-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+}
+
+.task-tag {
+  display: inline-block;
+  padding: 0.15rem 0.4rem;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  color: white;
 }
 
 #task-form button {
@@ -284,6 +369,74 @@ footer {
 
 footer p {
   margin: 0.2rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: white;
+  margin-top: 0.5rem;
+}
+
+.tag-desarrollo {
+  background-color: var(--tag-desarrollo);
+}
+
+.tag-diseño {
+  background-color: var(--tag-diseño);
+}
+
+.tag-bug {
+  background-color: var(--tag-bug);
+}
+
+.tag-documentación {
+  background-color: var(--tag-documentación);
+}
+
+.tag-urgente {
+  background-color: var(--tag-urgente);
+}
+
+.tag-bloqueado {
+  background-color: var(--tag-bloqueado);
+}
+
+.custom-tag-input {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: 0.5rem;
+}
+
+.custom-tag-input input {
+  padding: 0.4rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  min-width: 120px;
+}
+
+.custom-tag-input button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.3rem 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 1rem;
+}
+
+.custom-tag-input button:hover {
+  background-color: #e6d017;
+}
+
+/* Estilo para etiquetas personalizadas */
+.tag-custom {
+  background-color: #607d8b;
 }
 
 @media (max-width: 768px) {

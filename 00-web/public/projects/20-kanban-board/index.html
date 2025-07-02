@@ -23,6 +23,39 @@
             <option value="media">Media</option>
             <option value="alta">Alta</option>
           </select>
+          <div class="tag-selector">
+            <label>Etiquetas:</label>
+            <div class="tag-options">
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="desarrollo">
+                <span class="tag-badge tag-desarrollo">Desarrollo</span>
+              </label>
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="diseño">
+                <span class="tag-badge tag-diseño">Diseño</span>
+              </label>
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="bug">
+                <span class="tag-badge tag-bug">Bug</span>
+              </label>
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="documentación">
+                <span class="tag-badge tag-documentación">Documentación</span>
+              </label>
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="urgente">
+                <span class="tag-badge tag-urgente">Urgente</span>
+              </label>
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="bloqueado">
+                <span class="tag-badge tag-bloqueado">Bloqueado</span>
+              </label>
+              <div class="custom-tag-input">
+                <input type="text" id="custom-tag" placeholder="Nueva etiqueta...">
+                <button type="button" id="add-custom-tag">+</button>
+              </div>
+            </div>
+          </div>
           <button type="submit">Añadir Tarea</button>
         </form>
       </div>
@@ -40,6 +73,19 @@
               <option value="baja">Baja</option>
               <option value="media">Media</option>
               <option value="alta">Alta</option>
+            </select>
+          </label>
+          <label>
+            Filtrar por etiqueta:
+            <select id="filter-tag">
+              <option value="">Todas</option>
+              <option value="desarrollo">Desarrollo</option>
+              <option value="diseño">Diseño</option>
+              <option value="bug">Bug</option>
+              <option value="documentación">Documentación</option>
+              <option value="urgente">Urgente</option>
+              <option value="bloqueado">Bloqueado</option>
+              <!-- Las etiquetas personalizadas se añadirán dinámicamente aquí -->
             </select>
           </label>
           <button id="clear-filters" title="Limpiar filtros">Limpiar filtros</button>

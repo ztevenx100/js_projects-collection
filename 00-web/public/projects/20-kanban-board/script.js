@@ -1,9 +1,11 @@
 // Variables para almacenar las tareas y un contador para IDs únicos
 let tasks = [];
 let taskIdCounter = 0;
+let customTags = []; // Array para almacenar las etiquetas personalizadas
 // Variables para filtros
 let currentSearchTerm = '';
 let currentPriorityFilter = '';
+let currentTagFilter = '';
 
 // Elementos del DOM que utilizaremos con frecuencia
 const taskForm = document.getElementById('task-form');
@@ -17,12 +19,19 @@ const doneList = document.getElementById('done');
 const searchInput = document.getElementById('search-task');
 const searchBtn = document.getElementById('search-btn');
 const filterPriority = document.getElementById('filter-priority');
+const filterTag = document.getElementById('filter-tag');
 const clearFiltersBtn = document.getElementById('clear-filters');
+// Elementos para etiquetas personalizadas
+const customTagInput = document.getElementById('custom-tag');
+const addCustomTagBtn = document.getElementById('add-custom-tag');
 
 // Función para inicializar la aplicación
 function init() {
   // Cargar tareas desde localStorage si existen
   loadTasksFromLocalStorage();
+  
+  // Cargar etiquetas personalizadas desde localStorage
+  loadCustomTagsFromLocalStorage();
   
   // Event listener para el formulario de tareas
   taskForm.addEventListener('submit', addTask);
@@ -35,7 +44,16 @@ function init() {
     }
   });
   filterPriority.addEventListener('change', applyFilters);
+  filterTag.addEventListener('change', applyFilters);
   clearFiltersBtn.addEventListener('click', clearFilters);
+  
+  // Event listener para añadir etiquetas personalizadas
+  addCustomTagBtn.addEventListener('click', addCustomTag);
+  customTagInput.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') {
+      addCustomTag();
+    }
+  });
   
   // Renderizar las tareas iniciales
   renderTasks();
@@ -45,12 +63,17 @@ function init() {
 function addTask(event) {
   event.preventDefault();
   
+  // Recoger las etiquetas seleccionadas
+  const selectedTags = Array.from(document.querySelectorAll('input[name="task-tag"]:checked'))
+    .map(checkbox => checkbox.value);
+  
   // Crear un objeto con los datos de la tarea
   const task = {
     id: taskIdCounter++,
     title: taskTitle.value,
     description: taskDescription.value,
     priority: taskPriority.value,
+    tags: selectedTags,
     status: 'todo',
     createdAt: new Date().toISOString()
   };
@@ -82,10 +105,18 @@ function renderTasks() {
       task.title.toLowerCase().includes(currentSearchTerm.toLowerCase()) || 
       task.description.toLowerCase().includes(currentSearchTerm.toLowerCase());
     
+    // Búsqueda por etiquetas (si existen)
+    const matchesTags = currentSearchTerm === '' || 
+      (task.tags && task.tags.some(tag => tag.toLowerCase().includes(currentSearchTerm.toLowerCase())));
+    
     // Filtro por prioridad
     const matchesPriority = currentPriorityFilter === '' || task.priority === currentPriorityFilter;
     
-    return matchesSearch && matchesPriority;
+    // Filtro por etiqueta
+    const matchesTagFilter = currentTagFilter === '' || 
+      (task.tags && task.tags.includes(currentTagFilter));
+    
+    return (matchesSearch || matchesTags) && matchesPriority && matchesTagFilter;
   });
   
   // Renderizar cada tarea filtrada en su columna correspondiente
@@ -94,7 +125,7 @@ function renderTasks() {
   });
   
   // Mostrar mensaje si no hay tareas que coincidan con los filtros
-  if (filteredTasks.length === 0 && (currentSearchTerm !== '' || currentPriorityFilter !== '')) {
+  if (filteredTasks.length === 0 && (currentSearchTerm !== '' || currentPriorityFilter !== '' || currentTagFilter !== '')) {
     showNoTasksMessage();
   }
 }
@@ -113,11 +144,23 @@ function renderTask(task) {
   // Prioridad formateada para mostrar
   const priorityText = task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
   
+  // Generar HTML para las etiquetas si existen
+  let tagsHTML = '';
+  if (task.tags && task.tags.length > 0) {
+    tagsHTML = '<div class="task-tags">';
+    task.tags.forEach(tag => {
+      const tagText = tag.charAt(0).toUpperCase() + tag.slice(1);
+      tagsHTML += `<span class="task-tag tag-${tag}">${tagText}</span>`;
+    });
+    tagsHTML += '</div>';
+  }
+  
   // HTML de la tarjeta
   taskCard.innerHTML = `
     <h3>${task.title}</h3>
     <p>${task.description}</p>
     <span class="task-priority priority-${task.priority}">${priorityText}</span>
+    ${tagsHTML}
     <button class="delete-task" onclick="deleteTask(${task.id})">✕</button>
   `;
   
@@ -190,6 +233,7 @@ function loadTasksFromLocalStorage() {
 function applyFilters() {
   currentSearchTerm = searchInput.value.trim();
   currentPriorityFilter = filterPriority.value;
+  currentTagFilter = filterTag.value;
   
   renderTasks();
   
@@ -203,9 +247,11 @@ function applyFilters() {
 function clearFilters() {
   currentSearchTerm = '';
   currentPriorityFilter = '';
+  currentTagFilter = '';
   
   searchInput.value = '';
   filterPriority.value = '';
+  filterTag.value = '';
   
   // Eliminar todos los resaltados
   document.querySelectorAll('.highlight-task').forEach(card => {
@@ -223,7 +269,18 @@ function highlightMatchingTasks() {
     const title = card.querySelector('h3').textContent.toLowerCase();
     const description = card.querySelector('p').textContent.toLowerCase();
     
-    if (title.includes(term) || description.includes(term)) {
+    // Comprobar si hay etiquetas y si alguna coincide con la búsqueda
+    let tagMatch = false;
+    const tagElements = card.querySelectorAll('.task-tag');
+    if (tagElements.length > 0) {
+      tagElements.forEach(tagEl => {
+        if (tagEl.textContent.toLowerCase().includes(term)) {
+          tagMatch = true;
+        }
+      });
+    }
+    
+    if (title.includes(term) || description.includes(term) || tagMatch) {
       card.classList.add('highlight-task');
     }
   });
@@ -241,6 +298,94 @@ function showNoTasksMessage() {
       column.appendChild(messageElement);
     }
   });
+}
+
+// Función para añadir una etiqueta personalizada
+function addCustomTag() {
+  const newTag = customTagInput.value.trim();
+  
+  // Validar que no esté vacío y no exista ya
+  if (newTag && !customTags.includes(newTag)) {
+    // Crear un ID para la etiqueta (sin espacios, todo en minúsculas)
+    const tagId = newTag.toLowerCase().replace(/\s+/g, '-');
+    
+    // Añadir la etiqueta al array
+    customTags.push(tagId);
+    
+    // Guardar en localStorage
+    saveCustomTagsToLocalStorage();
+    
+    // Crear elemento para la nueva etiqueta
+    createCustomTagElement(tagId, newTag);
+    
+    // Añadir la etiqueta al filtro
+    addTagToFilter(tagId, newTag);
+    
+    // Limpiar el input
+    customTagInput.value = '';
+  } else if (customTags.includes(newTag.toLowerCase().replace(/\s+/g, '-'))) {
+    alert('Esta etiqueta ya existe');
+  }
+}
+
+// Función para crear el elemento HTML para una etiqueta personalizada
+function createCustomTagElement(tagId, tagName) {
+  const tagOptions = document.querySelector('.tag-options');
+  const customTagInput = document.querySelector('.custom-tag-input');
+  
+  // Crear el elemento label
+  const tagLabel = document.createElement('label');
+  tagLabel.className = 'tag-option';
+  
+  // Crear el checkbox
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.name = 'task-tag';
+  checkbox.value = tagId;
+  
+  // Crear el span para el texto y estilo
+  const span = document.createElement('span');
+  span.className = 'tag-badge tag-custom';
+  span.textContent = tagName;
+  
+  // Combinar todo
+  tagLabel.appendChild(checkbox);
+  tagLabel.appendChild(span);
+  
+  // Insertar antes del input de crear etiquetas
+  tagOptions.insertBefore(tagLabel, customTagInput);
+}
+
+// Función para guardar las etiquetas personalizadas en localStorage
+function saveCustomTagsToLocalStorage() {
+  localStorage.setItem('kanbanCustomTags', JSON.stringify(customTags));
+}
+
+// Función para cargar las etiquetas personalizadas desde localStorage
+function loadCustomTagsFromLocalStorage() {
+  const savedTags = localStorage.getItem('kanbanCustomTags');
+  
+  if (savedTags) {
+    customTags = JSON.parse(savedTags);
+    
+    // Renderizar las etiquetas personalizadas
+    customTags.forEach(tag => {
+      // Convertir el ID de la etiqueta a un nombre presentable
+      const tagName = tag.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      createCustomTagElement(tag, tagName);
+      
+      // Añadir la etiqueta al filtro de etiquetas
+      addTagToFilter(tag, tagName);
+    });
+  }
+}
+
+// Función para añadir una etiqueta al selector de filtro
+function addTagToFilter(tagId, tagName) {
+  const option = document.createElement('option');
+  option.value = tagId;
+  option.textContent = tagName;
+  filterTag.appendChild(option);
 }
 
 // Inicializar la aplicación cuando el DOM esté completamente cargado
