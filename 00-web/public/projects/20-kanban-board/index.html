@@ -118,6 +118,61 @@
         </div>
       </div>
       
+      <div class="stats-container">
+        <div class="stats-header">
+          <h3>Estadísticas y Métricas</h3>
+          <button id="toggle-stats" title="Mostrar/Ocultar Estadísticas">🔽</button>
+        </div>
+        <div class="stats-content">
+          <div class="stats-row">
+            <div class="stats-card">
+              <h4>Resumen de Tareas</h4>
+              <div class="stats-data">
+                <p>Total de Tareas: <span id="total-tasks">0</span></p>
+                <p>Por Hacer: <span id="todo-tasks">0</span></p>
+                <p>En Progreso: <span id="progress-tasks">0</span></p>
+                <p>Completadas: <span id="done-tasks">0</span></p>
+              </div>
+            </div>
+            <div class="stats-card">
+              <h4>Tareas por Prioridad</h4>
+              <div class="stats-data">
+                <p>Alta: <span id="high-priority">0</span></p>
+                <p>Media: <span id="medium-priority">0</span></p>
+                <p>Baja: <span id="low-priority">0</span></p>
+              </div>
+            </div>
+            <div class="stats-card">
+              <h4>Estado de Vencimientos</h4>
+              <div class="stats-data">
+                <p>Vencidas: <span id="overdue-tasks">0</span></p>
+                <p>Vencen hoy: <span id="today-tasks">0</span></p>
+                <p>Próxima semana: <span id="week-tasks">0</span></p>
+                <p>Sin fecha: <span id="no-date-tasks">0</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="stats-row">
+            <div class="stats-card stats-card-full">
+              <h4>Etiquetas más usadas</h4>
+              <div class="tags-chart" id="tags-chart">
+                <!-- Las barras de etiquetas se generarán dinámicamente -->
+              </div>
+            </div>
+          </div>
+          <div class="stats-row">
+            <div class="stats-card stats-card-full">
+              <h4>Rendimiento</h4>
+              <div class="stats-data">
+                <p>Tareas completadas (últimos 7 días): <span id="completed-week">0</span></p>
+                <p>Tiempo promedio de finalización: <span id="avg-completion-time">0 días</span></p>
+                <p>Tasa de finalización: <span id="completion-rate">0%</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <div class="kanban-board">
         <div class="kanban-column" id="todo-column">
           <h2>Por Hacer</h2>

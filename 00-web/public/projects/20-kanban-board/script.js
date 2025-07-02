@@ -8,6 +8,8 @@ let currentPriorityFilter = '';
 let currentTagFilter = '';
 let currentDueDateFilter = '';
 let currentSortOption = ''; // Variable para el ordenamiento
+// Variables para estadísticas
+let statsVisible = false;
 
 // Elementos del DOM que utilizaremos con frecuencia
 const taskForm = document.getElementById('task-form');
@@ -29,6 +31,9 @@ const clearFiltersBtn = document.getElementById('clear-filters');
 // Elementos para etiquetas personalizadas
 const customTagInput = document.getElementById('custom-tag');
 const addCustomTagBtn = document.getElementById('add-custom-tag');
+// Elementos para estadísticas
+const toggleStatsBtn = document.getElementById('toggle-stats');
+const statsContent = document.querySelector('.stats-content');
 
 // Función para inicializar la aplicación
 function init() {
@@ -62,6 +67,12 @@ function init() {
     }
   });
   
+  // Event listener para estadísticas
+  toggleStatsBtn.addEventListener('click', toggleStats);
+  
+  // Cargar y mostrar estadísticas
+  updateStats();
+  
   // Renderizar las tareas iniciales
   renderTasks();
 }
@@ -94,6 +105,9 @@ function addTask(event) {
   
   // Renderizar la nueva tarea
   renderTask(task);
+  
+  // Actualizar estadísticas
+  updateStats();
   
   // Resetear el formulario
   taskForm.reset();
@@ -216,6 +230,9 @@ function renderTasks() {
   if (sortedTasks.length === 0 && (currentSearchTerm !== '' || currentPriorityFilter !== '' || currentTagFilter !== '' || currentDueDateFilter !== '')) {
     showNoTasksMessage();
   }
+  
+  // Actualizar estadísticas cuando cambian las tareas visibles
+  updateStats();
 }
 
 // Función para renderizar una tarea individual
@@ -301,6 +318,9 @@ function deleteTask(id) {
   // Guardar en localStorage
   saveTasksToLocalStorage();
   
+  // Actualizar estadísticas
+  updateStats();
+  
   // Volver a renderizar todas las tareas
   renderTasks();
 }
@@ -329,8 +349,23 @@ function drop(event) {
     const task = tasks.find(task => task.id === id);
     
     if (task) {
-      task.status = targetColumn.id;
+      const oldStatus = task.status;
+      const newStatus = targetColumn.id;
+      task.status = newStatus;
+      
+      // Si la tarea se completó (se movió a la columna "done")
+      if (newStatus === 'done' && oldStatus !== 'done') {
+        task.completedAt = new Date().toISOString();
+      }
+      // Si la tarea se movió desde "done" a otra columna, eliminar la fecha de finalización
+      else if (oldStatus === 'done' && newStatus !== 'done') {
+        delete task.completedAt;
+      }
+      
       saveTasksToLocalStorage();
+      
+      // Actualizar estadísticas
+      updateStats();
     }
   }
 }
@@ -517,6 +552,225 @@ function addTagToFilter(tagId, tagName) {
   option.value = tagId;
   option.textContent = tagName;
   filterTag.appendChild(option);
+}
+
+// Función para mostrar/ocultar la sección de estadísticas
+function toggleStats() {
+  statsVisible = !statsVisible;
+  
+  if (statsVisible) {
+    statsContent.classList.add('open');
+    toggleStatsBtn.textContent = '🔼';
+    toggleStatsBtn.title = 'Ocultar Estadísticas';
+  } else {
+    statsContent.classList.remove('open');
+    toggleStatsBtn.textContent = '🔽';
+    toggleStatsBtn.title = 'Mostrar Estadísticas';
+  }
+}
+
+// Función para actualizar todas las estadísticas
+function updateStats() {
+  updateTaskCountStats();
+  updatePriorityStats();
+  updateDueDateStats();
+  updateTagStats();
+  updatePerformanceStats();
+}
+
+// Actualiza las estadísticas del conteo de tareas
+function updateTaskCountStats() {
+  const totalTasks = tasks.length;
+  const todoTasks = tasks.filter(task => task.status === 'todo').length;
+  const progressTasks = tasks.filter(task => task.status === 'progress').length;
+  const doneTasks = tasks.filter(task => task.status === 'done').length;
+  
+  document.getElementById('total-tasks').textContent = totalTasks;
+  document.getElementById('todo-tasks').textContent = todoTasks;
+  document.getElementById('progress-tasks').textContent = progressTasks;
+  document.getElementById('done-tasks').textContent = doneTasks;
+}
+
+// Actualiza las estadísticas de prioridad
+function updatePriorityStats() {
+  const highPriority = tasks.filter(task => task.priority === 'alta').length;
+  const mediumPriority = tasks.filter(task => task.priority === 'media').length;
+  const lowPriority = tasks.filter(task => task.priority === 'baja').length;
+  
+  document.getElementById('high-priority').textContent = highPriority;
+  document.getElementById('medium-priority').textContent = mediumPriority;
+  document.getElementById('low-priority').textContent = lowPriority;
+}
+
+// Actualiza las estadísticas de fecha de vencimiento
+function updateDueDateStats() {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const oneWeekFromToday = new Date(today);
+  oneWeekFromToday.setDate(today.getDate() + 7);
+  
+  // Contar tareas vencidas, hoy, semana y sin fecha
+  const overdueTasks = tasks.filter(task => 
+    task.dueDate && new Date(task.dueDate) < today && task.status !== 'done'
+  ).length;
+  
+  const todayTasks = tasks.filter(task => {
+    if (!task.dueDate) return false;
+    const dueDate = new Date(task.dueDate);
+    return dueDate.getFullYear() === today.getFullYear() &&
+           dueDate.getMonth() === today.getMonth() &&
+           dueDate.getDate() === today.getDate();
+  }).length;
+  
+  const weekTasks = tasks.filter(task => {
+    if (!task.dueDate) return false;
+    const dueDate = new Date(task.dueDate);
+    return dueDate > today && dueDate <= oneWeekFromToday;
+  }).length;
+  
+  const noDateTasks = tasks.filter(task => !task.dueDate).length;
+  
+  document.getElementById('overdue-tasks').textContent = overdueTasks;
+  document.getElementById('today-tasks').textContent = todayTasks;
+  document.getElementById('week-tasks').textContent = weekTasks;
+  document.getElementById('no-date-tasks').textContent = noDateTasks;
+}
+
+// Actualiza las estadísticas de etiquetas
+function updateTagStats() {
+  // Obtener todas las etiquetas usadas
+  const tagCounts = {};
+  
+  // Contar cada etiqueta
+  tasks.forEach(task => {
+    if (task.tags && task.tags.length > 0) {
+      task.tags.forEach(tag => {
+        tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+      });
+    }
+  });
+  
+  // Convertir el objeto a un array para ordenarlo
+  const tagArray = Object.keys(tagCounts).map(tag => ({
+    name: tag,
+    count: tagCounts[tag]
+  }));
+  
+  // Ordenar por frecuencia (más usadas primero)
+  tagArray.sort((a, b) => b.count - a.count);
+  
+  // Obtener el elemento donde mostraremos el gráfico
+  const tagsChart = document.getElementById('tags-chart');
+  tagsChart.innerHTML = '';
+  
+  // Limitar a las 6 etiquetas más usadas
+  const topTags = tagArray.slice(0, 6);
+  
+  // Si no hay etiquetas, mostrar un mensaje
+  if (topTags.length === 0) {
+    tagsChart.innerHTML = '<p class="no-data">No hay etiquetas en uso</p>';
+    return;
+  }
+  
+  // Encontrar el valor máximo para calcular porcentajes
+  const maxCount = Math.max(...topTags.map(tag => tag.count));
+  
+  // Crear la barra para cada etiqueta
+  topTags.forEach(tag => {
+    const percentage = (tag.count / maxCount) * 100;
+    
+    // Formatear el nombre de la etiqueta para mostrar (primera letra mayúscula)
+    const displayName = tag.name.charAt(0).toUpperCase() + tag.name.slice(1);
+    
+    // Crear el elemento HTML de la barra
+    const tagBarContainer = document.createElement('div');
+    tagBarContainer.className = 'tag-bar-container';
+    
+    // Nombre de la etiqueta
+    const tagNameElement = document.createElement('span');
+    tagNameElement.className = 'tag-name';
+    tagNameElement.textContent = displayName;
+    
+    // Barra de progreso
+    const tagBarElement = document.createElement('div');
+    tagBarElement.className = 'tag-bar';
+    tagBarElement.style.width = `${percentage}%`;
+    tagBarElement.style.backgroundColor = getTagColor(tag.name);
+    
+    // Contador
+    const tagCountElement = document.createElement('span');
+    tagCountElement.className = 'tag-bar-count';
+    tagCountElement.textContent = tag.count;
+    
+    // Ensamblar elementos
+    tagBarContainer.appendChild(tagNameElement);
+    tagBarContainer.appendChild(tagBarElement);
+    tagBarContainer.appendChild(tagCountElement);
+    
+    tagsChart.appendChild(tagBarContainer);
+  });
+}
+
+// Obtiene el color de la etiqueta basado en las variables CSS
+function getTagColor(tagName) {
+  const tags = {
+    desarrollo: 'var(--tag-desarrollo)',
+    diseño: 'var(--tag-diseño)',
+    bug: 'var(--tag-bug)',
+    documentación: 'var(--tag-documentación)',
+    urgente: 'var(--tag-urgente)',
+    bloqueado: 'var(--tag-bloqueado)'
+  };
+  
+  return tags[tagName] || '#607d8b'; // Color por defecto para etiquetas personalizadas
+}
+
+// Actualiza las estadísticas de rendimiento
+function updatePerformanceStats() {
+  // Obtener la fecha actual y hace 7 días
+  const today = new Date();
+  const oneWeekAgo = new Date();
+  oneWeekAgo.setDate(today.getDate() - 7);
+  
+  // Tareas completadas en los últimos 7 días
+  const completedInWeek = tasks.filter(task => {
+    if (task.status !== 'done') return false;
+    
+    // Si la tarea no tiene una fecha de finalización, no podemos saber cuándo se completó
+    if (!task.completedAt) return false;
+    
+    const completedDate = new Date(task.completedAt);
+    return completedDate >= oneWeekAgo;
+  }).length;
+  
+  // Calcular tiempo promedio de finalización (solo para tareas completadas que tienen fecha de inicio y finalización)
+  const completedTasks = tasks.filter(task => 
+    task.status === 'done' && task.createdAt && task.completedAt
+  );
+  
+  let avgCompletionTime = 'N/A';
+  
+  if (completedTasks.length > 0) {
+    const totalDays = completedTasks.reduce((sum, task) => {
+      const createdDate = new Date(task.createdAt);
+      const completedDate = new Date(task.completedAt);
+      const days = (completedDate - createdDate) / (1000 * 60 * 60 * 24);
+      return sum + days;
+    }, 0);
+    
+    avgCompletionTime = (totalDays / completedTasks.length).toFixed(1) + ' días';
+  }
+  
+  // Calcular tasa de finalización (tareas completadas / tareas totales)
+  const totalTasks = tasks.length;
+  const completedTasks2 = tasks.filter(task => task.status === 'done').length;
+  const completionRate = totalTasks > 0 ? Math.round((completedTasks2 / totalTasks) * 100) : 0;
+  
+  // Actualizar los elementos en el DOM
+  document.getElementById('completed-week').textContent = completedInWeek;
+  document.getElementById('avg-completion-time').textContent = avgCompletionTime;
+  document.getElementById('completion-rate').textContent = `${completionRate}%`;
 }
 
 // Inicializar la aplicación cuando el DOM esté completamente cargado

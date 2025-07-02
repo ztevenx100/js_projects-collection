@@ -489,7 +489,131 @@ footer p {
   border-left: 3px solid var(--overdue);
 }
 
+/* Estilos para la sección de estadísticas */
+.stats-container {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.stats-header h3 {
+  margin: 0;
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+}
+
+#toggle-stats {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.stats-content {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.stats-content.open {
+  max-height: 1000px;
+}
+
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+}
+
+.stats-card {
+  background-color: #f9f9f9;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  flex: 1;
+  min-width: 200px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.stats-card h4 {
+  margin: 0 0 0.8rem 0;
+  color: var(--secondary-color);
+  font-size: 1rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+}
+
+.stats-card-full {
+  flex-basis: 100%;
+}
+
+.stats-data p {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats-data span {
+  font-weight: bold;
+}
+
+/* Estilos para el gráfico de etiquetas */
+.tags-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tag-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tag-name {
+  min-width: 100px;
+}
+
+.tag-bar {
+  height: 20px;
+  background-color: var(--primary-color);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.tag-bar-count {
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
+  .stats-row {
+    flex-direction: column;
+  }
+  
+  .stats-card {
+    width: 100%;
+  }
+  
   .kanban-board {
     grid-template-columns: 1fr;
   }
