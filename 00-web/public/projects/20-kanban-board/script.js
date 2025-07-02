@@ -6,6 +6,7 @@ let customTags = []; // Array para almacenar las etiquetas personalizadas
 let currentSearchTerm = '';
 let currentPriorityFilter = '';
 let currentTagFilter = '';
+let currentSortOption = ''; // Variable para el ordenamiento
 
 // Elementos del DOM que utilizaremos con frecuencia
 const taskForm = document.getElementById('task-form');
@@ -20,6 +21,7 @@ const searchInput = document.getElementById('search-task');
 const searchBtn = document.getElementById('search-btn');
 const filterPriority = document.getElementById('filter-priority');
 const filterTag = document.getElementById('filter-tag');
+const sortTasks = document.getElementById('sort-tasks');
 const clearFiltersBtn = document.getElementById('clear-filters');
 // Elementos para etiquetas personalizadas
 const customTagInput = document.getElementById('custom-tag');
@@ -45,6 +47,7 @@ function init() {
   });
   filterPriority.addEventListener('change', applyFilters);
   filterTag.addEventListener('change', applyFilters);
+  sortTasks.addEventListener('change', applyFilters);
   clearFiltersBtn.addEventListener('click', clearFilters);
   
   // Event listener para añadir etiquetas personalizadas
@@ -119,13 +122,37 @@ function renderTasks() {
     return (matchesSearch || matchesTags) && matchesPriority && matchesTagFilter;
   });
   
-  // Renderizar cada tarea filtrada en su columna correspondiente
-  filteredTasks.forEach(task => {
+  // Ordenar las tareas filtradas según la opción actual de ordenamiento
+  let sortedTasks = [...filteredTasks]; // Hacer una copia del array filtrado
+  if (currentSortOption === 'priority') {
+    // Ordenar por prioridad (alta, media, baja)
+    const priorityOrder = { alta: 1, media: 2, baja: 3 };
+    sortedTasks.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+  } else if (currentSortOption === 'title') {
+    // Ordenar alfabéticamente por título
+    sortedTasks.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (currentSortOption === 'date') {
+    // Ordenar por fecha de creación (más reciente primero)
+    sortedTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  } else if (currentSortOption === 'tags') {
+    // Ordenar por etiquetas (primero tareas con etiquetas, luego alfabéticamente por la primera etiqueta)
+    sortedTasks.sort((a, b) => {
+      // Si una tarea no tiene etiquetas y la otra sí, la que tiene etiquetas va primero
+      if (!a.tags || a.tags.length === 0) return 1;
+      if (!b.tags || b.tags.length === 0) return -1;
+      
+      // Si ambas tienen etiquetas, comparar la primera etiqueta alfabéticamente
+      return a.tags[0].localeCompare(b.tags[0]);
+    });
+  }
+  
+  // Renderizar cada tarea ordenada en su columna correspondiente
+  sortedTasks.forEach(task => {
     renderTask(task);
   });
   
   // Mostrar mensaje si no hay tareas que coincidan con los filtros
-  if (filteredTasks.length === 0 && (currentSearchTerm !== '' || currentPriorityFilter !== '' || currentTagFilter !== '')) {
+  if (sortedTasks.length === 0 && (currentSearchTerm !== '' || currentPriorityFilter !== '' || currentTagFilter !== '')) {
     showNoTasksMessage();
   }
 }
@@ -234,6 +261,7 @@ function applyFilters() {
   currentSearchTerm = searchInput.value.trim();
   currentPriorityFilter = filterPriority.value;
   currentTagFilter = filterTag.value;
+  currentSortOption = sortTasks.value; // Obtener la opción de ordenamiento actual
   
   renderTasks();
   
@@ -248,10 +276,12 @@ function clearFilters() {
   currentSearchTerm = '';
   currentPriorityFilter = '';
   currentTagFilter = '';
+  currentSortOption = '';
   
   searchInput.value = '';
   filterPriority.value = '';
   filterTag.value = '';
+  sortTasks.value = '';
   
   // Eliminar todos los resaltados
   document.querySelectorAll('.highlight-task').forEach(card => {
