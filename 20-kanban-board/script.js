@@ -6,6 +6,7 @@ let customTags = []; // Array para almacenar las etiquetas personalizadas
 let currentSearchTerm = '';
 let currentPriorityFilter = '';
 let currentTagFilter = '';
+let currentDueDateFilter = '';
 let currentSortOption = ''; // Variable para el ordenamiento
 
 // Elementos del DOM que utilizaremos con frecuencia
@@ -13,6 +14,7 @@ const taskForm = document.getElementById('task-form');
 const taskTitle = document.getElementById('task-title');
 const taskDescription = document.getElementById('task-description');
 const taskPriority = document.getElementById('task-priority');
+const taskDueDate = document.getElementById('task-due-date');
 const todoList = document.getElementById('todo');
 const progressList = document.getElementById('progress');
 const doneList = document.getElementById('done');
@@ -21,6 +23,7 @@ const searchInput = document.getElementById('search-task');
 const searchBtn = document.getElementById('search-btn');
 const filterPriority = document.getElementById('filter-priority');
 const filterTag = document.getElementById('filter-tag');
+const filterDueDate = document.getElementById('filter-due-date');
 const sortTasks = document.getElementById('sort-tasks');
 const clearFiltersBtn = document.getElementById('clear-filters');
 // Elementos para etiquetas personalizadas
@@ -47,6 +50,7 @@ function init() {
   });
   filterPriority.addEventListener('change', applyFilters);
   filterTag.addEventListener('change', applyFilters);
+  filterDueDate.addEventListener('change', applyFilters);
   sortTasks.addEventListener('change', applyFilters);
   clearFiltersBtn.addEventListener('click', clearFilters);
   
@@ -76,6 +80,7 @@ function addTask(event) {
     title: taskTitle.value,
     description: taskDescription.value,
     priority: taskPriority.value,
+    dueDate: taskDueDate.value, // Obtener la fecha de vencimiento
     tags: selectedTags,
     status: 'todo',
     createdAt: new Date().toISOString()
@@ -101,6 +106,14 @@ function renderTasks() {
   progressList.innerHTML = '';
   doneList.innerHTML = '';
   
+  // Obtener la fecha actual para los filtros de fecha
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Normalizar la hora para comparar solo fechas
+  
+  // Calcular fecha de una semana desde hoy
+  const oneWeekFromToday = new Date(today);
+  oneWeekFromToday.setDate(today.getDate() + 7);
+  
   // Filtrar las tareas según los criterios actuales
   const filteredTasks = tasks.filter(task => {
     // Filtro de búsqueda por título o descripción
@@ -119,7 +132,45 @@ function renderTasks() {
     const matchesTagFilter = currentTagFilter === '' || 
       (task.tags && task.tags.includes(currentTagFilter));
     
-    return (matchesSearch || matchesTags) && matchesPriority && matchesTagFilter;
+    // Filtro por fecha de vencimiento
+    let matchesDueDate = true;
+    if (currentDueDateFilter !== '') {
+      if (currentDueDateFilter === 'no-date') {
+        // Tareas sin fecha de vencimiento
+        matchesDueDate = !task.dueDate;
+      } else if (task.dueDate) {
+        const dueDate = new Date(task.dueDate);
+        
+        switch (currentDueDateFilter) {
+          case 'overdue':
+            // Tareas vencidas (fecha anterior a hoy y no completadas)
+            matchesDueDate = dueDate < today && task.status !== 'done';
+            break;
+          case 'today':
+            // Tareas que vencen hoy
+            matchesDueDate = 
+              dueDate.getFullYear() === today.getFullYear() && 
+              dueDate.getMonth() === today.getMonth() && 
+              dueDate.getDate() === today.getDate();
+            break;
+          case 'week':
+            // Tareas que vencen esta semana (entre mañana y 7 días)
+            const tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1);
+            matchesDueDate = dueDate >= tomorrow && dueDate <= oneWeekFromToday;
+            break;
+          case 'future':
+            // Tareas que vencen después de una semana
+            matchesDueDate = dueDate > oneWeekFromToday;
+            break;
+        }
+      } else {
+        // Si estamos filtrando por fecha pero la tarea no tiene fecha
+        matchesDueDate = false;
+      }
+    }
+    
+    return (matchesSearch || matchesTags) && matchesPriority && matchesTagFilter && matchesDueDate;
   });
   
   // Ordenar las tareas filtradas según la opción actual de ordenamiento
@@ -134,6 +185,16 @@ function renderTasks() {
   } else if (currentSortOption === 'date') {
     // Ordenar por fecha de creación (más reciente primero)
     sortedTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  } else if (currentSortOption === 'dueDate') {
+    // Ordenar por fecha de vencimiento (primero las que vencen antes)
+    sortedTasks.sort((a, b) => {
+      // Si una tarea no tiene fecha de vencimiento, va al final
+      if (!a.dueDate) return 1;
+      if (!b.dueDate) return -1;
+      
+      // Comparar fechas de vencimiento
+      return new Date(a.dueDate) - new Date(b.dueDate);
+    });
   } else if (currentSortOption === 'tags') {
     // Ordenar por etiquetas (primero tareas con etiquetas, luego alfabéticamente por la primera etiqueta)
     sortedTasks.sort((a, b) => {
@@ -152,7 +213,7 @@ function renderTasks() {
   });
   
   // Mostrar mensaje si no hay tareas que coincidan con los filtros
-  if (sortedTasks.length === 0 && (currentSearchTerm !== '' || currentPriorityFilter !== '' || currentTagFilter !== '')) {
+  if (sortedTasks.length === 0 && (currentSearchTerm !== '' || currentPriorityFilter !== '' || currentTagFilter !== '' || currentDueDateFilter !== '')) {
     showNoTasksMessage();
   }
 }
@@ -171,6 +232,34 @@ function renderTask(task) {
   // Prioridad formateada para mostrar
   const priorityText = task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
   
+  // Verificar el estado de la fecha de vencimiento y aplicar estilos
+  let dueDateHTML = '';
+  if (task.dueDate) {
+    const dueDate = new Date(task.dueDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalizar la hora para comparar solo fechas
+    
+    // Formatear la fecha para mostrarla
+    const formattedDate = formatDate(dueDate);
+    
+    // Comprobar si la tarea está vencida o próxima a vencer
+    const timeDiff = dueDate - today;
+    const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    
+    if (daysDiff < 0 && task.status !== 'done') {
+      // Tarea vencida (y no está en la columna "Hecho")
+      dueDateHTML = `<div class="due-date overdue"><span class="due-date-icon">⚠️</span> Vencida: ${formattedDate}</div>`;
+      taskCard.classList.add('overdue-card');
+    } else if (daysDiff <= 2 && task.status !== 'done') {
+      // Tarea que vence pronto (en menos de 3 días y no está en la columna "Hecho")
+      dueDateHTML = `<div class="due-date due-soon"><span class="due-date-icon">⏰</span> Vence: ${formattedDate}</div>`;
+      taskCard.classList.add('due-soon-card');
+    } else {
+      // Tarea con fecha normal
+      dueDateHTML = `<div class="due-date"><span class="due-date-icon">📅</span> Vence: ${formattedDate}</div>`;
+    }
+  }
+  
   // Generar HTML para las etiquetas si existen
   let tagsHTML = '';
   if (task.tags && task.tags.length > 0) {
@@ -187,12 +276,21 @@ function renderTask(task) {
     <h3>${task.title}</h3>
     <p>${task.description}</p>
     <span class="task-priority priority-${task.priority}">${priorityText}</span>
+    ${dueDateHTML}
     ${tagsHTML}
     <button class="delete-task" onclick="deleteTask(${task.id})">✕</button>
   `;
   
   // Añadir la tarjeta a la columna correspondiente
   document.getElementById(task.status).appendChild(taskCard);
+}
+
+// Función auxiliar para formatear la fecha en formato dd/mm/yyyy
+function formatDate(date) {
+  const day = date.getDate().toString().padStart(2, '0');
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
 }
 
 // Función para eliminar una tarea
@@ -261,6 +359,7 @@ function applyFilters() {
   currentSearchTerm = searchInput.value.trim();
   currentPriorityFilter = filterPriority.value;
   currentTagFilter = filterTag.value;
+  currentDueDateFilter = filterDueDate.value;
   currentSortOption = sortTasks.value; // Obtener la opción de ordenamiento actual
   
   renderTasks();
@@ -276,11 +375,13 @@ function clearFilters() {
   currentSearchTerm = '';
   currentPriorityFilter = '';
   currentTagFilter = '';
+  currentDueDateFilter = '';
   currentSortOption = '';
   
   searchInput.value = '';
   filterPriority.value = '';
   filterTag.value = '';
+  filterDueDate.value = '';
   sortTasks.value = '';
   
   // Eliminar todos los resaltados

@@ -16,6 +16,8 @@
   --tag-documentación: #2ecc71;
   --tag-urgente: #e67e22;
   --tag-bloqueado: #95a5a6;
+  --due-soon: #ff9800; /* Naranja para tareas que vencen pronto */
+  --overdue: #f44336; /* Rojo para tareas vencidas */
 }
 
 body {
@@ -437,6 +439,54 @@ footer p {
 /* Estilo para etiquetas personalizadas */
 .tag-custom {
   background-color: #607d8b;
+}
+
+.due-date-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.due-date-container label {
+  font-weight: bold;
+}
+
+.due-date-container input[type="date"] {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-family: inherit;
+}
+
+.due-date {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.due-date-icon {
+  font-size: 1rem;
+}
+
+.due-soon {
+  color: var(--due-soon);
+}
+
+.overdue {
+  color: var(--overdue);
+  font-weight: bold;
+}
+
+/* Estilos para el borde de tarjetas según estado de vencimiento */
+.task-card.due-soon-card {
+  border-left: 3px solid var(--due-soon);
+}
+
+.task-card.overdue-card {
+  border-left: 3px solid var(--overdue);
 }
 
 @media (max-width: 768px) {
