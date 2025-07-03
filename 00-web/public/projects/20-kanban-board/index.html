@@ -23,6 +23,54 @@
             <option value="media">Media</option>
             <option value="alta">Alta</option>
           </select>
+          <div class="due-date-container">
+            <label for="task-due-date">Fecha de vencimiento:</label>
+            <input type="date" id="task-due-date">
+          </div>
+          <div class="tag-selector">
+            <label>Etiquetas:</label>
+            <div class="tag-options">
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="desarrollo">
+                <span class="tag-badge tag-desarrollo">Desarrollo</span>
+              </label>
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="diseño">
+                <span class="tag-badge tag-diseño">Diseño</span>
+              </label>
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="bug">
+                <span class="tag-badge tag-bug">Bug</span>
+              </label>
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="documentación">
+                <span class="tag-badge tag-documentación">Documentación</span>
+              </label>
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="urgente">
+                <span class="tag-badge tag-urgente">Urgente</span>
+              </label>
+              <label class="tag-option">
+                <input type="checkbox" name="task-tag" value="bloqueado">
+                <span class="tag-badge tag-bloqueado">Bloqueado</span>
+              </label>
+              <div class="custom-tag-input">
+                <input type="text" id="custom-tag" placeholder="Nueva etiqueta...">
+                <button type="button" id="add-custom-tag">+</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="subtasks-container">
+            <label>Subtareas:</label>
+            <div class="subtasks-list" id="subtasks-list">
+              <!-- Las subtareas se generarán dinámicamente aquí -->
+            </div>
+            <div class="add-subtask">
+              <input type="text" id="subtask-text" placeholder="Nueva subtarea...">
+              <button type="button" id="add-subtask">+</button>
+            </div>
+          </div>
           <button type="submit">Añadir Tarea</button>
         </form>
       </div>
@@ -42,7 +90,98 @@
               <option value="alta">Alta</option>
             </select>
           </label>
+          <label>
+            Filtrar por etiqueta:
+            <select id="filter-tag">
+              <option value="">Todas</option>
+              <option value="desarrollo">Desarrollo</option>
+              <option value="diseño">Diseño</option>
+              <option value="bug">Bug</option>
+              <option value="documentación">Documentación</option>
+              <option value="urgente">Urgente</option>
+              <option value="bloqueado">Bloqueado</option>
+              <!-- Las etiquetas personalizadas se añadirán dinámicamente aquí -->
+            </select>
+          </label>
+          <label>
+            Filtrar por vencimiento:
+            <select id="filter-due-date">
+              <option value="">Todas</option>
+              <option value="overdue">Vencidas</option>
+              <option value="today">Vencen hoy</option>
+              <option value="week">Vencen esta semana</option>
+              <option value="future">Vencen después</option>
+              <option value="no-date">Sin fecha</option>
+            </select>
+          </label>
+          <label>
+            Ordenar por:
+            <select id="sort-tasks">
+              <option value="">Sin orden específico</option>
+              <option value="priority">Prioridad</option>
+              <option value="title">Título</option>
+              <option value="tags">Etiquetas</option>
+              <option value="date">Fecha de creación</option>
+              <option value="dueDate">Fecha de vencimiento</option>
+            </select>
+          </label>
           <button id="clear-filters" title="Limpiar filtros">Limpiar filtros</button>
+        </div>
+      </div>
+      
+      <div class="stats-container">
+        <div class="stats-header">
+          <h3>Estadísticas y Métricas</h3>
+          <button id="toggle-stats" title="Mostrar/Ocultar Estadísticas">🔽</button>
+        </div>
+        <div class="stats-content">
+          <div class="stats-row">
+            <div class="stats-card">
+              <h4>Resumen de Tareas</h4>
+              <div class="stats-data">
+                <p>Total de Tareas: <span id="total-tasks">0</span></p>
+                <p>Por Hacer: <span id="todo-tasks">0</span></p>
+                <p>En Progreso: <span id="progress-tasks">0</span></p>
+                <p>Completadas: <span id="done-tasks">0</span></p>
+              </div>
+            </div>
+            <div class="stats-card">
+              <h4>Tareas por Prioridad</h4>
+              <div class="stats-data">
+                <p>Alta: <span id="high-priority">0</span></p>
+                <p>Media: <span id="medium-priority">0</span></p>
+                <p>Baja: <span id="low-priority">0</span></p>
+              </div>
+            </div>
+            <div class="stats-card">
+              <h4>Estado de Vencimientos</h4>
+              <div class="stats-data">
+                <p>Vencidas: <span id="overdue-tasks">0</span></p>
+                <p>Vencen hoy: <span id="today-tasks">0</span></p>
+                <p>Próxima semana: <span id="week-tasks">0</span></p>
+                <p>Sin fecha: <span id="no-date-tasks">0</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="stats-row">
+            <div class="stats-card stats-card-full">
+              <h4>Etiquetas más usadas</h4>
+              <div class="tags-chart" id="tags-chart">
+                <!-- Las barras de etiquetas se generarán dinámicamente -->
+              </div>
+            </div>
+          </div>
+          <div class="stats-row">
+            <div class="stats-card stats-card-full">
+              <h4>Rendimiento</h4>
+              <div class="stats-data">
+                <p>Tareas completadas (últimos 7 días): <span id="completed-week">0</span></p>
+                <p>Tiempo promedio de finalización: <span id="avg-completion-time">0 días</span></p>
+                <p>Tasa de finalización: <span id="completion-rate">0%</span></p>
+                <p>Progreso de subtareas: <span id="subtasks-completion-rate">0%</span></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       

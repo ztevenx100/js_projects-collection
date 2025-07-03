@@ -10,6 +10,14 @@
   --priority-low: #4caf50;
   --priority-medium: #ff9800;
   --priority-high: #f44336;
+  --tag-desarrollo: #3498db;
+  --tag-diseño: #9b59b6;
+  --tag-bug: #e74c3c;
+  --tag-documentación: #2ecc71;
+  --tag-urgente: #e67e22;
+  --tag-bloqueado: #95a5a6;
+  --due-soon: #ff9800; /* Naranja para tareas que vencen pronto */
+  --overdue: #f44336; /* Rojo para tareas vencidas */
 }
 
 body {
@@ -77,6 +85,85 @@ main {
 #task-form textarea {
   min-height: 80px;
   resize: vertical;
+}
+
+/* Estilos para el selector de etiquetas */
+.tag-selector {
+  width: 100%;
+  padding: 0.75rem 0;
+}
+
+.tag-selector label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.tag-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-option {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.tag-option input[type="checkbox"] {
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.tag-badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  color: white;
+  font-weight: normal;
+}
+
+.tag-desarrollo {
+  background-color: var(--tag-desarrollo);
+}
+
+.tag-diseño {
+  background-color: var(--tag-diseño);
+}
+
+.tag-bug {
+  background-color: var(--tag-bug);
+}
+
+.tag-documentación {
+  background-color: var(--tag-documentación);
+}
+
+.tag-urgente {
+  background-color: var(--tag-urgente);
+}
+
+.tag-bloqueado {
+  background-color: var(--tag-bloqueado);
+}
+
+/* Estilos para las etiquetas en las tarjetas de tareas */
+.task-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+}
+
+.task-tag {
+  display: inline-block;
+  padding: 0.15rem 0.4rem;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  color: white;
 }
 
 #task-form button {
@@ -286,7 +373,391 @@ footer p {
   margin: 0.2rem;
 }
 
+.tag {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: white;
+  margin-top: 0.5rem;
+}
+
+.tag-desarrollo {
+  background-color: var(--tag-desarrollo);
+}
+
+.tag-diseño {
+  background-color: var(--tag-diseño);
+}
+
+.tag-bug {
+  background-color: var(--tag-bug);
+}
+
+.tag-documentación {
+  background-color: var(--tag-documentación);
+}
+
+.tag-urgente {
+  background-color: var(--tag-urgente);
+}
+
+.tag-bloqueado {
+  background-color: var(--tag-bloqueado);
+}
+
+.custom-tag-input {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: 0.5rem;
+}
+
+.custom-tag-input input {
+  padding: 0.4rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  min-width: 120px;
+}
+
+.custom-tag-input button {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.3rem 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 1rem;
+}
+
+.custom-tag-input button:hover {
+  background-color: #e6d017;
+}
+
+/* Estilo para etiquetas personalizadas */
+.tag-custom {
+  background-color: #607d8b;
+}
+
+.due-date-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.due-date-container label {
+  font-weight: bold;
+}
+
+.due-date-container input[type="date"] {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-family: inherit;
+}
+
+.due-date {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.due-date-icon {
+  font-size: 1rem;
+}
+
+.due-soon {
+  color: var(--due-soon);
+}
+
+.overdue {
+  color: var(--overdue);
+  font-weight: bold;
+}
+
+/* Estilos para el borde de tarjetas según estado de vencimiento */
+.task-card.due-soon-card {
+  border-left: 3px solid var(--due-soon);
+}
+
+.task-card.overdue-card {
+  border-left: 3px solid var(--overdue);
+}
+
+/* Estilos para la sección de estadísticas */
+.stats-container {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.stats-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.stats-header h3 {
+  margin: 0;
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+}
+
+#toggle-stats {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.stats-content {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.stats-content.open {
+  max-height: 1000px;
+}
+
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+}
+
+.stats-card {
+  background-color: #f9f9f9;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  flex: 1;
+  min-width: 200px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.stats-card h4 {
+  margin: 0 0 0.8rem 0;
+  color: var(--secondary-color);
+  font-size: 1rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+}
+
+.stats-card-full {
+  flex-basis: 100%;
+}
+
+.stats-data p {
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats-data span {
+  font-weight: bold;
+}
+
+/* Estilos para el gráfico de etiquetas */
+.tags-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.tag-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tag-name {
+  min-width: 100px;
+}
+
+.tag-bar {
+  height: 20px;
+  background-color: var(--primary-color);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.tag-bar-count {
+  margin-left: 0.5rem;
+  font-weight: bold;
+}
+
+/* Estilos para subtareas en el formulario */
+.subtasks-container {
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.subtasks-container label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.subtasks-list {
+  max-height: 150px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  background: white;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  border-left: 3px solid var(--primary-color);
+}
+
+.subtask-item input[type="text"] {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 5px;
+  font-size: 0.9rem;
+}
+
+.subtask-item button {
+  background: none;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 2px 5px;
+}
+
+.add-subtask {
+  display: flex;
+  margin-top: 10px;
+}
+
+.add-subtask input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+}
+
+.add-subtask button {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Estilos para subtareas en las tarjetas */
+.subtasks-progress {
+  margin-top: 10px;
+  border-top: 1px dashed #ddd;
+  padding-top: 8px;
+}
+
+.subtasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.subtasks-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.subtasks-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.subtasks-checklist.open {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.subtask-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  padding: 3px 0;
+}
+
+.subtask-check input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.subtask-check label {
+  flex: 1;
+  cursor: pointer;
+}
+
+.subtask-check.completed label {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.subtasks-progress-bar {
+  height: 5px;
+  background: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.subtasks-progress-fill {
+  height: 100%;
+  background: var(--primary-color);
+  width: 0%; /* Se actualizará dinámicamente */
+  transition: width 0.3s ease;
+}
+
 @media (max-width: 768px) {
+  .stats-row {
+    flex-direction: column;
+  }
+  
+  .stats-card {
+    width: 100%;
+  }
+  
   .kanban-board {
     grid-template-columns: 1fr;
   }

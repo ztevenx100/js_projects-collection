@@ -277,7 +277,7 @@ export const PROJECTS = [
     ],
     image: "kanban-board",
     theme: {
-      isDark: false
+      isDark: true
     },
   },
 ]
