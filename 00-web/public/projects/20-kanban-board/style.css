@@ -605,6 +605,150 @@ footer p {
   font-weight: bold;
 }
 
+/* Estilos para subtareas en el formulario */
+.subtasks-container {
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.subtasks-container label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.subtasks-list {
+  max-height: 150px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  background: white;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  border-left: 3px solid var(--primary-color);
+}
+
+.subtask-item input[type="text"] {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 5px;
+  font-size: 0.9rem;
+}
+
+.subtask-item button {
+  background: none;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 2px 5px;
+}
+
+.add-subtask {
+  display: flex;
+  margin-top: 10px;
+}
+
+.add-subtask input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+}
+
+.add-subtask button {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Estilos para subtareas en las tarjetas */
+.subtasks-progress {
+  margin-top: 10px;
+  border-top: 1px dashed #ddd;
+  padding-top: 8px;
+}
+
+.subtasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.subtasks-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0;
+}
+
+.subtasks-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.subtasks-checklist.open {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.subtask-check {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  padding: 3px 0;
+}
+
+.subtask-check input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.subtask-check label {
+  flex: 1;
+  cursor: pointer;
+}
+
+.subtask-check.completed label {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.subtasks-progress-bar {
+  height: 5px;
+  background: #eee;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.subtasks-progress-fill {
+  height: 100%;
+  background: var(--primary-color);
+  width: 0%; /* Se actualizará dinámicamente */
+  transition: width 0.3s ease;
+}
+
 @media (max-width: 768px) {
   .stats-row {
     flex-direction: column;

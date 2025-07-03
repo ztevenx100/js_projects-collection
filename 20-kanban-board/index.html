@@ -60,6 +60,17 @@
               </div>
             </div>
           </div>
+          
+          <div class="subtasks-container">
+            <label>Subtareas:</label>
+            <div class="subtasks-list" id="subtasks-list">
+              <!-- Las subtareas se generarán dinámicamente aquí -->
+            </div>
+            <div class="add-subtask">
+              <input type="text" id="subtask-text" placeholder="Nueva subtarea...">
+              <button type="button" id="add-subtask">+</button>
+            </div>
+          </div>
           <button type="submit">Añadir Tarea</button>
         </form>
       </div>
@@ -167,6 +178,7 @@
                 <p>Tareas completadas (últimos 7 días): <span id="completed-week">0</span></p>
                 <p>Tiempo promedio de finalización: <span id="avg-completion-time">0 días</span></p>
                 <p>Tasa de finalización: <span id="completion-rate">0%</span></p>
+                <p>Progreso de subtareas: <span id="subtasks-completion-rate">0%</span></p>
               </div>
             </div>
           </div>

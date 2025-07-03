@@ -10,6 +10,9 @@ let currentDueDateFilter = '';
 let currentSortOption = ''; // Variable para el ordenamiento
 // Variables para estadísticas
 let statsVisible = false;
+// Variables para subtareas
+let subtaskIdCounter = 0;
+let currentSubtasks = []; // Subtareas para la tarea actual en el formulario
 
 // Elementos del DOM que utilizaremos con frecuencia
 const taskForm = document.getElementById('task-form');
@@ -31,6 +34,10 @@ const clearFiltersBtn = document.getElementById('clear-filters');
 // Elementos para etiquetas personalizadas
 const customTagInput = document.getElementById('custom-tag');
 const addCustomTagBtn = document.getElementById('add-custom-tag');
+// Elementos para subtareas
+const subtasksList = document.getElementById('subtasks-list');
+const subtaskText = document.getElementById('subtask-text');
+const addSubtaskBtn = document.getElementById('add-subtask');
 // Elementos para estadísticas
 const toggleStatsBtn = document.getElementById('toggle-stats');
 const statsContent = document.querySelector('.stats-content');
@@ -67,6 +74,14 @@ function init() {
     }
   });
   
+  // Event listener para añadir subtareas
+  addSubtaskBtn.addEventListener('click', addSubtask);
+  subtaskText.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') {
+      addSubtask();
+    }
+  });
+  
   // Event listener para estadísticas
   toggleStatsBtn.addEventListener('click', toggleStats);
   
@@ -94,7 +109,8 @@ function addTask(event) {
     dueDate: taskDueDate.value, // Obtener la fecha de vencimiento
     tags: selectedTags,
     status: 'todo',
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
+    subtasks: currentSubtasks.length > 0 ? [...currentSubtasks] : [] // Añadir las subtareas
   };
   
   // Añadir la tarea al array de tareas
@@ -109,8 +125,16 @@ function addTask(event) {
   // Actualizar estadísticas
   updateStats();
   
+  // Desmarcar todos los checkboxes de etiquetas
+  document.querySelectorAll('input[name="task-tag"]:checked').forEach(checkbox => {
+    checkbox.checked = false;
+  });
+  
   // Resetear el formulario
   taskForm.reset();
+  
+  // Limpiar las subtareas
+  clearSubtasks();
 }
 
 // Función para renderizar todas las tareas
@@ -256,7 +280,7 @@ function renderTask(task) {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Normalizar la hora para comparar solo fechas
     
-    // Formatear la fecha para mostrarla
+    // Formatear la fecha para mostrar
     const formattedDate = formatDate(dueDate);
     
     // Comprobar si la tarea está vencida o próxima a vencer
@@ -288,6 +312,38 @@ function renderTask(task) {
     tagsHTML += '</div>';
   }
   
+  // Generar HTML para las subtareas si existen
+  let subtasksHTML = '';
+  if (task.subtasks && task.subtasks.length > 0) {
+    // Calcular progreso de subtareas
+    const totalSubtasks = task.subtasks.length;
+    const completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
+    const completionPercentage = totalSubtasks > 0 ? Math.round((completedSubtasks / totalSubtasks) * 100) : 0;
+    
+    // Construir HTML para las subtareas
+    subtasksHTML = `
+      <div class="subtasks-progress">
+        <div class="subtasks-header">
+          <span>Subtareas (${completedSubtasks}/${totalSubtasks})</span>
+          <button class="subtasks-toggle" onclick="toggleSubtasksList(${task.id})">🔽</button>
+        </div>
+        <div class="subtasks-progress-bar">
+          <div class="subtasks-progress-fill" style="width: ${completionPercentage}%;"></div>
+        </div>
+        <ul class="subtasks-checklist" id="subtasks-${task.id}">
+          ${task.subtasks.map(subtask => `
+            <li class="subtask-check ${subtask.completed ? 'completed' : ''}">
+              <input type="checkbox" id="check-${task.id}-${subtask.id}" 
+                ${subtask.completed ? 'checked' : ''} 
+                onchange="toggleSubtask(${task.id}, ${subtask.id})">
+              <label for="check-${task.id}-${subtask.id}">${subtask.text}</label>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    `;
+  }
+
   // HTML de la tarjeta
   taskCard.innerHTML = `
     <h3>${task.title}</h3>
@@ -295,6 +351,7 @@ function renderTask(task) {
     <span class="task-priority priority-${task.priority}">${priorityText}</span>
     ${dueDateHTML}
     ${tagsHTML}
+    ${subtasksHTML}
     <button class="delete-task" onclick="deleteTask(${task.id})">✕</button>
   `;
   
@@ -374,11 +431,13 @@ function drop(event) {
 function saveTasksToLocalStorage() {
   localStorage.setItem('kanbanTasks', JSON.stringify(tasks));
   localStorage.setItem('taskIdCounter', taskIdCounter);
+  localStorage.setItem('subtaskIdCounter', subtaskIdCounter);
 }
 
 function loadTasksFromLocalStorage() {
   const savedTasks = localStorage.getItem('kanbanTasks');
   const savedCounter = localStorage.getItem('taskIdCounter');
+  const savedSubtaskCounter = localStorage.getItem('subtaskIdCounter');
   
   if (savedTasks) {
     tasks = JSON.parse(savedTasks);
@@ -386,6 +445,10 @@ function loadTasksFromLocalStorage() {
   
   if (savedCounter) {
     taskIdCounter = parseInt(savedCounter);
+  }
+  
+  if (savedSubtaskCounter) {
+    subtaskIdCounter = parseInt(savedSubtaskCounter);
   }
 }
 
@@ -576,6 +639,7 @@ function updateStats() {
   updateDueDateStats();
   updateTagStats();
   updatePerformanceStats();
+  updateSubtaskStats();
 }
 
 // Actualiza las estadísticas del conteo de tareas
@@ -771,6 +835,149 @@ function updatePerformanceStats() {
   document.getElementById('completed-week').textContent = completedInWeek;
   document.getElementById('avg-completion-time').textContent = avgCompletionTime;
   document.getElementById('completion-rate').textContent = `${completionRate}%`;
+}
+
+// Actualiza las estadísticas de subtareas
+function updateSubtaskStats() {
+  // Contar el total de subtareas y subtareas completadas
+  let totalSubtasks = 0;
+  let completedSubtasks = 0;
+  
+  tasks.forEach(task => {
+    if (task.subtasks && task.subtasks.length > 0) {
+      totalSubtasks += task.subtasks.length;
+      completedSubtasks += task.subtasks.filter(subtask => subtask.completed).length;
+    }
+  });
+  
+  // Calcular la tasa de finalización
+  const completionRate = totalSubtasks > 0 ? Math.round((completedSubtasks / totalSubtasks) * 100) : 0;
+  
+  // Actualizar el elemento en el DOM
+  const subtasksCompletionElement = document.getElementById('subtasks-completion-rate');
+  if (subtasksCompletionElement) {
+    subtasksCompletionElement.textContent = `${completionRate}%`;
+  }
+}
+
+// Función para añadir una subtarea al formulario
+function addSubtask() {
+  const text = subtaskText.value.trim();
+  
+  if (text) {
+    const subtaskId = subtaskIdCounter++;
+    
+    // Crear objeto de subtarea
+    const subtask = {
+      id: subtaskId,
+      text: text,
+      completed: false
+    };
+    
+    // Añadir al array de subtareas actuales
+    currentSubtasks.push(subtask);
+    
+    // Crear el elemento en el DOM
+    renderSubtaskInForm(subtask);
+    
+    // Limpiar el input
+    subtaskText.value = '';
+  }
+}
+
+// Función para renderizar una subtarea en el formulario
+function renderSubtaskInForm(subtask) {
+  const subtaskElement = document.createElement('div');
+  subtaskElement.className = 'subtask-item';
+  subtaskElement.dataset.id = subtask.id;
+  
+  subtaskElement.innerHTML = `
+    <input type="text" value="${subtask.text}" readonly>
+    <button type="button" onclick="removeSubtask(${subtask.id})">✕</button>
+  `;
+  
+  subtasksList.appendChild(subtaskElement);
+}
+
+// Función para eliminar una subtarea del formulario
+function removeSubtask(id) {
+  // Eliminar del array
+  currentSubtasks = currentSubtasks.filter(subtask => subtask.id !== id);
+  
+  // Eliminar del DOM
+  const subtaskElement = document.querySelector(`.subtask-item[data-id="${id}"]`);
+  if (subtaskElement) {
+    subtaskElement.remove();
+  }
+}
+
+// Función para limpiar las subtareas del formulario
+function clearSubtasks() {
+  currentSubtasks = [];
+  subtasksList.innerHTML = '';
+}
+
+// Función para cambiar el estado de una subtarea (completada o no)
+function toggleSubtask(taskId, subtaskId) {
+  // Buscar la tarea
+  const task = tasks.find(t => t.id === taskId);
+  if (!task || !task.subtasks) return;
+  
+  // Buscar la subtarea
+  const subtask = task.subtasks.find(st => st.id === subtaskId);
+  if (!subtask) return;
+  
+  // Cambiar el estado
+  subtask.completed = !subtask.completed;
+  
+  // Actualizar el elemento en el DOM
+  const subtaskElement = document.getElementById(`check-${taskId}-${subtaskId}`).parentElement;
+  if (subtask.completed) {
+    subtaskElement.classList.add('completed');
+  } else {
+    subtaskElement.classList.remove('completed');
+  }
+  
+  // Actualizar la barra de progreso
+  updateSubtasksProgress(taskId);
+  
+  // Guardar en localStorage
+  saveTasksToLocalStorage();
+  
+  // Actualizar estadísticas
+  updateStats();
+}
+
+// Función para mostrar u ocultar la lista de subtareas
+function toggleSubtasksList(taskId) {
+  const subtasksList = document.getElementById(`subtasks-${taskId}`);
+  const toggleButton = subtasksList.parentElement.querySelector('.subtasks-toggle');
+  
+  if (subtasksList.classList.contains('open')) {
+    subtasksList.classList.remove('open');
+    toggleButton.textContent = '🔽';
+  } else {
+    subtasksList.classList.add('open');
+    toggleButton.textContent = '🔼';
+  }
+}
+
+// Función para actualizar la barra de progreso de subtareas
+function updateSubtasksProgress(taskId) {
+  const task = tasks.find(t => t.id === taskId);
+  if (!task || !task.subtasks || task.subtasks.length === 0) return;
+  
+  const totalSubtasks = task.subtasks.length;
+  const completedSubtasks = task.subtasks.filter(st => st.completed).length;
+  const completionPercentage = totalSubtasks > 0 ? Math.round((completedSubtasks / totalSubtasks) * 100) : 0;
+  
+  // Actualizar el contador de subtareas
+  const headerSpan = document.querySelector(`#subtasks-${taskId}`).parentElement.querySelector('.subtasks-header span');
+  headerSpan.textContent = `Subtareas (${completedSubtasks}/${totalSubtasks})`;
+  
+  // Actualizar la barra de progreso
+  const progressFill = document.querySelector(`#subtasks-${taskId}`).parentElement.querySelector('.subtasks-progress-fill');
+  progressFill.style.width = `${completionPercentage}%`;
 }
 
 // Inicializar la aplicación cuando el DOM esté completamente cargado
