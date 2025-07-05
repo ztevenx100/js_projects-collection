@@ -291,7 +291,7 @@ export const PROJECTS = [
       "Filtros y búsqueda",
       "Fetch API"
     ],
-    image: "github-viewer",
+    image: "github-data-viewer",
     theme: {
       isDark: true
     },

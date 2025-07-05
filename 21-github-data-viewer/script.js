@@ -34,6 +34,13 @@ const closeModal = document.querySelector('.close-modal');
 const tabs = document.querySelectorAll('.tab-btn');
 const tabContents = document.querySelectorAll('.tab-content');
 
+// Elementos para tendencias
+const trendingRepos = document.getElementById('trending-repos');
+const trendingDevs = document.getElementById('trending-devs');
+const githubNews = document.getElementById('github-news');
+const trendPeriod = document.getElementById('trend-period');
+const trendLanguage = document.getElementById('trend-language');
+
 // Inicialización
 function init() {
   // Event listeners para la búsqueda de usuario
@@ -90,9 +97,29 @@ function init() {
         fetchUserEvents(currentUser.login);
       } else if (target === 'issues' && currentUser) {
         fetchUserIssues(currentUser.login);
+      } else if (target === 'trends') {
+        // Cargar tendencias al seleccionar la tab
+        fetchTrendingRepositories();
+        fetchTrendingDevelopers();
+        fetchGitHubNews();
       }
     });
   });
+  
+  // Event listeners para filtros de tendencias
+  if (trendPeriod) {
+    trendPeriod.addEventListener('change', () => {
+      fetchTrendingRepositories();
+      fetchTrendingDevelopers();
+    });
+  }
+  
+  if (trendLanguage) {
+    trendLanguage.addEventListener('change', () => {
+      fetchTrendingRepositories();
+      fetchTrendingDevelopers();
+    });
+  }
 }
 
 // Función para buscar un usuario en GitHub
@@ -742,3 +769,306 @@ function hideError() {
 
 // Inicializar la aplicación cuando el DOM esté cargado
 document.addEventListener('DOMContentLoaded', init);
+
+// Función para obtener repositorios en tendencia
+async function fetchTrendingRepositories() {
+  if (!trendingRepos) return;
+  
+  trendingRepos.innerHTML = '<div class="loader-small"></div>';
+  
+  try {
+    // GitHub no tiene una API oficial para tendencias, así que simulamos datos
+    // En un caso real, podrías usar un servicio de terceros o hacer web scraping
+    // de la página de tendencias de GitHub
+    const period = trendPeriod ? trendPeriod.value : 'weekly';
+    const language = trendLanguage ? trendLanguage.value : '';
+    
+    // Simulación de espera para la petición
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // Datos de ejemplo para simular repositorios tendencia
+    // En una implementación real, estos datos vendrían de una API
+    const trendingData = [
+      {
+        name: 'react-native',
+        fullName: 'facebook/react-native',
+        description: 'A framework for building native applications using React',
+        language: 'JavaScript',
+        stars: 105243,
+        forks: 22954,
+        todayStars: 95,
+        avatar: 'https://avatars.githubusercontent.com/u/69631?v=4'
+      },
+      {
+        name: 'langchain',
+        fullName: 'langchain-ai/langchain',
+        description: 'Building applications with LLMs through composability',
+        language: 'Python',
+        stars: 64852,
+        forks: 9758,
+        todayStars: 89,
+        avatar: 'https://avatars.githubusercontent.com/u/126733545?v=4'
+      },
+      {
+        name: 'next.js',
+        fullName: 'vercel/next.js',
+        description: 'The React Framework for the Web',
+        language: 'JavaScript',
+        stars: 112587,
+        forks: 24879,
+        todayStars: 78,
+        avatar: 'https://avatars.githubusercontent.com/u/14985020?v=4'
+      },
+      {
+        name: 'tauri',
+        fullName: 'tauri-apps/tauri',
+        description: 'Build smaller, faster, and more secure desktop applications with a web frontend',
+        language: 'Rust',
+        stars: 69854,
+        forks: 1987,
+        todayStars: 65,
+        avatar: 'https://avatars.githubusercontent.com/u/54536011?v=4'
+      },
+      {
+        name: 'bun',
+        fullName: 'oven-sh/bun',
+        description: 'Incredibly fast JavaScript runtime, bundler, test runner, and package manager – all in one',
+        language: 'Zig',
+        stars: 58742,
+        forks: 1542,
+        todayStars: 63,
+        avatar: 'https://avatars.githubusercontent.com/u/92921032?v=4'
+      },
+      {
+        name: 'astro',
+        fullName: 'withastro/astro',
+        description: 'The all-in-one web framework designed for speed',
+        language: 'TypeScript',
+        stars: 35987,
+        forks: 1854,
+        todayStars: 54,
+        avatar: 'https://avatars.githubusercontent.com/u/44914786?v=4'
+      }
+    ];
+    
+    // Filtrar por lenguaje si es necesario
+    const filteredData = language 
+      ? trendingData.filter(repo => repo.language.toLowerCase() === language) 
+      : trendingData;
+    
+    // Renderizar los datos de tendencia
+    renderTrendingRepositories(filteredData);
+  } catch (error) {
+    trendingRepos.innerHTML = `
+      <div class="error">
+        Error al obtener repositorios en tendencia: ${error.message || 'Algo salió mal'}
+      </div>
+    `;
+  }
+}
+
+// Función para renderizar repositorios en tendencia
+function renderTrendingRepositories(repos) {
+  if (!trendingRepos) return;
+  
+  if (repos.length === 0) {
+    trendingRepos.innerHTML = `
+      <div class="no-results">
+        <p>No se encontraron repositorios en tendencia para los criterios seleccionados</p>
+      </div>
+    `;
+    return;
+  }
+  
+  trendingRepos.innerHTML = repos.map(repo => `
+    <div class="trending-repo-card" data-repo="${repo.fullName}">
+      <div class="trending-repo-header">
+        <img src="${repo.avatar}" alt="${repo.name}" width="25" height="25" style="border-radius: 50%; margin-right: 10px;">
+        <span class="trending-repo-name">${repo.fullName}</span>
+        <span class="trending-repo-today">+${repo.todayStars} hoy</span>
+      </div>
+      <p class="trending-repo-description">${repo.description}</p>
+      <div class="trending-repo-meta">
+        <div class="repo-language">
+          <span class="language-color" style="background-color: ${getLanguageColor(repo.language)}"></span>
+          ${repo.language}
+        </div>
+        <div class="trending-repo-stars">
+          ⭐ ${repo.stars.toLocaleString()}
+        </div>
+        <div class="trending-repo-forks">
+          🍴 ${repo.forks.toLocaleString()}
+        </div>
+      </div>
+    </div>
+  `).join('');
+  
+  // Añadir event listeners a las tarjetas de repositorios
+  document.querySelectorAll('.trending-repo-card').forEach(card => {
+    card.addEventListener('click', () => {
+      window.open(`https://github.com/${card.dataset.repo}`, '_blank');
+    });
+  });
+}
+
+// Función para obtener desarrolladores destacados
+async function fetchTrendingDevelopers() {
+  if (!trendingDevs) return;
+  
+  trendingDevs.innerHTML = '<div class="loader-small"></div>';
+  
+  try {
+    // Similar a los repositorios, aquí simulamos datos
+    const period = trendPeriod ? trendPeriod.value : 'weekly';
+    const language = trendLanguage ? trendLanguage.value : '';
+    
+    // Simulación de espera para la petición
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Datos de ejemplo para desarrolladores destacados
+    const developersData = [
+      {
+        name: 'Ryan Dahl',
+        username: 'ry',
+        avatar: 'https://avatars.githubusercontent.com/u/80?v=4',
+        popularRepo: 'deno'
+      },
+      {
+        name: 'Evan You',
+        username: 'yyx990803',
+        avatar: 'https://avatars.githubusercontent.com/u/499550?v=4',
+        popularRepo: 'vue'
+      },
+      {
+        name: 'Kent C. Dodds',
+        username: 'kentcdodds',
+        avatar: 'https://avatars.githubusercontent.com/u/1500684?v=4',
+        popularRepo: 'react-testing-library'
+      },
+      {
+        name: 'Sara Drasner',
+        username: 'sdras',
+        avatar: 'https://avatars.githubusercontent.com/u/2281088?v=4',
+        popularRepo: 'vue-vscode-snippets'
+      },
+      {
+        name: 'Rich Harris',
+        username: 'rich-harris',
+        avatar: 'https://avatars.githubusercontent.com/u/1162160?v=4',
+        popularRepo: 'svelte'
+      }
+    ];
+    
+    // Renderizar desarrolladores destacados
+    renderTrendingDevelopers(developersData);
+  } catch (error) {
+    trendingDevs.innerHTML = `
+      <div class="error">
+        Error al obtener desarrolladores destacados: ${error.message || 'Algo salió mal'}
+      </div>
+    `;
+  }
+}
+
+// Función para renderizar desarrolladores destacados
+function renderTrendingDevelopers(developers) {
+  if (!trendingDevs) return;
+  
+  if (developers.length === 0) {
+    trendingDevs.innerHTML = `
+      <div class="no-results">
+        <p>No se encontraron desarrolladores destacados para los criterios seleccionados</p>
+      </div>
+    `;
+    return;
+  }
+  
+  trendingDevs.innerHTML = developers.map(dev => `
+    <div class="trending-dev-card" data-username="${dev.username}">
+      <img src="${dev.avatar}" alt="${dev.name}" class="trending-dev-avatar">
+      <div class="trending-dev-info">
+        <div class="trending-dev-name">${dev.name}</div>
+        <div class="trending-dev-username">@${dev.username}</div>
+        <div class="trending-dev-repo">🔥 ${dev.popularRepo}</div>
+      </div>
+    </div>
+  `).join('');
+  
+  // Añadir event listeners a los desarrolladores
+  document.querySelectorAll('.trending-dev-card').forEach(card => {
+    card.addEventListener('click', () => {
+      window.open(`https://github.com/${card.dataset.username}`, '_blank');
+    });
+  });
+}
+
+// Función para obtener noticias del ecosistema GitHub
+async function fetchGitHubNews() {
+  if (!githubNews) return;
+  
+  githubNews.innerHTML = '<div class="loader-small"></div>';
+  
+  try {
+    // Simulación de espera para la petición
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    
+    // Datos de ejemplo para noticias
+    const newsData = [
+      {
+        title: 'GitHub Copilot lanza nueva integración con GitHub Actions',
+        date: '2025-07-02',
+        summary: 'GitHub ha anunciado una nueva integración de Copilot con GitHub Actions que permitirá generar y optimizar flujos de trabajo CI/CD automáticamente.',
+        url: 'https://github.blog/'
+      },
+      {
+        title: 'GitHub Universe 2025 anuncia fechas y localización',
+        date: '2025-07-01',
+        summary: 'La conferencia anual de GitHub tendrá lugar del 15 al 17 de noviembre en San Francisco y online. Las entradas ya están disponibles.',
+        url: 'https://github.blog/'
+      },
+      {
+        title: 'Nueva API de GitHub para análisis de seguridad de código',
+        date: '2025-06-28',
+        summary: 'GitHub ha lanzado una nueva API para ayudar a los desarrolladores a integrar análisis de seguridad avanzado en sus flujos de trabajo.',
+        url: 'https://github.blog/'
+      },
+      {
+        title: 'GitHub Sponsors ahora disponible en más países',
+        date: '2025-06-25',
+        summary: 'GitHub Sponsors se ha expandido a 15 nuevos países, permitiendo que más desarrolladores reciban apoyo financiero por su trabajo en código abierto.',
+        url: 'https://github.blog/'
+      }
+    ];
+    
+    renderGitHubNews(newsData);
+  } catch (error) {
+    githubNews.innerHTML = `
+      <div class="error">
+        Error al obtener noticias: ${error.message || 'Algo salió mal'}
+      </div>
+    `;
+  }
+}
+
+// Función para renderizar noticias de GitHub
+function renderGitHubNews(news) {
+  if (!githubNews) return;
+  
+  if (news.length === 0) {
+    githubNews.innerHTML = `
+      <div class="no-results">
+        <p>No hay noticias recientes disponibles</p>
+      </div>
+    `;
+    return;
+  }
+  
+  githubNews.innerHTML = news.map(item => `
+    <div class="news-item">
+      <h4 class="news-title">${item.title}</h4>
+      <div class="news-date">${new Date(item.date).toLocaleDateString()}</div>
+      <p class="news-summary">${item.summary}</p>
+      <a href="${item.url}" target="_blank" class="news-link">Leer más →</a>
+    </div>
+  `).join('');
+}

@@ -32,6 +32,7 @@
           <button class="tab-btn" data-tab="stats">Estadísticas</button>
           <button class="tab-btn" data-tab="activity">Actividad</button>
           <button class="tab-btn" data-tab="issues">Issues</button>
+          <button class="tab-btn" data-tab="trends">Tendencias</button>
         </div>
         
         <div class="tab-content active" id="repositories">
@@ -120,6 +121,53 @@
           </div>
           <div class="pagination" id="issues-pagination">
             <!-- Paginación para issues -->
+          </div>
+        </div>
+        
+        <div class="tab-content" id="trends">
+          <div class="trends-filters">
+            <select id="trend-period">
+              <option value="daily">Hoy</option>
+              <option value="weekly" selected>Esta semana</option>
+              <option value="monthly">Este mes</option>
+            </select>
+            <select id="trend-language">
+              <option value="">Todos los lenguajes</option>
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="typescript">TypeScript</option>
+              <option value="csharp">C#</option>
+              <option value="php">PHP</option>
+              <option value="go">Go</option>
+              <option value="rust">Rust</option>
+            </select>
+          </div>
+          
+          <div class="trends-container">
+            <div class="trends-section">
+              <h3>Repositorios Tendencia</h3>
+              <div class="trending-repos" id="trending-repos">
+                <!-- Los repositorios tendencia se cargarán aquí -->
+                <div class="loader-small"></div>
+              </div>
+            </div>
+            
+            <div class="trends-section">
+              <h3>Desarrolladores Destacados</h3>
+              <div class="trending-devs" id="trending-devs">
+                <!-- Los desarrolladores destacados se cargarán aquí -->
+                <div class="loader-small"></div>
+              </div>
+            </div>
+            
+            <div class="trends-section">
+              <h3>Noticias del Ecosistema GitHub</h3>
+              <div class="github-news" id="github-news">
+                <!-- Las noticias de GitHub se cargarán aquí -->
+                <div class="loader-small"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -106,6 +106,11 @@ Este repositorio contiene una colección de proyectos en JavaScript diseñados p
     -   Tecnologías: Drag & Drop API, localStorage, DOM Manipulation.
     -   Ruta: `/20-kanban-board`
 
+21. **Visualizador de GitHub**
+    -   Descripción: Explora perfiles, repositorios, actividad e issues de cualquier usuario de GitHub.
+    -   Tecnologías: APIs de GitHub, Fetch API, Sistemas de tabs, Filtros y búsqueda.
+    -   Ruta: `/21-github-data-viewer`
+
 ## Instalación
 
 1. Clona este repositorio:
