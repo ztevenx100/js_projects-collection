@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizador de Datos de GitHub</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Visualiza información detallada de perfiles y repositorios de GitHub">
+</head>
+<body>
+  <header>
+    <h1>Visualizador de Datos de GitHub</h1>
+  </header>
+  <main>
+    <section class="search-container">
+      <div class="search-box">
+        <input type="text" id="github-search" placeholder="Buscar usuario de GitHub...">
+        <button id="search-btn">Buscar</button>
+      </div>
+    </section>
+    
+    <div class="loader" id="loader"></div>
+    
+    <section class="dashboard hidden" id="dashboard">
+      <aside class="user-profile" id="user-profile">
+        <!-- El perfil del usuario se cargará aquí -->
+      </aside>
+      
+      <div class="tabs-container">
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="repositories">Repositorios</button>
+          <button class="tab-btn" data-tab="stats">Estadísticas</button>
+          <button class="tab-btn" data-tab="activity">Actividad</button>
+          <button class="tab-btn" data-tab="issues">Issues</button>
+          <button class="tab-btn" data-tab="trends">Tendencias</button>
+        </div>
+        
+        <div class="tab-content active" id="repositories">
+          <div class="repo-filters">
+            <input type="text" id="repo-search" placeholder="Filtrar repositorios...">
+            <select id="repo-sort">
+              <option value="updated">Más recientes</option>
+              <option value="stars">Más estrellas</option>
+              <option value="forks">Más forks</option>
+              <option value="size">Más grandes</option>
+            </select>
+            <div class="language-filters" id="language-filters">
+              <!-- Los filtros de lenguajes se generarán dinámicamente -->
+            </div>
+          </div>
+          <div class="repos-list" id="repos-list">
+            <!-- Los repositorios se cargarán aquí -->
+          </div>
+          <div class="pagination" id="repo-pagination">
+            <!-- Paginación para repositorios -->
+          </div>
+        </div>
+        
+        <div class="tab-content" id="stats">
+          <div class="stats-grid">
+            <div class="stats-card">
+              <h3>Lenguajes más usados</h3>
+              <div class="chart" id="languages-chart"></div>
+            </div>
+            <div class="stats-card">
+              <h3>Actividad por tiempo</h3>
+              <div class="chart" id="activity-chart"></div>
+            </div>
+            <div class="stats-card">
+              <h3>Contribuciones</h3>
+              <div class="chart" id="contributions-chart"></div>
+            </div>
+            <div class="stats-card">
+              <h3>Estadísticas generales</h3>
+              <div class="general-stats" id="general-stats"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="tab-content" id="activity">
+          <div class="activity-filters">
+            <select id="activity-type">
+              <option value="all">Todas las actividades</option>
+              <option value="push">Commits</option>
+              <option value="pull_request">Pull Requests</option>
+              <option value="issue">Issues</option>
+              <option value="create">Creación</option>
+              <option value="fork">Forks</option>
+            </select>
+            <select id="activity-time">
+              <option value="7">Última semana</option>
+              <option value="30">Último mes</option>
+              <option value="90">Últimos 3 meses</option>
+              <option value="365">Último año</option>
+            </select>
+          </div>
+          <div class="activity-timeline" id="activity-timeline">
+            <!-- La línea de tiempo de actividad se cargará aquí -->
+          </div>
+          <div class="pagination" id="activity-pagination">
+            <!-- Paginación para actividades -->
+          </div>
+        </div>
+        
+        <div class="tab-content" id="issues">
+          <div class="issues-filters">
+            <input type="text" id="issue-search" placeholder="Buscar issues...">
+            <select id="issue-state">
+              <option value="all">Todos</option>
+              <option value="open">Abiertos</option>
+              <option value="closed">Cerrados</option>
+            </select>
+            <select id="issue-sort">
+              <option value="created">Más recientes</option>
+              <option value="updated">Últimos actualizados</option>
+              <option value="comments">Más comentados</option>
+            </select>
+          </div>
+          <div class="issues-list" id="issues-list">
+            <!-- Las issues se cargarán aquí -->
+          </div>
+          <div class="pagination" id="issues-pagination">
+            <!-- Paginación para issues -->
+          </div>
+        </div>
+        
+        <div class="tab-content" id="trends">
+          <div class="trends-filters">
+            <select id="trend-period">
+              <option value="daily">Hoy</option>
+              <option value="weekly" selected>Esta semana</option>
+              <option value="monthly">Este mes</option>
+            </select>
+            <select id="trend-language">
+              <option value="">Todos los lenguajes</option>
+              <option value="javascript">JavaScript</option>
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="typescript">TypeScript</option>
+              <option value="csharp">C#</option>
+              <option value="php">PHP</option>
+              <option value="go">Go</option>
+              <option value="rust">Rust</option>
+            </select>
+          </div>
+          
+          <div class="trends-container">
+            <div class="trends-section">
+              <h3>Repositorios Tendencia</h3>
+              <div class="trending-repos" id="trending-repos">
+                <!-- Los repositorios tendencia se cargarán aquí -->
+                <div class="loader-small"></div>
+              </div>
+            </div>
+            
+            <div class="trends-section">
+              <h3>Desarrolladores Destacados</h3>
+              <div class="trending-devs" id="trending-devs">
+                <!-- Los desarrolladores destacados se cargarán aquí -->
+                <div class="loader-small"></div>
+              </div>
+            </div>
+            
+            <div class="trends-section">
+              <h3>Noticias del Ecosistema GitHub</h3>
+              <div class="github-news" id="github-news">
+                <!-- Las noticias de GitHub se cargarán aquí -->
+                <div class="loader-small"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="error hidden" id="error-container">
+      <div class="error-message" id="error-message"></div>
+    </section>
+    
+    <div id="repo-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="repo-detail"></div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>Creado con JavaScript, HTML, CSS y la API de GitHub</p>
+    <p>&copy; 2025 | Visualizador de Datos de GitHub</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

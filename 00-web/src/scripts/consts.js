@@ -280,4 +280,20 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "21-github-data-viewer",
+    title: "Visualizador de GitHub",
+    description: "Explora perfiles, repositorios, actividad e issues de cualquier usuario de GitHub.",
+    learnings: [
+      "APIs de GitHub",
+      "Visualización de datos",
+      "Sistemas de tabs",
+      "Filtros y búsqueda",
+      "Fetch API"
+    ],
+    image: "github-data-viewer",
+    theme: {
+      isDark: true
+    },
+  },
 ]
