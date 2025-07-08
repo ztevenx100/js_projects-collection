@@ -18,7 +18,12 @@ const state = {
   recipesPerPage: 6,    // Número de recetas por página
   loading: false,       // Estado de carga
   activeTab: 'results', // Pestaña activa (results/favorites)
-  darkMode: false       // Estado del tema
+  darkMode: false,      // Estado del tema
+  currentRecipe: null,  // Receta actualmente en visualización detallada
+  servingsMultiplier: 1, // Multiplicador para ajuste de porciones
+  activeTimers: {},     // Temporizadores activos {id: {duration: X, remaining: Y, interval: Z}}
+  stepByStepMode: false, // Modo paso a paso
+  currentStep: 0        // Paso actual en modo paso a paso
 };
 
 // Elementos DOM
@@ -105,6 +110,26 @@ function setupEventListeners() {
   
   // Tema
   elements.themeToggle.addEventListener('change', toggleTheme);
+}
+
+// Mostrar el indicador de carga
+function showLoader() {
+  elements.loader.style.display = 'block';
+}
+
+// Ocultar el indicador de carga
+function hideLoader() {
+  elements.loader.style.display = 'none';
+}
+
+// Mostrar mensaje de error
+function showError(message) {
+  elements.errorMessage.textContent = message;
+  elements.errorContainer.classList.remove('hidden');
+  
+  setTimeout(() => {
+    elements.errorContainer.classList.add('hidden');
+  }, 5000);
 }
 
 // Cambiar entre tema claro y oscuro
@@ -911,6 +936,38 @@ function showRecipeDetail(recipeId) {
   const recipe = state.recipes.find(r => r.id === recipeId);
   if (!recipe) return;
   
+  // Guardar la receta actual en el estado
+  state.currentRecipe = recipe;
+  state.servingsMultiplier = 1;
+  state.stepByStepMode = false;
+  state.currentStep = 0;
+  
+  renderRecipeDetail();
+}
+
+// Renderizar el detalle de la receta según el estado actual
+function renderRecipeDetail() {
+  const recipe = state.currentRecipe;
+  if (!recipe) return;
+  
+  // Determinar el contenido según el modo (normal o paso a paso)
+  if (state.stepByStepMode) {
+    renderStepByStepView();
+  } else {
+    renderFullRecipeView();
+  }
+  
+  // Mostrar el modal
+  elements.recipeModal.style.display = 'block';
+  
+  // Configurar event listeners
+  setupRecipeDetailEventListeners();
+}
+
+// Renderizar vista completa de la receta
+function renderFullRecipeView() {
+  const recipe = state.currentRecipe;
+  
   elements.recipeDetail.innerHTML = `
     <div class="recipe-detail-header">
       <img src="${recipe.image}" alt="${recipe.title}" class="recipe-detail-image">
@@ -930,7 +987,11 @@ function showRecipeDetail(recipeId) {
         </div>
         <div class="recipe-detail-meta-item">
           <span>Porciones:</span>
-          <span>${recipe.servings}</span>
+          <div class="servings-control">
+            <button class="servings-btn" id="decrease-servings">-</button>
+            <span id="servings-count">${Math.max(1, Math.round(recipe.servings * state.servingsMultiplier))}</span>
+            <button class="servings-btn" id="increase-servings">+</button>
+          </div>
         </div>
       </div>
       <div class="recipe-detail-tags">
@@ -942,17 +1003,22 @@ function showRecipeDetail(recipeId) {
     <div class="recipe-detail-section">
       <h3>Ingredientes</h3>
       <ul class="recipe-ingredients">
-        ${recipe.ingredients.map(ingredient => `
-          <li class="recipe-ingredient">${ingredient}</li>
-        `).join('')}
+        ${recipe.ingredients.map((ingredient, index) => {
+          // Intenta extraer números del ingrediente para ajustar porciones
+          const adjustedIngredient = adjustIngredientQuantity(ingredient, state.servingsMultiplier);
+          return `<li class="recipe-ingredient">${adjustedIngredient}</li>`;
+        }).join('')}
       </ul>
     </div>
     
     <div class="recipe-detail-section">
       <h3>Instrucciones</h3>
       <ol class="recipe-instructions">
-        ${recipe.instructions.map(instruction => `
-          <li class="recipe-instruction">${instruction}</li>
+        ${recipe.instructions.map((instruction, index) => `
+          <li class="recipe-instruction">
+            ${instruction}
+            <button class="timer-btn" data-step="${index}" data-time="300">⏱️ 5m</button>
+          </li>
         `).join('')}
       </ol>
     </div>
@@ -961,108 +1027,331 @@ function showRecipeDetail(recipeId) {
       <button class="favorite-btn detail-favorite ${state.favorites.includes(recipe.id) ? 'active' : ''}" data-id="${recipe.id}">
         ${state.favorites.includes(recipe.id) ? 'Quitar de favoritos' : 'Agregar a favoritos'}
       </button>
+      <button class="step-by-step-btn">Modo paso a paso</button>
+    </div>
+    
+    <div class="active-timers" id="active-timers">
+      <!-- Los temporizadores activos se mostrarán aquí -->
     </div>
   `;
+}
+
+// Renderizar vista paso a paso
+function renderStepByStepView() {
+  const recipe = state.currentRecipe;
+  const currentStep = state.currentStep;
+  const totalSteps = recipe.instructions.length;
   
-  // Mostrar el modal
-  elements.recipeModal.style.display = 'block';
-  
-  // Event listener para botón de favoritos en detalle
-  const favBtn = elements.recipeDetail.querySelector('.detail-favorite');
-  favBtn.addEventListener('click', () => {
-    toggleFavorite(recipe.id, favBtn);
-    favBtn.textContent = state.favorites.includes(recipe.id) ? 
-      'Quitar de favoritos' : 'Agregar a favoritos';
-    favBtn.classList.toggle('active', state.favorites.includes(recipe.id));
+  elements.recipeDetail.innerHTML = `
+    <div class="step-by-step-view">
+      <div class="step-navigation">
+        <span class="step-counter">Paso ${currentStep + 1} de ${totalSteps}</span>
+        <div class="step-controls">
+          <button class="step-btn" id="prev-step" ${currentStep === 0 ? 'disabled' : ''}>Anterior</button>
+          <button class="step-btn" id="next-step" ${currentStep === totalSteps - 1 ? 'disabled' : ''}>Siguiente</button>
+        </div>
+      </div>
+      
+      <div class="step-content">
+        <div class="step-instruction">
+          <h2 class="step-title">Instrucción:</h2>
+          <p class="step-text">${recipe.instructions[currentStep]}</p>
+          <button class="timer-btn step-timer-btn" data-step="${currentStep}" data-time="300">⏱️ 5m</button>
+        </div>
+        
+        <div class="step-ingredients">
+          <h3>Ingredientes necesarios:</h3>
+          <ul>
+            ${getRelevantIngredients(currentStep).map(ingredient => `
+              <li>${adjustIngredientQuantity(ingredient, state.servingsMultiplier)}</li>
+            `).join('')}
+          </ul>
+        </div>
+      </div>
+      
+      <button class="exit-step-by-step-btn">Salir del modo paso a paso</button>
+    </div>
     
-    // Actualizar también las tarjetas si están visibles
-    const cardBtn = document.querySelector(`.favorite-btn[data-id="${recipe.id}"]`);
-    if (cardBtn) {
-      cardBtn.textContent = state.favorites.includes(recipe.id) ? '★' : '☆';
-      cardBtn.classList.toggle('active', state.favorites.includes(recipe.id));
-    }
+    <div class="active-timers" id="active-timers">
+      <!-- Los temporizadores activos se mostrarán aquí -->
+    </div>
+  `;
+}
+
+// Obtener ingredientes relevantes para el paso actual
+function getRelevantIngredients(stepIndex) {
+  // Esta es una implementación simplificada
+  // En una versión más avanzada, podrías mapear ingredientes específicos a cada paso
+  const recipe = state.currentRecipe;
+  const stepCount = recipe.instructions.length;
+  const ingredientCount = recipe.ingredients.length;
+  
+  // Distribuir los ingredientes entre los pasos (algoritmo simplificado)
+  const startIdx = Math.floor(stepIndex * ingredientCount / stepCount);
+  const endIdx = Math.floor((stepIndex + 1) * ingredientCount / stepCount);
+  
+  // Asegurarse de que cada paso tenga al menos un ingrediente
+  if (startIdx === endIdx) {
+    return [recipe.ingredients[startIdx % ingredientCount]];
+  }
+  
+  return recipe.ingredients.slice(startIdx, endIdx);
+}
+
+// Configurar event listeners para el detalle de receta
+function setupRecipeDetailEventListeners() {
+  // Botones para ajustar porciones
+  const decreaseBtn = document.getElementById('decrease-servings');
+  const increaseBtn = document.getElementById('increase-servings');
+  
+  if (decreaseBtn && increaseBtn) {
+    decreaseBtn.addEventListener('click', () => adjustServings(false));
+    increaseBtn.addEventListener('click', () => adjustServings(true));
+  }
+  
+  // Botones de temporizador
+  const timerBtns = document.querySelectorAll('.timer-btn');
+  timerBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const stepIndex = parseInt(e.target.dataset.step);
+      const duration = parseInt(e.target.dataset.time);
+      startTimer(stepIndex, duration);
+    });
+  });
+  
+  // Botón de favoritos
+  const favBtn = document.querySelector('.detail-favorite');
+  if (favBtn) {
+    const recipeId = parseInt(favBtn.dataset.id);
+    favBtn.addEventListener('click', () => {
+      toggleFavorite(recipeId, favBtn);
+      favBtn.textContent = state.favorites.includes(recipeId) ? 
+        'Quitar de favoritos' : 'Agregar a favoritos';
+      favBtn.classList.toggle('active', state.favorites.includes(recipeId));
+      
+      // Actualizar también las tarjetas si están visibles
+      const cardBtn = document.querySelector(`.favorite-btn[data-id="${recipeId}"]`);
+      if (cardBtn) {
+        cardBtn.textContent = state.favorites.includes(recipeId) ? '★' : '☆';
+        cardBtn.classList.toggle('active', state.favorites.includes(recipeId));
+      }
+    });
+  }
+  
+  // Botón de modo paso a paso
+  const stepByStepBtn = document.querySelector('.step-by-step-btn');
+  if (stepByStepBtn) {
+    stepByStepBtn.addEventListener('click', enableStepByStepMode);
+  }
+  
+  // Botones de navegación en modo paso a paso
+  const prevStepBtn = document.getElementById('prev-step');
+  const nextStepBtn = document.getElementById('next-step');
+  
+  if (prevStepBtn) {
+    prevStepBtn.addEventListener('click', goToPreviousStep);
+  }
+  
+  if (nextStepBtn) {
+    nextStepBtn.addEventListener('click', goToNextStep);
+  }
+  
+  // Botón para salir del modo paso a paso
+  const exitStepByStepBtn = document.querySelector('.exit-step-by-step-btn');
+  if (exitStepByStepBtn) {
+    exitStepByStepBtn.addEventListener('click', disableStepByStepMode);
+  }
+}
+
+// =========================================================
+// Funcionalidad de ajuste de porciones
+// =========================================================
+
+// Ajustar cantidad de porciones
+function adjustServings(increase) {
+  if (increase) {
+    state.servingsMultiplier += 0.5;
+  } else {
+    state.servingsMultiplier = Math.max(0.5, state.servingsMultiplier - 0.5);
+  }
+  
+  // Actualizar la vista
+  renderRecipeDetail();
+}
+
+// Ajustar cantidades de ingredientes según el multiplicador de porciones
+function adjustIngredientQuantity(ingredient, multiplier) {
+  // Expresión regular para encontrar números en el texto
+  const regex = /(\d+(?:\.\d+)?)\s*([a-zA-Z]+)?/g;
+  
+  // Reemplazar números en el texto
+  return ingredient.replace(regex, (match, quantity, unit) => {
+    // Convertir a número y multiplicar
+    const adjustedQuantity = parseFloat(quantity) * multiplier;
+    
+    // Formatear el resultado
+    const formattedQuantity = Number.isInteger(adjustedQuantity) ? 
+      adjustedQuantity : adjustedQuantity.toFixed(1);
+    
+    // Devolver con la unidad si existe
+    return unit ? `${formattedQuantity} ${unit}` : `${formattedQuantity}`;
   });
 }
 
+// =========================================================
+// Funcionalidad de temporizadores
+// =========================================================
+
+// Iniciar un nuevo temporizador
+function startTimer(stepIndex, durationInSeconds) {
+  const timerId = `timer-${Date.now()}`;
+  const step = state.currentRecipe.instructions[stepIndex];
+  const stepSummary = step.substring(0, 30) + (step.length > 30 ? '...' : '');
+  
+  // Guardar el temporizador en el estado
+  state.activeTimers[timerId] = {
+    duration: durationInSeconds,
+    remaining: durationInSeconds,
+    stepIndex: stepIndex,
+    stepSummary: stepSummary,
+    interval: setInterval(() => updateTimer(timerId), 1000)
+  };
+  
+  // Actualizar la visualización de los temporizadores
+  updateTimersDisplay();
+  
+  // Mostrar notificación
+  showToast(`Temporizador iniciado: ${formatTime(durationInSeconds)}`);
+}
+
+// Actualizar un temporizador cada segundo
+function updateTimer(timerId) {
+  const timer = state.activeTimers[timerId];
+  
+  // Reducir el tiempo restante
+  timer.remaining -= 1;
+  
+  // Si el temporizador llegó a cero
+  if (timer.remaining <= 0) {
+    clearInterval(timer.interval);
+    delete state.activeTimers[timerId];
+    timerCompleted(timer.stepIndex);
+  }
+  
+  // Actualizar la visualización
+  updateTimersDisplay();
+}
+
+// Formatear segundos en formato MM:SS
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}
+
+// Actualizar la visualización de los temporizadores activos
+function updateTimersDisplay() {
+  const timersContainer = document.getElementById('active-timers');
+  if (!timersContainer) return;
+  
+  // Si no hay temporizadores activos, ocultar el contenedor
+  if (Object.keys(state.activeTimers).length === 0) {
+    timersContainer.innerHTML = '';
+    timersContainer.style.display = 'none';
+    return;
+  }
+  
+  // Mostrar el contenedor y actualizar el contenido
+  timersContainer.style.display = 'block';
+  timersContainer.innerHTML = `
+    <h3>Temporizadores Activos</h3>
+    <div class="timers-list">
+      ${Object.entries(state.activeTimers).map(([timerId, timer]) => `
+        <div class="timer-item">
+          <div class="timer-info">
+            <span class="timer-step">Paso ${timer.stepIndex + 1}: ${timer.stepSummary}</span>
+            <span class="timer-time">${formatTime(timer.remaining)}</span>
+          </div>
+          <button class="timer-cancel-btn" data-timer-id="${timerId}">✕</button>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  
+  // Añadir event listeners para cancelar temporizadores
+  const cancelBtns = timersContainer.querySelectorAll('.timer-cancel-btn');
+  cancelBtns.forEach(btn => {
+    btn.addEventListener('click', () => cancelTimer(btn.dataset.timerId));
+  });
+}
+
+// Cancelar un temporizador
+function cancelTimer(timerId) {
+  const timer = state.activeTimers[timerId];
+  if (timer) {
+    clearInterval(timer.interval);
+    delete state.activeTimers[timerId];
+    updateTimersDisplay();
+    showToast('Temporizador cancelado');
+  }
+}
+
+// Acciones cuando un temporizador se completa
+function timerCompleted(stepIndex) {
+  // Reproducir sonido (opcional)
+  const audio = new Audio('https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg');
+  audio.play();
+  
+  // Mostrar notificación
+  showToast(`¡Tiempo completado para el paso ${stepIndex + 1}!`);
+}
+
+// =========================================================
+// Funcionalidad de modo paso a paso
+// =========================================================
+
+// Activar el modo paso a paso
+function enableStepByStepMode() {
+  state.stepByStepMode = true;
+  state.currentStep = 0;
+  renderRecipeDetail();
+}
+
+// Desactivar el modo paso a paso
+function disableStepByStepMode() {
+  state.stepByStepMode = false;
+  renderRecipeDetail();
+}
+
+// Ir al paso anterior
+function goToPreviousStep() {
+  if (state.currentStep > 0) {
+    state.currentStep--;
+    renderRecipeDetail();
+  }
+}
+
+// Ir al paso siguiente
+function goToNextStep() {
+  if (state.currentStep < state.currentRecipe.instructions.length - 1) {
+    state.currentStep++;
+    renderRecipeDetail();
+  }
+}
+
+// =========================================================
 // Cerrar modal
 function closeModal() {
   elements.recipeModal.style.display = 'none';
-}
-
-// =========================================================
-// Funciones de utilidad
-// =========================================================
-
-function showLoader() {
-  elements.loader.style.display = 'block';
-}
-
-function hideLoader() {
-  elements.loader.style.display = 'none';
-}
-
-function showError(message) {
-  elements.errorMessage.textContent = message;
-  elements.errorContainer.classList.remove('hidden');
   
-  setTimeout(() => {
-    elements.errorContainer.classList.add('hidden');
-  }, 5000);
+  // Limpiar temporizadores activos al cerrar el modal
+  Object.entries(state.activeTimers).forEach(([timerId, timer]) => {
+    clearInterval(timer.interval);
+  });
+  state.activeTimers = {};
 }
 
 // =========================================================
 // Inicialización
 // =========================================================
 document.addEventListener('DOMContentLoaded', init);
-
-// Agregar estilos adicionales para el toast mediante CSS
-const styleSheet = document.createElement('style');
-styleSheet.textContent = `
-  .toast {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 12px 24px;
-    border-radius: 30px;
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    opacity: 0;
-    transition: transform 0.3s, opacity 0.3s;
-  }
-  
-  .toast.show {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-  }
-  
-  .detail-favorite {
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    border: 2px solid var(--primary-color);
-    border-radius: var(--border-radius);
-    padding: 8px 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: var(--transition);
-  }
-  
-  .detail-favorite:hover {
-    background-color: var(--highlight);
-  }
-  
-  .detail-favorite.active {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-  }
-  
-  .recipe-detail-actions {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: center;
-  }
-`;
-document.head.appendChild(styleSheet);
