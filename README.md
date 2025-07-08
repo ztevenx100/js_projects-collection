@@ -111,6 +111,11 @@ Este repositorio contiene una colección de proyectos en JavaScript diseñados p
     -   Tecnologías: APIs de GitHub, Fetch API, Sistemas de tabs, Filtros y búsqueda.
     -   Ruta: `/21-github-data-viewer`
 
+22. **Aplicación de Recetas**
+    -   Descripción: Busca, filtra y guarda tus recetas de cocina favoritas con un diseño atractivo y responsive.
+    -   Tecnologías: LocalStorage, Filtros y búsqueda, Sistema de tabs, Modo claro/oscuro.
+    -   Ruta: `/22-recipe-app`
+
 ## Instalación
 
 1. Clona este repositorio:

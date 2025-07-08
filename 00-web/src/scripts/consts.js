@@ -296,4 +296,20 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "22-recipe-app",
+    title: "Aplicación de Recetas",
+    description: "Busca, filtra y guarda tus recetas de cocina favoritas con un diseño atractivo y responsive.",
+    learnings: [
+      "Filtros y búsqueda",
+      "LocalStorage",
+      "Sistema de tabs y favoritos",
+      "Renderizado de datos",
+      "Modo claro/oscuro"
+    ],
+    image: "recipe-app",
+    theme: {
+      isDark: true
+    },
+  },
 ]

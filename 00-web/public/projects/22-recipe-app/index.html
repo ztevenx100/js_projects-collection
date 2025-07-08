@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aplicación de Recetas de Cocina</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="Busca, guarda y organiza tus recetas de cocina favoritas">
+</head>
+<body>
+  <header>
+    <h1>Recetas de Cocina</h1>
+    <div class="theme-toggle">
+      <span class="theme-toggle-light">☀️</span>
+      <label class="switch">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider round"></span>
+      </label>
+      <span class="theme-toggle-dark">🌙</span>
+    </div>
+  </header>
+  
+  <main>
+    <section class="search-container">
+      <div class="search-box">
+        <input type="text" id="recipe-search" placeholder="Busca una receta...">
+        <button id="search-btn">Buscar</button>
+      </div>
+      <div class="filters">
+        <select id="cuisine-filter">
+          <option value="">Todas las cocinas</option>
+          <option value="italian">Italiana</option>
+          <option value="mexican">Mexicana</option>
+          <option value="asian">Asiática</option>
+          <option value="mediterranean">Mediterránea</option>
+          <option value="american">Americana</option>
+        </select>
+        <select id="diet-filter">
+          <option value="">Todas las dietas</option>
+          <option value="vegetarian">Vegetariana</option>
+          <option value="vegan">Vegana</option>
+          <option value="gluten-free">Sin gluten</option>
+          <option value="low-carb">Baja en carbohidratos</option>
+        </select>
+        <select id="time-filter">
+          <option value="">Cualquier tiempo</option>
+          <option value="15">15 minutos o menos</option>
+          <option value="30">30 minutos o menos</option>
+          <option value="60">1 hora o menos</option>
+        </select>
+      </div>
+    </section>
+    
+    <div class="loader" id="loader"></div>
+    
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="results">Resultados</button>
+      <button class="tab-btn" data-tab="favorites">Mis Favoritos</button>
+    </div>
+    
+    <section class="tab-content active" id="results">
+      <div class="recipes-container" id="recipes-results">
+        <!-- Los resultados de recetas se cargarán aquí -->
+      </div>
+      <div class="pagination" id="results-pagination">
+        <!-- Paginación para resultados -->
+      </div>
+    </section>
+    
+    <section class="tab-content" id="favorites">
+      <div class="recipes-container" id="recipes-favorites">
+        <!-- Las recetas favoritas se cargarán aquí -->
+      </div>
+      <div class="no-favorites hidden" id="no-favorites">
+        <p>No tienes recetas favoritas guardadas</p>
+        <p>Busca recetas y guárdalas haciendo clic en el ícono ⭐</p>
+      </div>
+    </section>
+    
+    <div id="recipe-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div id="recipe-detail"></div>
+      </div>
+    </div>
+    
+    <div id="error-container" class="error hidden">
+      <div id="error-message"></div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>Creado con JavaScript, HTML y CSS</p>
+    <p>&copy; 2025 | Aplicación de Recetas de Cocina</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
