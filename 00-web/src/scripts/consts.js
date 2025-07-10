@@ -312,4 +312,20 @@ export const PROJECTS = [
       isDark: true
     },
   },
+  {
+    slug: "23-travel-planner",
+    title: "Travel Planner",
+    description: "Organiza tus viajes, lugares para visitar y gestiona tu presupuesto de forma visual e interactiva.",
+    learnings: [
+      "Mapas interactivos con Leaflet",
+      "Sistema de módulos JS",
+      "LocalStorage para persistencia",
+      "Gestión de presupuesto",
+      "Planificación de itinerarios"
+    ],
+    image: "travel-planner",
+    theme: {
+      isDark: true
+    },
+  },
 ]

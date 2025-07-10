@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Planner - Organiza tus viajes</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <meta name="description" content="Planifica tus viajes, organiza lugares para visitar y gestiona tu presupuesto">
+</head>
+<body>
+  <header>
+    <h1>Travel Planner</h1>
+    <div class="theme-toggle">
+      <span class="theme-toggle-light">☀️</span>
+      <label class="switch">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider round"></span>
+      </label>
+      <span class="theme-toggle-dark">🌙</span>
+    </div>
+  </header>
+  
+  <main>
+    <section class="travel-header">
+      <div id="trip-selector">
+        <select id="trip-select">
+          <option value="">-- Selecciona un viaje --</option>
+          <!-- Los viajes se cargarán dinámicamente -->
+        </select>
+        <button id="new-trip-btn">Nuevo viaje</button>
+      </div>
+      <div id="trip-info" class="hidden">
+        <h2 id="trip-title">Título del viaje</h2>
+        <div class="trip-details">
+          <span id="trip-dates">Fechas: 01/01/2026 - 10/01/2026</span>
+          <span id="trip-budget">Presupuesto: $1,000</span>
+          <button id="edit-trip-btn">Editar</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="map">Mapa</button>
+      <button class="tab-btn" data-tab="places">Lugares</button>
+      <button class="tab-btn" data-tab="budget">Presupuesto</button>
+      <button class="tab-btn" data-tab="itinerary">Itinerario</button>
+    </div>
+    
+    <section class="tab-content active" id="map">
+      <div id="map-container">
+        <!-- Aquí se mostrará el mapa -->
+      </div>
+      <div id="map-controls">
+        <button id="add-place-btn">Añadir lugar</button>
+        <button id="show-route-btn">Mostrar ruta</button>
+      </div>
+    </section>
+    
+    <section class="tab-content" id="places">
+      <div class="places-filters">
+        <select id="category-filter">
+          <option value="">Todas las categorías</option>
+          <option value="hotel">Alojamiento</option>
+          <option value="food">Restaurantes</option>
+          <option value="attraction">Atracciones</option>
+          <option value="transport">Transporte</option>
+          <option value="other">Otros</option>
+        </select>
+        <select id="priority-filter">
+          <option value="">Todas las prioridades</option>
+          <option value="high">Alta</option>
+          <option value="medium">Media</option>
+          <option value="low">Baja</option>
+        </select>
+        <input type="text" id="place-search" placeholder="Buscar lugar...">
+      </div>
+      <div class="places-list" id="places-container">
+        <!-- Los lugares se cargarán dinámicamente -->
+      </div>
+      <button id="add-place-list-btn" class="floating-btn">+</button>
+    </section>
+    
+    <section class="tab-content" id="budget">
+      <div class="budget-summary">
+        <div class="budget-total">
+          <h3>Presupuesto total</h3>
+          <div class="budget-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 60%"></div>
+            </div>
+            <div class="budget-amounts">
+              <span id="spent-amount">$600</span> / <span id="total-budget">$1,000</span>
+            </div>
+          </div>
+        </div>
+        <div class="budget-categories">
+          <div class="budget-category" data-category="accommodation">
+            <h4>Alojamiento</h4>
+            <div class="category-progress">
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 75%"></div>
+              </div>
+              <div class="category-amounts">
+                <span>$300</span> / <span>$400</span>
+              </div>
+            </div>
+          </div>
+          <!-- Otras categorías se cargarán dinámicamente -->
+        </div>
+      </div>
+      <div class="budget-entries">
+        <h3>Entradas de presupuesto</h3>
+        <div id="budget-entries-container">
+          <!-- Las entradas de presupuesto se cargarán dinámicamente -->
+        </div>
+      </div>
+      <button id="add-budget-entry-btn" class="floating-btn">+</button>
+    </section>
+    
+    <section class="tab-content" id="itinerary">
+      <div class="itinerary-days" id="itinerary-days">
+        <!-- Los días del itinerario se cargarán dinámicamente -->
+      </div>
+      <div class="itinerary-day-view" id="itinerary-day-view">
+        <h3 id="day-title">Día 1 - 01/01/2026</h3>
+        <div id="day-timeline">
+          <!-- Las actividades del día se cargarán dinámicamente -->
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <!-- Modales -->
+  <div id="new-trip-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Nuevo viaje</h2>
+      <form id="new-trip-form">
+        <div class="form-group">
+          <label for="trip-name">Nombre del viaje</label>
+          <input type="text" id="trip-name" required>
+        </div>
+        <div class="form-group">
+          <label for="trip-destination">Destino</label>
+          <input type="text" id="trip-destination" required>
+        </div>
+        <div class="form-group">
+          <label for="trip-start-date">Fecha de inicio</label>
+          <input type="date" id="trip-start-date" required>
+        </div>
+        <div class="form-group">
+          <label for="trip-end-date">Fecha de fin</label>
+          <input type="date" id="trip-end-date" required>
+        </div>
+        <div class="form-group">
+          <label for="trip-budget-amount">Presupuesto</label>
+          <input type="number" id="trip-budget-amount" min="0" step="0.01" required>
+          <select id="trip-currency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <!-- Otras monedas -->
+          </select>
+        </div>
+        <button type="submit" class="submit-btn">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="new-place-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Nuevo lugar</h2>
+      <form id="new-place-form">
+        <div class="form-group">
+          <label for="place-name">Nombre del lugar</label>
+          <input type="text" id="place-name" required>
+        </div>
+        <div class="form-group">
+          <label for="place-category">Categoría</label>
+          <select id="place-category" required>
+            <option value="hotel">Alojamiento</option>
+            <option value="food">Restaurantes</option>
+            <option value="attraction">Atracciones</option>
+            <option value="transport">Transporte</option>
+            <option value="other">Otros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="place-address">Dirección</label>
+          <input type="text" id="place-address">
+        </div>
+        <div class="form-group">
+          <label for="place-priority">Prioridad</label>
+          <select id="place-priority">
+            <option value="high">Alta</option>
+            <option value="medium">Media</option>
+            <option value="low">Baja</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="place-notes">Notas</label>
+          <textarea id="place-notes" rows="3"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Guardar</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="new-budget-entry-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h2>Nueva entrada de presupuesto</h2>
+      <form id="new-budget-entry-form">
+        <div class="form-group">
+          <label for="expense-description">Descripción</label>
+          <input type="text" id="expense-description" required>
+        </div>
+        <div class="form-group">
+          <label for="expense-amount">Importe</label>
+          <input type="number" id="expense-amount" min="0" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label for="expense-category">Categoría</label>
+          <select id="expense-category" required>
+            <option value="accommodation">Alojamiento</option>
+            <option value="transportation">Transporte</option>
+            <option value="food">Comida</option>
+            <option value="activities">Actividades</option>
+            <option value="shopping">Compras</option>
+            <option value="other">Otros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="expense-date">Fecha</label>
+          <input type="date" id="expense-date" required>
+        </div>
+        <div class="form-group">
+          <label for="expense-notes">Notas</label>
+          <textarea id="expense-notes" rows="2"></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Guardar</button>
+      </form>
+    </div>
+  </div>
+  
+  <footer>
+    <p>Creado con JavaScript, HTML y CSS</p>
+    <p>&copy; 2025 | Travel Planner</p>
+  </footer>
+
+  <!-- Scripts externos -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Scripts de la aplicación -->
+  <script src="modules/storage.js"></script>
+  <script src="modules/map.js"></script>
+  <script src="modules/places.js"></script>
+  <script src="modules/budget.js"></script>
+  <script src="modules/itinerary.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
