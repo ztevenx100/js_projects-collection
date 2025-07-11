@@ -118,6 +118,11 @@ Este repositorio contiene una colección de proyectos en JavaScript diseñados p
     -   Tecnologías: LocalStorage, Filtros y búsqueda, Sistema de tabs, Modo claro/oscuro.
     -   Ruta: `/22-recipe-app`
 
+23. **Travel Planner**
+    -   Descripción: Organiza tus viajes con mapas interactivos, planificación de itinerarios, presupuestos y gestión de lugares.
+    -   Tecnologías: APIs de mapas, LocalStorage, Gestión de módulos, Modo claro/oscuro, Diseño responsive.
+    -   Ruta: `/23-travel-planner`
+
 ## Instalación
 
 1. Clona este repositorio:
