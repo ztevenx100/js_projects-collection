@@ -1,50 +1,50 @@
 /* Travel Planner - Estilos principales */
 
 :root {
-  --primary-color: #4a89dc;
-  --secondary-color: #5d9cec;
-  --accent-color: #fc6e51;
-  --text-color: #333;
-  --text-light: #777;
-  --bg-color: #f5f7fa;
+  --primary-color: #f7df1e;
+  --secondary-color: #222;
+  --accent-color: #4a89dc;
+  --background: #f8f9fa;
   --card-bg: #fff;
-  --border-color: #e6e9ed;
-  --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --text-color: #222;
+  --text-secondary: #666;
+  --border-color: #e1e4e8;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
   --modal-bg: rgba(0, 0, 0, 0.5);
-  --success-color: #8cc152;
+  --success-color: #28a745;
   --warning-color: #f6bb42;
-  --danger-color: #da4453;
-  --info-color: #37bc9b;
+  --danger-color: #dc3545;
+  --info-color: #17a2b8;
 
   --header-height: 60px;
   --footer-height: 60px;
   --content-padding: 20px;
-  --border-radius: 8px;
-  --transition: all 0.3s ease;
+  --border-radius: 12px;
+  --transition: all 0.2s;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Tema oscuro */
 .dark-theme {
-  --primary-color: #3bafda;
-  --secondary-color: #4fc1e9;
-  --accent-color: #ff8b60;
-  --text-color: #f5f7fa;
-  --text-light: #aab2bd;
-  --bg-color: #2c3e50;
-  --card-bg: #34495e;
-  --border-color: #3d566e;
-  --shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  --background: #121212;
+  --card-bg: #1e1e1e;
+  --text-color: #f8f9fa;
+  --text-secondary: #adb5bd;
+  --border-color: #444;
+  --highlight: #2c2c1e;
+  --shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
+/* Estilos base */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--bg-color);
+  font-family: var(--font-family);
+  background: var(--background);
   color: var(--text-color);
   line-height: 1.6;
   min-height: 100vh;
@@ -55,21 +55,22 @@ body {
 
 /* Encabezado */
 header {
-  background-color: var(--card-bg);
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  text-align: center;
+  padding: 2rem 1rem;
   box-shadow: var(--shadow);
-  padding: 0 var(--content-padding);
-  height: var(--header-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 100;
 }
 
 header h1 {
-  color: var(--primary-color);
-  font-size: 1.5rem;
+  color: var(--secondary-color);
+  font-size: 2.2rem;
+  font-weight: bold;
 }
 
 /* Selector de tema */
@@ -103,7 +104,7 @@ header h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--text-light);
+  background-color: var(--text-secondary);
   transition: var(--transition);
 }
 
@@ -164,22 +165,25 @@ main {
   padding: 8px 12px;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  background-color: var(--bg-color);
+  background: var(--background);
   color: var(--text-color);
 }
 
 #new-trip-btn {
-  background-color: var(--primary-color);
-  color: white;
+  background: var(--primary-color);
+  color: var(--secondary-color);
   border: none;
   padding: 8px 16px;
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: var(--transition);
+  font-weight: 600;
+  box-shadow: var(--shadow);
 }
 
 #new-trip-btn:hover {
-  background-color: var(--secondary-color);
+  background: #e6d017;
+  transform: translateY(-2px);
 }
 
 #trip-info {
@@ -210,11 +214,13 @@ main {
   cursor: pointer;
   transition: var(--transition);
   margin-left: auto;
+  font-weight: 600;
 }
 
 #edit-trip-btn:hover {
   background-color: var(--primary-color);
-  color: white;
+  color: var(--secondary-color);
+  transform: translateY(-2px);
 }
 
 /* Tabs */
@@ -228,23 +234,24 @@ main {
 
 .tab-btn {
   flex: 1;
-  padding: 12px 0;
-  text-align: center;
-  background-color: transparent;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background: var(--card-bg);
   border: none;
+  border-bottom: 3px solid transparent;
   cursor: pointer;
   color: var(--text-color);
-  font-weight: 500;
   transition: var(--transition);
-  border-bottom: 2px solid transparent;
+  text-align: center;
 }
 
 .tab-btn:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--highlight);
 }
 
 .tab-btn.active {
-  border-bottom: 2px solid var(--primary-color);
+  border-bottom: 3px solid var(--primary-color);
   color: var(--primary-color);
 }
 
@@ -284,21 +291,27 @@ main {
 }
 
 #add-place-btn {
-  background-color: var(--primary-color);
-  color: white;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  font-weight: 600;
+  box-shadow: var(--shadow);
 }
 
 #add-place-btn:hover {
-  background-color: var(--secondary-color);
+  background: #e6d017;
+  transform: translateY(-2px);
 }
 
 #show-route-btn {
-  background-color: var(--info-color);
+  background-color: var(--accent-color);
   color: white;
+  font-weight: 600;
+  box-shadow: var(--shadow);
 }
 
 #show-route-btn:hover {
-  background-color: var(--secondary-color);
+  background-color: #407ac9;
+  transform: translateY(-2px);
 }
 
 /* Sección de lugares */
@@ -312,7 +325,7 @@ main {
   padding: 8px;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  background-color: var(--bg-color);
+  background-color: var(--card-bg);
   color: var(--text-color);
 }
 
@@ -328,7 +341,7 @@ main {
 }
 
 .place-card {
-  background-color: var(--bg-color);
+  background-color: var(--card-bg);
   border-radius: var(--border-radius);
   padding: 15px;
   border-left: 4px solid var(--primary-color);
@@ -357,7 +370,7 @@ main {
 
 .place-priority {
   font-size: 0.8rem;
-  color: var(--text-light);
+  color: var(--text-secondary);
 }
 
 .place-priority.high {
@@ -461,7 +474,7 @@ main {
 
 .budget-entry-meta {
   font-size: 0.8rem;
-  color: var(--text-light);
+  color: var(--text-secondary);
 }
 
 .budget-entry-amount {
@@ -482,7 +495,7 @@ main {
   min-width: 100px;
   padding: 10px;
   border-radius: var(--border-radius);
-  background-color: var(--bg-color);
+  background-color: var(--card-bg);
   text-align: center;
   cursor: pointer;
   transition: var(--transition);
@@ -499,7 +512,7 @@ main {
 
 .day-date {
   font-size: 0.8rem;
-  color: var(--text-light);
+  color: var(--text-secondary);
 }
 
 .day-item.active .day-date {
@@ -515,7 +528,7 @@ main {
 .timeline-item {
   position: relative;
   padding: 15px;
-  background-color: var(--bg-color);
+  background-color: var(--card-bg);
   border-radius: var(--border-radius);
   margin-bottom: 20px;
 }
@@ -553,6 +566,26 @@ main {
   transition: var(--transition);
 }
 
+/* Botón para añadir actividad */
+#add-activity-btn {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  margin-top: 15px;
+  width: 100%;
+}
+
+#add-activity-btn:hover {
+  background: #e6d017;
+  transform: translateY(-2px);
+}
+
 /* Botón flotante */
 .floating-btn {
   position: fixed;
@@ -561,8 +594,8 @@ main {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: var(--accent-color);
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
   border: none;
   font-size: 24px;
   cursor: pointer;
@@ -572,11 +605,13 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
 }
 
 .floating-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  background: #e6d017;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Modales */
@@ -608,7 +643,7 @@ main {
   right: 20px;
   font-size: 24px;
   cursor: pointer;
-  color: var(--text-light);
+  color: var(--text-secondary);
 }
 
 .close-modal:hover {
@@ -632,13 +667,13 @@ main {
   padding: 8px;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  background-color: var(--bg-color);
+  background-color: var(--card-bg);
   color: var(--text-color);
 }
 
 .submit-btn {
-  background-color: var(--primary-color);
-  color: white;
+  background: var(--primary-color);
+  color: var(--secondary-color);
   border: none;
   padding: 10px 20px;
   border-radius: var(--border-radius);
@@ -646,28 +681,27 @@ main {
   transition: var(--transition);
   width: 100%;
   margin-top: 15px;
+  font-weight: 600;
+  box-shadow: var(--shadow);
 }
 
 .submit-btn:hover {
-  background-color: var(--secondary-color);
+  background: #e6d017;
+  transform: translateY(-2px);
 }
 
 /* Pie de página */
 footer {
-  background-color: var(--card-bg);
+  background: var(--secondary-color);
+  color: #fff;
   text-align: center;
-  padding: 15px;
+  padding: 1.2rem 0 1.5rem 0;
   margin-top: auto;
-  border-top: 1px solid var(--border-color);
-  height: var(--footer-height);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 footer p {
   margin: 3px 0;
-  color: var(--text-light);
+  color: #fff;
   font-size: 0.9rem;
 }
 
