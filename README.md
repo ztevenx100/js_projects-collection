@@ -4,7 +4,7 @@
 
 Este repositorio contiene una colección de proyectos en JavaScript diseñados para aprender y practicar diferentes conceptos y habilidades de programación. Cada proyecto es independiente y aborda un conjunto único de tecnologías y desafíos.
 
-### Referencia - Midudev
+### Referencia del proyecto: Midudev
 
 ## Proyectos Disponibles
 
